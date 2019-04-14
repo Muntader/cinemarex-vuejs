@@ -1,0 +1,100 @@
+.c-app-sidebar-left {
+  z-index: 10;
+  transition: 300ms ease-in-out;
+  position: relative;
+  left: 0;
+  &__search {
+    position: absolute;
+    background-color: rgba(47, 50, 59, .8);
+    z-index: 6;
+    top: 70px;
+    left: 0;
+    min-height: 50px;
+    height: 50px;
+    width: 200px;
+    border-radius: 0 2px;
+    cursor: pointer;
+    .c-search-label {
+      color: #a09e9d;
+      font-size: 25px;
+      line-height: 43px;
+      margin-left: 18px;
+    }
+    .c-search-icon {
+      display: block;
+      float: right;
+      margin-top: 12px;
+      margin-right: 15px;
+      width: 18px;
+      height: 18px;
+    }
+  }
+  &__categories-list {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    margin-top: 15px;
+    z-index: 10;
+
+
+    .c-category-item {
+      display: table;
+      a {
+        background-color: rgba(47,50,59,.8);
+        height: 5.5vh;
+        line-height: 5.5vh;
+        font-size: 3.5vh;
+        text-decoration: none;
+        padding: 0 19px;
+        width: auto;
+        color: hsla(0,0%,100%,.5);
+        margin-bottom: 2px;
+        font-weight: 100;
+        transition: all .2s ease-out 0s;
+        &:hover {
+          padding-left: 30px;
+        }
+        &:before {
+          display: block;
+          border-radius: 0 2px 2px 0;
+          -webkit-transition: all .2s ease-out 0s;
+          transition: all .2s ease-out 0s;
+        }
+
+        .c-live-bullet {
+          display: inline-block;
+          margin-bottom: 2px;
+          margin-left: 10px;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background-color: #ff1c1c;
+        }
+      }
+
+      .router-link-exact-active {
+        background-color: hsla(0, 0%, 100%, .8);
+        cursor: pointer;
+        transition: all .2s ease-out 0s;
+        height: 7.5vh;
+        line-height: 7.5vh;
+        font-size: 5.9vh;
+        color: rgba(47, 50, 59, 0.8);
+        .c-live-bullet {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
+  }
+}
+
+.c-app-sidebar-left.c-hide-sidebar {
+  position: relative;
+  left: -200px;
+}
+.c-app-sidebar-left.c-show-sidebar {
+  position: relative;
+  left: 0;
+}

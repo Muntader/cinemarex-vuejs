@@ -1,0 +1,65 @@
+
+// Abstracts
+@import "abstracts/variables";
+@import "abstracts/mixin";
+// Ipad And Phone
+@import "phone/layout";
+// Svg Icon
+@import "icon/svg";
+// Lib
+@import "utils/carousel";
+@import "utils/bootstrap";
+@import "utils/spinner";
+@import "utils/videojs";
+// Import Tooltip Style
+@import "utils/tooltip";
+@import "components/search";
+@import "components/live-tv";
+@import "components/settings";
+@import "components/login";
+@import "components/tvshow-player";
+
+// Navbar Phone
+@import "layout/navbar";
+@import "layout/sidebar";
+
+
+@import "components/channel";
+@import "components/channel-content";
+
+body {
+  line-height: 1.2;
+  font-family: "Source Sans Pro";
+  color: $primary-color;
+  background-color: $background-color;
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+
+  .c-app {
+    .c-app-container {
+      .c-hide-scroll {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        min-height: 100%;
+        background-color: #2f323b;
+        overflow: hidden;
+      }
+      .c-app-body {
+        .c-app-content {
+
+        }
+      }
+    }
+  }
+}

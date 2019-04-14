@@ -1,0 +1,87 @@
+.c-app-channel-content {
+  &__top-carousel {
+
+    .VueCarousel-slide {
+            position: relative;
+          .c-item-details {
+            position: absolute;
+            bottom: 20%;
+            right: 40px;
+            z-index: 10;
+            .c-item-title {
+              font-weight: 700;
+              color: #2f323b;
+              background-color: #fff;
+              -webkit-box-decoration-break: clone;
+              box-decoration-break: clone;
+              font-size: 28px;
+              padding: 5px 10px;
+              text-align: left;
+              letter-spacing: 2.5px;
+              text-transform: uppercase;
+            }
+
+            .c-play-item {
+              font-size: 20px;
+              background-color: rgba(33, 150, 243, 0.6);
+              text-transform: uppercase;
+              padding: 5px 4px;
+              margin-top: 5px;
+              display: table;
+              float: right;
+              img {
+                margin-right: 15px;
+                margin-left: 5px;
+                margin-top: -5px;
+              }
+            }
+        }
+    }
+
+    .VueCarousel-slide-active {
+        .c-item-details {
+          -webkit-animation:linear;
+          -webkit-animation-name: run;
+          -webkit-animation-duration: 250ms;
+      }
+
+
+      @-webkit-keyframes run {
+        0% { right: -100px; opacity: 0;}
+        100%{ right: 40px; opacity: 1;}
+      }
+    }
+
+
+
+    .VueCarousel-slide-active img,
+    .VueCarousel-wrapper > div > div:nth-child(1) img{
+      -webkit-animation: zoomin 15s 1;
+    }
+    @-webkit-keyframes zoomin {
+      0% {
+        -webkit-transform: scale(1);
+      }
+      100% {
+        -webkit-transform: scale(1.025);
+      }
+
+    }
+
+    .VueCarousel-pagination {
+      position: fixed;
+      bottom: 5%;
+      z-index: 100;
+    }
+    .VueCarousel-dot-button {
+      border: 1px solid hsla(0,0%,100%,.4) !important;
+      background-color: rgba(0,0,0,.4) !important;
+      width: 16px !important;
+      height: 16px !important;
+    }
+
+    .VueCarousel-dot--active button {
+      background: #FFF !important;
+    }
+  }
+}
