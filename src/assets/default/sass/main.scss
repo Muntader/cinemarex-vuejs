@@ -30,7 +30,7 @@
 body {
   line-height: 1.2;
   font-family: "Source Sans Pro";
-  color: $primary-color;
+  color: #4b4b4b;
   background-color: $background-color;
   -webkit-touch-callout: none;
   /* iOS Safari */
@@ -45,6 +45,7 @@ body {
   user-select: none;
 
   .c-app {
+
     .c-app-container {
       .c-hide-scroll {
         position: absolute;
@@ -61,5 +62,10 @@ body {
         }
       }
     }
+  }
+
+  .c-app-blur-page {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
   }
 }

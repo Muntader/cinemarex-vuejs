@@ -1,4 +1,58 @@
 .c-app-channel-content {
+  .slide-leave-active,
+  .slide-enter-active {
+    transition: 600ms;
+  }
+  .slide-enter {
+    transform: translate(-100%, 0);
+  }
+  .slide-leave-to {
+    transform: translate(0, 0);
+  }
+
+
+  &__loader-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 10000000;
+      .fix-loader-size {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+      &--rti1 {
+        background-color: #a33915;
+      }
+      &--rti2 {
+        background-color: #0d391a;
+      }
+      &--rti3 {
+        background-color: #330045;
+      }
+
+      &--radio-ci {
+        background-color: #f9aa00;
+      }
+
+      &--frequence {
+        background-color: #d3522a;
+      }
+      &--radio-flimee {
+        background-color: #f9aa00;
+      }
+
+    img {
+      width: 40%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
   &__top-carousel {
 
     .VueCarousel-slide {

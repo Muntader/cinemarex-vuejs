@@ -4,8 +4,30 @@
   top: 0;
   width: 100%;
   min-height: 100%;
-  background-color: #2f323b;
   overflow: hidden;
+}
+
+.c-app-channel-grid-content.rti1-overlay-color {
+  background: rgba(115, 53, 23, 0.25);
+}
+
+.c-app-channel-grid-content.rti2-overlay-color {
+  background: rgba(27, 92, 41, 0.25);
+}
+
+.c-app-channel-grid-content.rti3-overlay-color {
+  background: rgba(52, 0, 72, 0.5);
+}
+
+.c-app-channel-grid-content.radio-ci-overlay-color {
+  background: rgba(35, 36, 0, 0.58);
+}
+.c-app-channel-grid-content.frequence-overlay-color {
+  background: rgba(30, 7, 0, 0.45);
+}
+
+.c-app-channel-grid-content.radio-flimee-overlay-color {
+
 }
 
 @media only screen and (min-width: 750px) {
@@ -243,23 +265,29 @@
     }
 
     &__slider-arrow {
+      button:focus {
+        outline: none;
+      }
       button {
         position: fixed;
         top: 40%;
-        background-color: #1b1d23d6;
+        background-color: rgba(15, 15, 16, 0.54);
         border: none;
-        padding: 20px 0;
+        padding: 24px 0;
+        height: 130px;
       }
      .slider-arrow-left {
         left: 0;
+       z-index: 10;
         svg {
-         width: 70px;
+         width: 60px;
         }
       }
       .slider-arrow-right {
         right: 0;
+        z-index: 10;
         svg {
-          width: 70px;
+          width: 60px;
         }
       }
     }

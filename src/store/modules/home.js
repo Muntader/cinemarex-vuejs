@@ -2,29 +2,18 @@ import Vue from 'vue';
 
 const module = {
     state: {
-        data: [],
-        footer: [],
-        plan: [],
-        actor_details: {},
-        home_loading: false,
+        ChannelContent: [],
+        HomeLoading: false,
     },
     actions: {
 
         // Get all movies form api /api/v1/movies
-        GET_HOME_LIST({
-            commit
-        }) {
-            commit('HOME_SPINER_LOAD');
-            axios.get('http://localhost:8000/api/v1/get/home').then((response) => {
+        GET_HOME_LIST({commit}, ID) {
+            commit('HOME_SPINNER_LOAD', true);
+            axios.get('http://localhost:8000/api/v1/get/discover/' + ID).then((response) => {
                 if (response.status === 200) {
-                    const list = response.data.data;
-                    commit('SET_HOME_LIST', {
-                        list
-                    });
-                    setTimeout(() => {
-                        commit('HOME_SPINER_CLEAN');
-                    }, 200);
-
+                    commit('SET_HOME_LIST', response.data);
+                    commit('HOME_SPINNER_LOAD', false);
                 }
             });
         },
@@ -36,7 +25,6 @@ const module = {
             axios.get('http://localhost:8000/api/v1/get/app/details').then((response) => {
                 if (response.status === 200) {
                     const data = response.data.data;
-                    commit('SET_HOME_FOOTER_DETAILS', data);
                 }
             });
         },
@@ -57,24 +45,13 @@ const module = {
     mutations: {
 
 
-        SET_HOME_FOOTER_DETAILS(state, data) {
-            state.footer = data;
-            localStorage.setItem('_site_info', JSON.stringify(data));
+        SET_HOME_LIST(state, Data) {
+            state.ChannelContent = Data;
         },
 
-
-        SET_HOME_PLAN(state, data) {
-            state.plan = data;
+        HOME_SPINNER_LOAD(state, status) {
+            state.HomeLoading = status;
         },
-
-        // Spiner load
-        HOME_SPINER_LOAD(state) {
-            state.home_loading = true;
-        },
-
-        HOME_SPINER_CLEAN(state) {
-            state.home_loading = false;
-        }
     },
     getters: {}
 };

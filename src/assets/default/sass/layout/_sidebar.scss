@@ -5,7 +5,6 @@
   left: 0;
   &__search {
     position: absolute;
-    background-color: rgba(47, 50, 59, .8);
     z-index: 6;
     top: 70px;
     left: 0;
@@ -39,8 +38,7 @@
 
     .c-category-item {
       display: table;
-      a {
-        background-color: rgba(47,50,59,.8);
+        a {
         height: 5.5vh;
         line-height: 5.5vh;
         font-size: 3.5vh;
@@ -71,6 +69,9 @@
           background-color: #ff1c1c;
         }
       }
+       .c-bk-color {
+         background-color: rgba(47,50,59,.8);
+       }
 
       .router-link-exact-active {
         background-color: hsla(0, 0%, 100%, .8);
@@ -89,6 +90,9 @@
 
   }
 }
+  .c-bk-color {
+    background-color: rgba(47,50,59,.8);
+  }
 
 .c-app-sidebar-left.c-hide-sidebar {
   position: relative;

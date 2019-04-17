@@ -5,7 +5,7 @@ import ForgetPassword from '@/components/auth/forget-password';
 import ForgetChange from '@/components/auth/forget-password';
 
 
-import Discover from '@/components/control/home';
+import Discover from '@/components/control/channel';
 import ChannelContent from '@/components/control/channel-content';
 
 
@@ -36,124 +36,132 @@ import SupportRequest from '@/components/control/setting/support-request.vue';
 import Subscribe from '@/components/auth/register-subscribe';
 
 
-
-
-
-let routes = [{
-    name: 'login',
-    path: '/login',
-    component: Login,
-    meta: {
-      userNotAuth: true,
-      title: 'Login'
-    }
-  },
-
-  {
-    name: 'signup',
-    path: '/signup',
-    component: SingUp,
-    meta: {
-      userNotAuth: true,
-      title: 'Signup'
-    }
-  },
-  {
-    name: 'subscribe',
-    path: '/subscribe',
-    component: Subscribe,
-    meta: {
-      userAuth: true,
-      title: 'Subscribe'
-    }
-  },
-  {
-    name: 'forget_password',
-    path: '/forget',
-    component: ForgetPassword,
-    meta: {
-      userNotAuth: true,
-      title: 'Forget Password'
-    }
-  },
-
-  {
-    name: 'forget_change',
-    path: '/forget/rest/:code',
-    component: ForgetChange,
-    meta: {
-      userNotAuth: true,
-      title: 'Forget Password'
-
-    }
-  },
-
-  {
-    name: 'privacy',
-    path: '/privacy',
-    component: Privacy,
-    meta: {
-      allAuth: true,
-      title: 'Privacy'
-    }
-  },
-  {
-    name: 'terms',
-    path: '/terms',
-    component: Terms,
-    meta: {
-      allAuth: true,
-      title: 'Terms'
-    }
-  },
-  {
-    name: 'faq',
-    path: '/faq',
-    component: Faq,
-    meta: {
-      allAuth: true,
-      title: 'Faq'
-    }
-  },
-  {
-    name: 'contact-us',
-    path: '/contact-us',
-    component: ContactUs,
-    meta: {
-      allAuth: true,
-      name: 'Contact Us',
-    }
-  },
-  {
-    name: 'about-us',
-    path: '/about-us',
-    component: AboutUs,
-    meta: {
-      allAuth: true,
-      title: 'About Us',
-    }
-  },
-
-
-  {
-    name: '404',
-    path: '/404',
-    component: NotFound,
-    meta: {
-      title: 'Not Found',
-    }
-  },
-
-
-
-  {
-    name: 'discover',
-    path: '/',
-    component: Discover,
-    meta: {
-      title: 'Home'
+let routes = [
+    {
+        name: 'login',
+        path: '/login',
+        component: Login,
+        meta: {
+            userNotAuth: true,
+            title: 'Login'
+        }
     },
-  },
+
+    {
+        name: 'signup',
+        path: '/signup',
+        component: SingUp,
+        meta: {
+            userNotAuth: true,
+            title: 'Signup'
+        }
+    },
+
+    {
+        name: 'subscribe',
+        path: '/subscribe',
+        component: Subscribe,
+        meta: {
+            userAuth: true,
+            title: 'Subscribe'
+        }
+    },
+    {
+        name: 'forget_password',
+        path: '/forget',
+        component: ForgetPassword,
+        meta: {
+            userNotAuth: true,
+            title: 'Forget Password'
+        }
+    },
+
+    {
+        name: 'forget_change',
+        path: '/forget/rest/:code',
+        component: ForgetChange,
+        meta: {
+            userNotAuth: true,
+            title: 'Forget Password'
+
+        }
+    },
+
+    {
+        name: 'privacy',
+        path: '/privacy',
+        component: Privacy,
+        meta: {
+            allAuth: true,
+            title: 'Privacy'
+        }
+    },
+    {
+        name: 'terms',
+        path: '/terms',
+        component: Terms,
+        meta: {
+            allAuth: true,
+            title: 'Terms'
+        }
+    },
+    {
+        name: 'faq',
+        path: '/faq',
+        component: Faq,
+        meta: {
+            allAuth: true,
+            title: 'Faq'
+        }
+    },
+    {
+        name: 'contact-us',
+        path: '/contact-us',
+        component: ContactUs,
+        meta: {
+            allAuth: true,
+            name: 'Contact Us',
+        }
+    },
+    {
+        name: 'about-us',
+        path: '/about-us',
+        component: AboutUs,
+        meta: {
+            allAuth: true,
+            title: 'About Us',
+        }
+    },
+
+
+    {
+        name: '404',
+        path: '/404',
+        component: NotFound,
+        meta: {
+            title: 'Not Found',
+        }
+    },
+
+
+    {
+        name: 'discover',
+        path: '/',
+        component: Discover,
+        meta: {
+            title: 'Home'
+        },
+    },
+
+    {
+        name: 'discover-channel',
+        path: '/:ChannelName',
+        component: Discover,
+        meta: {
+            title: 'Home'
+        },
+    },
+
 
     {
         name: 'channel-content',
@@ -166,201 +174,199 @@ let routes = [{
 
 
     {
-    name: 'show-movie',
-    path: '/show/:id',
-    component: ShowMovie,
-    meta: {
-      allAuth: true,
-      metaTags: [{
-        name: 'description',
-        content: 'The about page of our example app.'
-      }]
-    }
-  },
-
-
-  {
-    name: 'show-series',
-    path: '/series/show/:id',
-    component: ShowTvShow,
-    meta: {
-      allAuth: true,
-      title: 'Show Series',
-      metaTags: [{
-        name: 'description',
-        content: 'The about page of our example app.'
-      }]
+        name: 'show-movie',
+        path: '/show/:id',
+        component: ShowMovie,
+        meta: {
+            allAuth: true,
+            metaTags: [{
+                name: 'description',
+                content: 'The about page of our example app.'
+            }]
+        }
     },
 
-  },
 
-  {
-    name: 'collection',
-    path: '/collection/:id',
-    component: Collection,
-    meta: {
-      userAuth: true,
-      title: 'My Collections'
+    {
+        name: 'show-series',
+        path: '/series/show/:id',
+        component: ShowTvShow,
+        meta: {
+            allAuth: true,
+            title: 'Show Series',
+            metaTags: [{
+                name: 'description',
+                content: 'The about page of our example app.'
+            }]
+        },
+
     },
-  },
 
-
-  {
-    name: 'series-player',
-    path: '/watch/series/:series_id',
-    component: SeriesPlayer,
-    meta: {
-      allAuth: true,
-      title: 'Series Player'
-    }
-  },
-  {
-    name: 'series-player-sp',
-    path: '/watch/series/:series_id/:episode_id',
-    component: SeriesPlayerSP,
-    meta: {
-      allAuth: true,
-      title: 'Series Player'
-    }
-  },
-
-  {
-    name: 'news-player',
-    path: '/watch/news/:id/',
-    component: NewsPlayer,
-    meta: {
-      allAuth: true,
-      title: 'News Player'
-    }
-  },
-
-
-
-  {
-    name: 'movie-player',
-    path: '/watch/movie/:id',
-    component: MoviePlayer,
-    meta: {
-      allAuth: true,
-      title: 'Movie Player'
-
-    }
-  },
-
-  {
-    name: 'LiveTV-Player',
-    path: '/watch/tv/:id',
-    component: LiveTvPlayer,
-    meta: {
-      allAuth: true,
-      title: 'Live TV Player'
-    }
-  },
-
-
-  {
-    name: 'search',
-    path: '/search',
-    component: Search,
-    meta: {
-      allAuth: true,
-      title: 'Search'
+    {
+        name: 'collection',
+        path: '/collection/:id',
+        component: Collection,
+        meta: {
+            userAuth: true,
+            title: 'My Collections'
+        },
     },
-  },
-  {
-    name: 'cast',
-    path: '/cast/:id',
-    component: Cast,
-    meta: {
-      allAuth: true,
-      title: 'Cast'
+
+
+    {
+        name: 'series-player',
+        path: '/watch/series/:series_id',
+        component: SeriesPlayer,
+        meta: {
+            allAuth: true,
+            title: 'Series Player'
+        }
     },
-  },
+    {
+        name: 'series-player-sp',
+        path: '/watch/series/:series_id/:episode_id',
+        component: SeriesPlayerSP,
+        meta: {
+            allAuth: true,
+            title: 'Series Player'
+        }
+    },
 
-  {
-    name: 'profile',
-    path: '/setting/public',
-    component: Profile,
-    meta: {
-      userAuth: true,
-      title: 'Profile'
-    }
-  },
-  {
-    name: 'security',
-    path: '/setting/security',
-    component: Security,
-    meta: {
-      userAuth: true,
-      title: 'Security'
-    }
-  },
+    {
+        name: 'news-player',
+        path: '/watch/news/:id/',
+        component: NewsPlayer,
+        meta: {
+            allAuth: true,
+            title: 'News Player'
+        }
+    },
 
-  {
-    name: 'language',
-    path: '/setting/language',
-    component: Language,
-    meta: {
-      userAuth: true,
-      title: 'Language'
-    }
-  },
 
-  {
-    name: 'adjust-subtitles',
-    path: '/setting/adjust-subtitles',
-    component: AdjustSubtitle,
-    meta: {
-      userAuth: true,
-      title: 'Adjust subtitles'
-    }
-  },
+    {
+        name: 'movie-player',
+        path: '/watch/movie/:id',
+        component: MoviePlayer,
+        meta: {
+            allAuth: true,
+            title: 'Movie Player'
 
-  {
-    name: 'viewing-history',
-    path: '/setting/viewing-history',
-    component: ViewingHistory,
-    meta: {
-      userAuth: true,
-      title: 'viewing History'
-    }
-  },
+        }
+    },
 
-  {
-    name: 'support-inbox',
-    path: '/setting/support-inbox',
-    component: SupportInbox,
-    meta: {
-      userAuth: true,
-      title: 'Support Inbox'
-    }
-  },
+    {
+        name: 'LiveTV-Player',
+        path: '/watch/tv/:id',
+        component: LiveTvPlayer,
+        meta: {
+            allAuth: true,
+            title: 'Live TV Player'
+        }
+    },
 
-  {
-    name: 'support-request',
-    path: '/setting/support-request/:id',
-    component: SupportRequest,
-    meta: {
-      userAuth: true,
-      title: 'Support Request'
-    }
-  },
 
+    {
+        name: 'search',
+        path: '/search',
+        component: Search,
+        meta: {
+            allAuth: true,
+            title: 'Search'
+        },
+    },
+    {
+        name: 'cast',
+        path: '/cast/:id',
+        component: Cast,
+        meta: {
+            allAuth: true,
+            title: 'Cast'
+        },
+    },
+
+    {
+        name: 'profile',
+        path: '/setting/public',
+        component: Profile,
+        meta: {
+            userAuth: true,
+            title: 'Profile'
+        }
+    },
+    {
+        name: 'security',
+        path: '/setting/security',
+        component: Security,
+        meta: {
+            userAuth: true,
+            title: 'Security'
+        }
+    },
+
+    {
+        name: 'language',
+        path: '/setting/language',
+        component: Language,
+        meta: {
+            userAuth: true,
+            title: 'Language'
+        }
+    },
+
+    {
+        name: 'adjust-subtitles',
+        path: '/setting/adjust-subtitles',
+        component: AdjustSubtitle,
+        meta: {
+            userAuth: true,
+            title: 'Adjust subtitles'
+        }
+    },
+
+    {
+        name: 'viewing-history',
+        path: '/setting/viewing-history',
+        component: ViewingHistory,
+        meta: {
+            userAuth: true,
+            title: 'viewing History'
+        }
+    },
+
+    {
+        name: 'support-inbox',
+        path: '/setting/support-inbox',
+        component: SupportInbox,
+        meta: {
+            userAuth: true,
+            title: 'Support Inbox'
+        }
+    },
+
+    {
+        name: 'support-request',
+        path: '/setting/support-request/:id',
+        component: SupportRequest,
+        meta: {
+            userAuth: true,
+            title: 'Support Request'
+        }
+    },
 
 
 ];
 
 export default new VueRouter({
-  mode: 'history',
-  routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return {
-        x: 0,
-        y: 0
-      };
+    mode: 'history',
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition;
+        } else {
+            return {
+                x: 0,
+                y: 0
+            };
+        }
     }
-  }
 });

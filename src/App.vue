@@ -1,44 +1,47 @@
 <template>
-    <div class="c-app">
+    <div class="c-rti-root">
+        <div class="c-app" :class="{'c-app-blur-page': LOGIN_MODAL_OPEN}">
 
 
-        <vue-progress-bar></vue-progress-bar>
-        <!-- set progressbar -->
+            <vue-progress-bar></vue-progress-bar>
+            <!-- set progressbar -->
 
-        <div class="c-app-container" v-if="!block_site">
+            <div class="c-app-container" v-if="!block_site">
 
-            <div class="c-app-header">
-                <navbar></navbar>
-            </div>
-
-            <div class="c-app-body">
-
-                <sidebar></sidebar>
-
-                <router-view class="c-app-content"></router-view>
-
-                <search-page v-if="showSearchPage"></search-page>
-
-                <!-- SearchPage -->
-
-            </div>
-
-            <!-- Router view -->
-
-        </div>
-
-
-        <div class="site-blocked" v-else>
-            <div class="notfound">
-                <div class="notfound-404">
-                    <h1>Oops!</h1>
+                <div class="c-app-header">
+                    <navbar></navbar>
                 </div>
-                <h2>This site not available in your region</h2>
+
+                <div class="c-app-body">
+
+                    <sidebar></sidebar>
+
+                    <router-view class="c-app-content"/>
+
+                    <search-page v-if="showSearchPage"></search-page>
+
+                </div>
+
+                <!-- Router view -->
+
             </div>
+
+
+            <div class="site-blocked" v-else>
+                <div class="notfound">
+                    <div class="notfound-404">
+                        <h1>Oops!</h1>
+                    </div>
+                    <h2>This site not available in your region</h2>
+                </div>
+            </div>
+
         </div>
 
+        <div class="c-app-modal">
+            <login v-if="LOGIN_MODAL_OPEN"></login>
+        </div>
     </div>
-
 </template>
 
 <script>
@@ -46,9 +49,9 @@
     import navbar from "./components/control/navbar.vue";
     import message from "./components/control/notification/message.vue";
     import ads_notifcation from "./components/control/notification/ads.vue";
-    import footer from "./components/control/footer.vue";
-    import swal from "sweetalert";
     import searchPage from './components/control/search/search.vue'
+    import LoginComponent from './components/auth/login'
+
     import {
         mapState
     } from "vuex";
@@ -60,7 +63,7 @@
             sidebar,
             navbar,
             message,
-            'end-footer': footer,
+            'login': LoginComponent,
             'ads-notifcation': ads_notifcation,
             'search-page': searchPage
         },
@@ -185,6 +188,8 @@
             getBlockData: state => state.home.footer,
             showSearchPage: state => state.event.show_search_page,
             getShowPagePath: state => state.event.get_path_show_page,
+            LOGIN_MODAL_OPEN: state => state.event.SHOW_LOGIN_MODAL,
+            IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED
 
         }),
 
@@ -208,18 +213,6 @@
                 }
 
             },
-            activeGenre() {
-                this.$store.commit("SET_SORT_BY", {
-                    trending: this.activeTrending,
-                    genre: this.activeGenre
-                });
-            },
-            activeTrending() {
-                this.$store.commit("SET_SORT_BY", {
-                    trending: this.activeTrending,
-                    genre: this.activeGenre
-                });
-            },
         },
 
         mounted() {
@@ -228,8 +221,13 @@
         },
 
         created() {
+
+            // Check Authenticated
+            this.$store.commit('IS_AUTHENTICATED');
+
+
             // Check user status
-            if (this.$auth.isAuthenticated() === 'active') {
+            if (this.IS_AUTHENTICATED) {
                 axios
                     .get("http://localhost:8000/api/v1/get/check/user")
                     .then(info => {
@@ -252,14 +250,6 @@
                                 this.$i18n.locale = 'en'
                             }
 
-
-                            this.$auth.setUpdate(
-                                info.data.name,
-                                info.data.email,
-                                this.$i18n.locale,
-                                null
-                            );
-
                             // Set Info
                             this.$store.commit('SET_USER_INFO', {
                                 Username: info.data.name,
@@ -269,14 +259,7 @@
                                 Status: 'confirm_step'
                             });
 
-                            // Get collections
-                            this.$store.dispatch("GET_ALL_COLLECTION");
-                            setTimeout(() => {
-                                this.show_loading = false;
-                            }, 1000);
 
-                            // set caption
-                            this.$Helper.set_caption(info.data.caption);
                         } else if (info.data.status === "active") {
                             // Language
                             var arrLang = ['en', 'fr']
@@ -289,13 +272,6 @@
                                 this.$i18n.locale = 'en'
                             }
 
-                            this.$auth.setUpdate(
-                                info.data.name,
-                                info.data.email,
-                                this.$i18n.locale,
-                                'active'
-                            );
-
                             // Set Info
                             this.$store.commit('SET_USER_INFO', {
                                 Username: info.data.name,
@@ -305,28 +281,16 @@
                                 Status: 'active'
                             });
 
-                            setTimeout(() => {
-                                this.show_loading = false;
-                            }, 1000);
-
                             // set caption
                             this.$Helper.set_caption(info.data.caption);
 
-                            // Get collections
-                            this.$store.dispatch("GET_ALL_COLLECTION");
                         } else {
-                            //  this.$store.dispatch("LOGOUT_AUTH");
+                             this.$store.dispatch("LOGOUT_AUTH");
                         }
                     })
                     .catch(error => {
-                        //  this.$store.dispatch("LOGOUT_AUTH");
-                        this.show_loading = false;
-
+                       // this.$store.dispatch("LOGOUT_AUTH");
                     });
-            } else {
-                setTimeout(() => {
-                    this.show_loading = false;
-                }, 1000);
             }
 
             //  [App.vue specific] When App.vue is first loaded start the progress bar
@@ -351,9 +315,6 @@
                 this.$Progress.finish();
             });
 
-            // Get Site Info
-
-            this.$store.dispatch('GET_HOME_FOOTER_DETAILS');
 
         },
 
@@ -366,16 +327,6 @@
                     }
                 });
             },
-
-            // Show side bar for phone  760px <
-            SHOW_MENU() {
-                this.show_menu = !this.show_menu;
-            },
-
-            // Show side bar for pc and ipad  760px >
-            SHOW_SIDEBAR_PC() {
-                this.collapse_sidebar = !this.collapse_sidebar;
-            }
         },
     };
 </script>

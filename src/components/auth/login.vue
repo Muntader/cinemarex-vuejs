@@ -1,5 +1,7 @@
 <template>
     <div class="c-app-auth">
+        <div class="c-app-auth-blur-background"></div>
+
         <div class="c-auth-content">
             <div class="c-auth-container__modal">
 
@@ -18,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="c-auth-login-container" v-show="ShowPage === 'Login'">
+                <div class="c-auth-login-container" v-if="ShowPage === 'Login' && SIGNUP_STEP === null">
                     <div class="c-auth-login-container__body">
 
                         <div class="c-auth-provider">
@@ -97,7 +99,7 @@
                     </div>
                 </div>
 
-                <div class="c-auth-login-container" v-show="ShowPage === 'SignUp'">
+                <div class="c-auth-login-container" v-if="ShowPage === 'SignUp' && SIGNUP_STEP === null">
                     <div class="c-auth-login-container__body">
 
                         <div class="c-auth-provider">
@@ -199,6 +201,66 @@
                     </div>
                 </div>
 
+                <div class="c-auth-login-container"  v-if="SIGNUP_STEP === 'STEP2'">
+                    <div class="c-auth-login-container__body">
+                        <div class="c-auth-form">
+
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input class="form-control" name="username" v-validate="'required|max:70'"
+                                           :class="{'input': true, 'input-danger': errors.has('username') }"
+                                           type="text" v-model="Username" :placeholder="$t('setting.name')"
+                                           autocomplete="off">
+                                </div>
+                                <span v-show="errors.has('username')"
+                                      class="text-danger">{{errors.first('username')}}</span>
+                            </div>
+
+
+                            <div class="form-group form-inline birthday mb-4 mt-4">
+                                    <select class="form-control" v-model="DayDate">
+                                        <option v-for="(item, index) in MonthList" :key="index">{{item}}</option>
+                                    </select>
+                                    <select class="form-control ml-4" v-model="MonthDate">
+                                        <option value="1">Jan</option><option value="2">Feb</option><option value="3">Mar</option><option value="4">Apr</option><option value="5">May</option><option value="6">Jun</option><option value="7">Jul</option><option value="8">Aug</option><option value="9">Sept</option><option value="10">Oct</option><option value="11" selected="1">Nov</option><option value="12">Dec</option>
+                                    </select>
+                                    <select class="form-control ml-4" v-model="YearDate">
+                                        <option v-for="(item, index) in YearList" :key="index" >{{item}}</option>
+                                    </select>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Gender" id="male" value="m" v-model="Gender">
+                                    <label class="form-check-labe p-0" for="male">{{$t('register.im_male')}}</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="Gender" id="female" value="f" v-model="Gender">
+                                    <label class="form-check-labe p-0" for="female">{{$t('register.im_female')}}</label>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="text-danger">{{ErrorMessage}}</div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="text-center">
+                                    <button class="btn btn-dark btn-block" @click="SIGNUP_STEP_2()" v-if="!ButtonLoading">
+                                        {{$t('register.continue')}}
+                                    </button>
+                                    <button class="btn btn-dark btn-block" v-if="ButtonLoading">
+                                        <i id="btn-progress btn-progress-light"></i>
+
+                                        {{$t('register.loading')}}
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
@@ -215,16 +277,40 @@
             return {
                 ShowPage: 'Login',
                 Email: '',
-                Password: ''
+                Password: '',
+                BirthDate: '2000/1/1',
+                YearList: [],
+                MonthList: [],
+                MonthDate: 1,
+                YearDate: 2000,
+                DayDate: 12,
+                Gender: null,
+                Username: ''
             };
+
         },
-        components: {
-            facebookLogin
-        },
+
         computed: mapState({
-            ErrorMessage: state => state.auth.ErrorMessage,
-            ButtonLoading: state => state.auth.ButtonLoading
+            SIGNUP_STEP: state => state.register.SIGNUP_STEP,
+            ErrorMessage: state => state.register.ErrorMessage,
+            ButtonLoading: state => state.register.ButtonLoading
         }),
+
+        created() {
+            for (let y = 1900; y < 2004; y++) {
+                this.YearList.push(y);
+            }
+
+            for (let m = 1; m < 31; m++) {
+                this.MonthList.push(m);
+            }
+        },
+
+        watch: {
+            SIGNUP_STEP(val) {
+                alert(val)
+            }
+        },
 
         methods: {
             LOGIN() {
@@ -248,6 +334,19 @@
                     }
                 })
             },
+
+            SIGNUP_STEP_2() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        this.$store.dispatch('SIGNUP_STEP_2', {
+                            Birthday: this.YearDate + '-' + this.MonthDate + '-' + this.DayDate,
+                            Gender: this.Gender,
+                            Username: this.Username
+                        });
+                    }
+                })
+            },
+
             CLOSE_AUTH_MODAL() {
                 this.$store.commit('SHOW_LOGIN_MODAL', false)
             }

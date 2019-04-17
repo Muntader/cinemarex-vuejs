@@ -1,132 +1,156 @@
 <template>
 
-    <div class="c-app-channel-grid-content" ref="c_category_carousel">
-        <div class="c-app-channel-content" v-if="ListCategoryContent.length > 0">
+    <div class="c-app-channel-grid-content"
+         :class="{
+         'rti1-overlay-color': $route.params.ChannelName === 'rti1',
+         'rti2-overlay-color': $route.params.ChannelName === 'rti2',
+         'rti3-overlay-color': $route.params.ChannelName === 'rti3',
+         'radio-ci-overlay-color': $route.params.ChannelName === 'radio-ci',
+         'frequence-overlay-color': $route.params.ChannelName === 'frequence',
+         'radio-flimee-overlay-color': $route.params.ChannelName === 'radio-flimee',
+         }"
+         ref="c_category_carousel">
 
-        <div class="c-app-channel-grid-content__background">
-            <div class="full-background" v-if="ListCategoryContent[0][0].cloud === 'local'"
-            :style="{
-            backgroundImage: 'url(' + site_link + '/storage/backdrops/original_' + ListCategoryContent[0][0].backdrop + ')',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center 0%',
-            backgroundAttachment: 'scroll',
-            height: '100vh'
-            }"
-            ></div>
-
-            <div class="full-background" v-if="ListCategoryContent[0][0].cloud === 'aws'"
-                 :style="{
-            backgroundImage: 'url(' + lg_backdrop + ListCategoryContent[0][0].backdrop + ')',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center 0%',
-            backgroundAttachment: 'scroll',
-            height: '100vh'
-            }"
-            ></div>
+        <div class="c-app-channel-no-content" v-if="ListCategoryContent.length === 0">
+            <h3>No Content</h3>
         </div>
 
-        <div class="c-app-channel-grid-content__category-carousel">
-            <div class="c-carousel-items">
+        <div class="c-app-channel-content" v-else>
 
-                <div class="c-first-grid">
-                    <div class="c-carousel-grid-item" v-for="(item, index) in ListCategoryContent[0]" :key="index"
-                         v-if="ListCategoryContent[0].length > 0">
-                        <div class="c-carousel-grid-item__large">
-                            <router-link :to="{name: 'show-movie', params:{id: item.id}}" v-if="ListCategoryContentFilter.CategoryKind === 'movies'">
-                                <div class="c-thumb-image">
-                                    <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
-                                         v-if="item.cloud === 'local'"
-                                         alt="" width="100%">
-                                    <img :src="lg_backdrop + '/storage/backdrops/original_' + item.backdrop"
-                                         v-if="item.cloud === 'aws'"
-                                         alt="" width="100%">
-                                </div>
-                                <div class="c-info">
-                                    <div class="title">
-                                        {{item.name}}
-                                    </div>
-                                    <div class="description">
-                                        1 {{ListCategoryContentFilter.CategoryName}}
-                                    </div>
-                                </div>
-                                <div class="c-overlay"></div>
-                            </router-link>
-                        </div>
-                    </div>
-
-                    <div class="c-carousel-grid-item">
-                        <div class="c-carousel-grid-item__small" v-for="(item, index) in ListCategoryContent[1]"
-                             v-if="ListCategoryContent[1].length > 0">
-                            <router-link :to="{name: 'show-movie', params:{id: item.id}}" v-if="ListCategoryContentFilter.CategoryKind === 'movies'">
-                                <div class="c-thumb-image">
-                                    <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
-                                         v-if="item.cloud === 'local'"
-                                         alt="" width="100%">
-                                    <img :src="lg_backdrop + '/storage/backdrops/original_' + item.backdrop"
-                                         v-if="item.cloud === 'aws'"
-                                         alt="" width="100%">
-                                </div>
-                                <div class="c-info">
-                                    <div class="title">
-                                        {{item.name}}
-                                    </div>
-                                    <div class="description">
-                                        1 {{ListCategoryContentFilter.CategoryName}}
-                                    </div>
-                                </div>
-                                <div class="c-overlay"></div>
-                            </router-link>
-                        </div>
-                    </div>
+            <div class="c-app-channel-grid-content__background">
+                <div class="full-background" v-if="ListCategoryContent[0][0].cloud === 'local'"
+                     :style="{
+                            backgroundImage: 'url(' + site_link + '/storage/backdrops/original_' + ListCategoryContent[0][0].backdrop + ')',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center 0%',
+                            backgroundAttachment: 'scroll',
+                            height: '100vh'
+                            }">
 
                 </div>
 
-                <div class="c-other-grid" v-for="(itemParent, indexParent) in ListCategoryContent" :key="indexParent">
-                    <div class="c-carousel-grid-item" v-if="indexParent >= 2">
-                        <div class="c-carousel-grid-item__small" v-for="(item, index) in ListCategoryContent[indexParent]" :key="index">
-                            <router-link :to="{name: 'show-movie', params:{id: item.id}}" v-if="ListCategoryContentFilter.CategoryKind === 'movies'">
-                                <div class="c-thumb-image">
-                                    <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
-                                         v-if="item.cloud === 'local'"
-                                         alt="" width="100%">
-                                    <img :src="lg_backdrop + '/storage/backdrops/original_' + item.backdrop"
-                                         v-if="item.cloud === 'aws'"
-                                         alt="" width="100%">
-                                </div>
-                                <div class="c-info">
-                                    <div class="title">
-                                        {{item.name}}
-                                    </div>
-                                    <div class="description">
-                                        1 {{ListCategoryContentFilter.CategoryName}}
-                                    </div>
-                                </div>
-                                <div class="c-overlay"></div>
-                            </router-link>
-                        </div>
-                    </div>
-                </div>
+                <div class="full-background" v-if="ListCategoryContent[0][0].cloud === 'aws'"
+                     :style="{
+                            backgroundImage: 'url(' + lg_backdrop + ListCategoryContent[0][0].backdrop + ')',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center 0%',
+                            backgroundAttachment: 'scroll',
+                            height: '100vh'
+                            }">
 
+                </div>
             </div>
+
+            <div class="c-app-channel-grid-content__category-carousel">
+                <div class="c-carousel-items">
+
+                    <div class="c-first-grid">
+                        <div class="c-carousel-grid-item" v-for="(item, index) in ListCategoryContent[0]"
+                             :key="index"
+                             v-if="ListCategoryContent[0].length > 0">
+                            <div class="c-carousel-grid-item__large">
+                                <router-link :to="{name: 'show-movie', params:{id: item.id}}"
+                                             v-if="ListCategoryContentFilter.CategoryKind === 'movies'">
+                                    <div class="c-thumb-image">
+                                        <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
+                                             v-if="item.cloud === 'local'"
+                                             alt="" width="100%">
+                                        <img :src="lg_backdrop + '/storage/backdrops/original_' + item.backdrop"
+                                             v-if="item.cloud === 'aws'"
+                                             alt="" width="100%">
+                                    </div>
+                                    <div class="c-info">
+                                        <div class="title">
+                                            {{item.name}}
+                                        </div>
+                                        <div class="description">
+                                            1 {{ListCategoryContentFilter.CategoryName}}
+                                        </div>
+                                    </div>
+                                    <div class="c-overlay"></div>
+                                </router-link>
+                            </div>
+                        </div>
+
+                        <div class="c-carousel-grid-item">
+                            <div class="c-carousel-grid-item__small" v-for="(item, index) in ListCategoryContent[1]"
+                                 v-if="ListCategoryContent[1].length > 0">
+                                <router-link :to="{name: 'show-movie', params:{id: item.id}}"
+                                             v-if="ListCategoryContentFilter.CategoryKind === 'movies'">
+                                    <div class="c-thumb-image">
+                                        <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
+                                             v-if="item.cloud === 'local'"
+                                             alt="" width="100%">
+                                        <img :src="lg_backdrop + '/storage/backdrops/original_' + item.backdrop"
+                                             v-if="item.cloud === 'aws'"
+                                             alt="" width="100%">
+                                    </div>
+                                    <div class="c-info">
+                                        <div class="title">
+                                            {{item.name}}
+                                        </div>
+                                        <div class="description">
+                                            1 {{ListCategoryContentFilter.CategoryName}}
+                                        </div>
+                                    </div>
+                                    <div class="c-overlay"></div>
+                                </router-link>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="c-other-grid" v-for="(itemParent, indexParent) in ListCategoryContent"
+                         :key="indexParent">
+                        <div class="c-carousel-grid-item" v-if="indexParent >= 2">
+                            <div class="c-carousel-grid-item__small"
+                                 v-for="(item, index) in ListCategoryContent[indexParent]" :key="index">
+                                <router-link :to="{name: 'show-movie', params:{id: item.id}}"
+                                             v-if="ListCategoryContentFilter.CategoryKind === 'movies'">
+                                    <div class="c-thumb-image">
+                                        <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
+                                             v-if="item.cloud === 'local'"
+                                             alt="" width="100%">
+                                        <img :src="lg_backdrop + '/storage/backdrops/original_' + item.backdrop"
+                                             v-if="item.cloud === 'aws'"
+                                             alt="" width="100%">
+                                    </div>
+                                    <div class="c-info">
+                                        <div class="title">
+                                            {{item.name}}
+                                        </div>
+                                        <div class="description">
+                                            1 {{ListCategoryContentFilter.CategoryName}}
+                                        </div>
+                                    </div>
+                                    <div class="c-overlay"></div>
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="c-app-channel-grid-content__slider-arrow">
+                <button role="button" class="slider-arrow-right" v-show="HideRight" @click="swipeRight">
+                    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="square" stroke="#fff" stroke-width="8"
+                              d="M40 16l43 44m0 0l-43 44"></path>
+                    </svg>
+                </button>
+                <button role="button" class="slider-arrow-left" v-show="HideLeft" @click="swipeLeft">
+                    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="square" stroke="#fff" stroke-width="8" d="M40 16l43 44m0 0l-43 44"
+                              transform="translate(120, 0) scale(-1, 1)"></path>
+                    </svg>
+                </button>
+            </div>
+
         </div>
 
-        <div class="c-app-channel-grid-content__slider-arrow">
-            <button role="button" class="slider-arrow-right" v-show="HideRight" @click="swipeRight">
-                <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="square" stroke="#fff" stroke-width="8" d="M40 16l43 44m0 0l-43 44"></path>
-                </svg>
-            </button>
-            <button role="button" class="slider-arrow-left" v-show="HideLeft" @click="swipeLeft">
-                <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="square" stroke="#fff" stroke-width="8" d="M40 16l43 44m0 0l-43 44"
-                          transform="translate(120, 0) scale(-1, 1)"></path>
-                </svg>
-            </button>
-        </div>
-
-        </div>
     </div>
 
 </template>

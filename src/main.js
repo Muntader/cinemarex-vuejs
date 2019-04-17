@@ -23,10 +23,16 @@ Vue.use(Cloudfront);
 Vue.use(VueProgressiveImage);
 Vue.use(VeeValidate);
 Vue.use(Helper);
-Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
-axios.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.auth.getUserInfo('token');
 
+if(store.getters.GET_TOKEN !==  undefined) {
+    axios.interceptors.request.use(
+        config => {
+            if (store.getters.IS_AUTHENTICATED) config.headers['Authorization'] = 'Bearer ' + store.getters.GET_TOKEN;
+            return config;
+        }
+    );
+}
 
 const options = {
   color: '#03A9F4',
@@ -47,7 +53,7 @@ Vue.use(VueProgressBar, options);
 /// If is not auth step
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.userNotAuth)) {
-    if (Vue.auth.isAuthenticated() == 'active') {
+    if (Vue.auth.isAuthenticated() === 'active') {
       next({
         path: '/'
       });
@@ -55,7 +61,7 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else if (to.matched.some(record => record.meta.userAuth)) {
-    if (Vue.auth.isAuthenticated() == 'active') {
+    if (Vue.auth.isAuthenticated() === 'active') {
       next();
     } else {
       next('/login');
