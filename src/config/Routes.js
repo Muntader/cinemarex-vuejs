@@ -17,7 +17,7 @@ import Faq from '@/components/control/footer/faq';
 import NotFound from '@/components/errors/404';
 import ShowMovie from '@/components/control/movie/show';
 import ShowTvShow from '@/components/control/series/show';
-import Collection from '@/components/control/collection/index.vue';
+import MySelection from '@/components/control/my-selection/index.vue';
 import SeriesPlayer from '@/components/control/video-player/series-player';
 import SeriesPlayerSP from '@/components/control/video-player/series-player';
 import MoviePlayer from '@/components/control/video-player/movie-player';
@@ -25,7 +25,6 @@ import LiveTvPlayer from '@/components/control/video-player/tv-player';
 import NewsPlayer from '@/components/control/video-player/news-player';
 
 import Search from '@/components/control/search/search';
-import Cast from '@/components/control/search/cast';
 import Security from '@/components/control/setting/security';
 import Language from '@/components/control/setting/language';
 import ViewingHistory from '@/components/control/setting/viewing-history.vue';
@@ -163,6 +162,17 @@ let routes = [
     },
 
 
+
+    {
+        name: 'my-selection',
+        path: '/:ChannelName/my-selection',
+        component: MySelection,
+        meta: {
+            userAuth: true,
+            title: 'My Selection'
+        },
+    },
+
     {
         name: 'channel-content',
         path: '/:ChannelName/:CategoryName',
@@ -175,7 +185,7 @@ let routes = [
 
     {
         name: 'show-movie',
-        path: '/show/:id',
+        path: '/movies/show/:id',
         component: ShowMovie,
         meta: {
             allAuth: true,
@@ -202,15 +212,6 @@ let routes = [
 
     },
 
-    {
-        name: 'collection',
-        path: '/collection/:id',
-        component: Collection,
-        meta: {
-            userAuth: true,
-            title: 'My Collections'
-        },
-    },
 
 
     {
@@ -274,16 +275,6 @@ let routes = [
             title: 'Search'
         },
     },
-    {
-        name: 'cast',
-        path: '/cast/:id',
-        component: Cast,
-        meta: {
-            allAuth: true,
-            title: 'Cast'
-        },
-    },
-
     {
         name: 'profile',
         path: '/setting/public',

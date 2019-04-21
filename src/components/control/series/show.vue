@@ -21,7 +21,6 @@
 
     <div class="show_item" v-if="data.series != null ">
 
-        <collection-modal @hideModalCollectionCancel="HIDE_COLLECTION_MODAL_CANCEL" @hideModalCollectionSave="HIDE_COLLECTION_MODAL_SAVE" :id="collection.id" :poster="collection.poster" :name="collection.name" :type="collection.type" :index="collection.index"></collection-modal>
 
         <!-- END Collection component -->
 
@@ -252,7 +251,6 @@ import {
 import {
     mapState
 } from "vuex";
-import collection from "../collection/new.vue";
 import exitButton from "../utils/exit-button.vue";
 import notfound from "../utils/notfound";
 const plyr = require("plyr");
@@ -278,7 +276,6 @@ export default {
         Carousel,
         Slide,
         notfound,
-        "collection-modal": collection,
         "exit-button": exitButton
     },
 

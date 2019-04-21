@@ -7,9 +7,10 @@ import register from './modules/register';
 
 import casts from './modules/casts';
 import search from './modules/search';
-import collections from './modules/collections';
+import my_selection from './modules/my_selection';
 import category_content from './modules/category_content';
 import series from './modules/series';
+import movies from './modules/movies';
 import kids from './modules/kids';
 import tv from './modules/tv';
 import event from './modules/event';
@@ -31,9 +32,10 @@ export default new Vuex.Store({
         player,
         casts,
         search,
-        collections,
+        my_selection,
         category_content,
         series,
+        movies,
         kids,
         tv,
         unique_views,

@@ -8,7 +8,8 @@ const module = {
         get_path_show_page: null,
         show_overview_page: false,
         SHOW_LOGIN_MODAL: false,
-        HIDE_SIDEBAR: true
+        HIDE_SIDEBAR: true,
+        CHANNEL_SLIDER_ANIMATION: false
     },
 
     mutations: {
@@ -41,6 +42,10 @@ const module = {
 
         HIDE_SIDEBAR(status, state) {
             status.HIDE_SIDEBAR = state;
+        },
+
+        CHANNEL_SLIDER_ANIMATION(state, status) {
+            state.CHANNEL_SLIDER_ANIMATION = status;
         }
 
     },

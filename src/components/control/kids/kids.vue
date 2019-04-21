@@ -406,7 +406,6 @@
 import {
     mapState
 } from "vuex";
-import collection from '../collection/new.vue';
 import {
     Carousel,
     Slide

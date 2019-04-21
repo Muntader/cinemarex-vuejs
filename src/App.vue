@@ -9,12 +9,12 @@
             <div class="c-app-container" v-if="!block_site">
 
                 <div class="c-app-header">
-                    <navbar></navbar>
+                    <navbar v-if="$route.name !== 'show-movie' || $route.name !== 'show-series'"></navbar>
                 </div>
 
                 <div class="c-app-body">
 
-                    <sidebar></sidebar>
+                    <sidebar v-if="$route.name !== 'show-movie' || $route.name !== 'show-series' "></sidebar>
 
                     <router-view class="c-app-content"/>
 
@@ -285,11 +285,11 @@
                             this.$Helper.set_caption(info.data.caption);
 
                         } else {
-                             this.$store.dispatch("LOGOUT_AUTH");
+                            this.$store.dispatch("LOGOUT_AUTH");
                         }
                     })
                     .catch(error => {
-                       // this.$store.dispatch("LOGOUT_AUTH");
+                        // this.$store.dispatch("LOGOUT_AUTH");
                     });
             }
 
@@ -327,6 +327,7 @@
                     }
                 });
             },
+
         },
     };
 </script>

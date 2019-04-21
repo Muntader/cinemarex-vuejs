@@ -39,15 +39,15 @@
     .c-category-item {
       display: table;
         a {
-        height: 5.5vh;
-        line-height: 5.5vh;
-        font-size: 3.5vh;
+          font-weight: 100;
+          font-size: 25px;
+          height: 39px;
+          line-height: 39px;
         text-decoration: none;
         padding: 0 19px;
         width: auto;
         color: hsla(0,0%,100%,.5);
         margin-bottom: 2px;
-        font-weight: 100;
         transition: all .2s ease-out 0s;
         &:hover {
           padding-left: 30px;
@@ -72,14 +72,19 @@
        .c-bk-color {
          background-color: rgba(47,50,59,.8);
        }
+      .router-link-exact-active.c-my-selection {
+        background-color: #69b9f8 !important;
+        color: #FFF !important;
+      }
 
       .router-link-exact-active {
         background-color: hsla(0, 0%, 100%, .8);
         cursor: pointer;
         transition: all .2s ease-out 0s;
-        height: 7.5vh;
-        line-height: 7.5vh;
-        font-size: 5.9vh;
+        font-size: 40px;
+        font-weight: 100;
+        height: 60px;
+        line-height: 60px;
         color: rgba(47, 50, 59, 0.8);
         .c-live-bullet {
           width: 18px;
@@ -96,7 +101,7 @@
 
 .c-app-sidebar-left.c-hide-sidebar {
   position: relative;
-  left: -200px;
+  left: -700px;
 }
 .c-app-sidebar-left.c-show-sidebar {
   position: relative;

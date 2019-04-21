@@ -14,28 +14,36 @@
         </div>
 
         <div class="c-app-navbar__channels">
-            <carousel :perPageCustom="[[300, 4], [750, 7], [1024, 7], [1360, 15], [2000, 40]]" :navigationEnabled="true"
-                      :autoplay="true" :paginationEnabled="false" :mouseDrag="false">
+            <carousel :perPageCustom="[[300, 4], [750, 4], [1024, 7], [1360, 15], [2000, 40]]" :navigationEnabled="true"
+                      :autoplay="true" :paginationEnabled="false" :mouseDrag="false"
+                      navigationNextLabel='<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="20">
+                                                <path stroke-linecap="square" stroke="#fff" stroke-width="8"
+                                                      d="M40 16l43 44m0 0l-43 44"></path>
+                                           </svg>'
+                      navigationPrevLabel='<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="20">
+                                                <path stroke-linecap="square" stroke="#fff" stroke-width="8" d="M40 16l43 44m0 0l-43 44"
+                                                      transform="translate(120, 0) scale(-1, 1)"></path>
+                                           </svg>'>
                 <slide style="width: 100%">
                     <div class="c-channel-icon">
-                        <router-link :to="{name:'discover' }">
-                        <img src="../../assets/default/img/channels/RTI1_transparent.png" alt="RTI1 Logo"
-                             class="c-channel-logo c-rti1-icon"
-                             @mouseover="HoverIcon = 'rti1'"
-                             @mouseleave="LEAVE_CHANNEL_HOVER()"
-                             v-show="HoverIcon !== 'rti1' && ActiveIcon !== 'rti1'">
-                        <img src="../../assets/default/img/channels/RTI1.png" alt="RTI1 Logo"
-                             class="c-channel-logo c-rti1-icon"
-                             @mouseover="HoverIcon = 'rti1'"
-                             @mouseleave="LEAVE_CHANNEL_HOVER()"
-                             v-show="HoverIcon === 'rti1' || ActiveIcon === 'rti1'">
+                        <router-link :to="{name:'discover' }"  @click.native="SET_ANIMATION_SLIDER('rti1')">
+                            <img src="../../assets/default/img/channels/RTI1_transparent.png" alt="RTI1 Logo"
+                                 class="c-channel-logo c-rti1-icon"
+                                 @mouseover="HoverIcon = 'rti1'"
+                                 @mouseleave="LEAVE_CHANNEL_HOVER()"
+                                 v-show="HoverIcon !== 'rti1' && ActiveIcon !== 'rti1'">
+                            <img src="../../assets/default/img/channels/RTI1.png" alt="RTI1 Logo"
+                                 class="c-channel-logo c-rti1-icon"
+                                 @mouseover="HoverIcon = 'rti1'"
+                                 @mouseleave="LEAVE_CHANNEL_HOVER()"
+                                 v-show="HoverIcon === 'rti1' || ActiveIcon === 'rti1'">
                         </router-link>
                     </div>
                 </slide>
                 <slide>
                     <div class="c-channel-icon">
                         <div class="c-channel-icon">
-                            <router-link :to="{name:'discover-channel', params: {ChannelName: 'rti2'} }">
+                            <router-link :to="{name:'discover-channel', params: {ChannelName: 'rti2'}}" @click.native="SET_ANIMATION_SLIDER('rti2')">
                             <img src="../../assets/default/img/channels/RTI2_transparent.png" alt="RTI2 Logo"
                                  class="c-channel-logo c-rti2-icon"
                                  @mouseover="HoverIcon = 'rti2'"
@@ -52,7 +60,7 @@
                 </slide>
                 <slide>
                     <div class="c-channel-icon">
-                        <router-link :to="{name:'discover-channel', params: {ChannelName: 'rti3'} }">
+                        <router-link :to="{name:'discover-channel', params: {ChannelName: 'rti3'} }" @click.native="SET_ANIMATION_SLIDER('rti3')">
                         <img src="../../assets/default/img/channels/RTI3_transparent.png" alt="RTI3 Logo"
                              class="c-channel-logo c-rti3-icon"
                              @mouseover="HoverIcon = 'rti3'"
@@ -68,7 +76,7 @@
                 </slide>
                 <slide>
                     <div class="c-channel-icon">
-                        <router-link :to="{name:'discover-channel', params: {ChannelName: 'radio-ci'} }">
+                        <router-link :to="{name:'discover-channel', params: {ChannelName: 'radio-ci'} }" @click.native="SET_ANIMATION_SLIDER('radio-ci')">
                         <img src="../../assets/default/img/channels/RADIO-CI_transparent.png" alt="Radio CI  Logo"
                              class="c-channel-logo c-radio-ci-icon"
                              @mouseover="HoverIcon = 'radio-ci'"
@@ -85,7 +93,7 @@
                 </slide>
                 <slide>
                     <div class="c-channel-icon">
-                        <router-link :to="{name:'discover-channel', params: {ChannelName: 'frequence'} }">
+                        <router-link :to="{name:'discover-channel', params: {ChannelName: 'frequence'} }" @click.native="SET_ANIMATION_SLIDER('frequence')">
                         <img src="../../assets/default/img/channels/FREQUENCE_transparent_v2.png" alt="FREQUENCE  Logo"
                              class="c-channel-logo c-frequnce2-icon"
                              @mouseover="HoverIcon = 'frequence'"
@@ -102,7 +110,7 @@
                 </slide>
                 <slide>
                     <div class="c-channel-icon">
-                        <router-link :to="{name:'discover-channel', params: {ChannelName: 'radio-flimee'} }">
+                        <router-link :to="{name:'discover-channel', params: {ChannelName: 'radio-flimee'} }" @click.native="SET_ANIMATION_SLIDER('radio-flimee')">
                         <img src="../../assets/default/img/channels/Radio_Filmee_transparent.png" alt="Radio Filmee  Logo"
                              class="c-channel-logo c-adio-Filmee"
                              @mouseover="HoverIcon = 'radio-flimee'"
@@ -124,7 +132,7 @@
                <span v-if="USER_INFO.Image !== null">
                    <div class="avatar-preview">
                        <div id="imagePreview"
-                            :style="{backgroundImage: 'https://image.made-in-china.com/2f0j10QEbfGnrKvlcH/Ce-Certification-158cm-Mini-3D.jpg'}">
+                            :style="{backgroundImage: 'url('+ site_link + USER_INFO.Image +')'}">
                        </div>
                    </div>
 
@@ -250,6 +258,10 @@
             LOGOUT() {
                 this.$store.dispatch("LOGOUT_AUTH");
             },
+
+            SET_ANIMATION_SLIDER(Channel) {
+                this.$store.commit('CHANNEL_SLIDER_ANIMATION', true)
+            }
 
         },
 

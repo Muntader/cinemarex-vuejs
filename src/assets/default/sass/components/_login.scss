@@ -169,4 +169,187 @@
      }
    }
 
+
+   .c-auth-subscribe-container {
+     width: 91%;
+     background-color: #fff;
+     position: fixed;
+     top: 50%;
+     left: 50%;
+     transform: translate(-50%, -50%);
+     padding: 20px;
+     height: 93%;
+     overflow: auto;
+   }
+
+  .c-auth-subscribe-container {
+    &__header {
+      text-align: center;
+      .c-out-auth-modal {
+        position: absolute;
+        top: 30px;
+        right: 13px;
+        cursor: pointer;
+        svg {
+          width: 30px;
+          path {
+            stroke: #313131;
+          }
+        }
+      }
+    }
+
+    .c-item-subscribe {
+      cursor: pointer;
+      display: block;
+      padding: 2px;
+      .backdrop {
+        display: block;
+        width: auto;
+        height: 100%;
+        .overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          .select-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #8fcdfe;
+            padding: 10px;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 300ms;
+            svg {
+              margin: 7px 0 0 0;
+              width: 19px;
+              path {
+                fill: #fff;
+              }
+            }
+          }
+
+        }
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: #000;
+          -o-object-fit: cover;
+          object-fit: cover;
+        }
+      }
+
+      .title {
+        font-size: 15px;
+        color: #2e3c4b;
+        text-transform: uppercase;
+        text-align: left;
+        padding: 5px 0
+      }
+
+       &:hover {
+         .overlay {
+           .select-icon {
+             opacity: 1;
+           }
+         }
+      }
+    }
+
+    .c-item-subscribe-active {
+      cursor: pointer;
+      display: block;
+      padding: 2px;
+      .backdrop {
+         position: relative;
+         display: block;
+         width: auto;
+         height: 100%;
+         .overlay {
+           position: absolute;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background-color: rgba(143, 205, 254, 0.78);
+           .in-select-icon {
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             background-color: #fff;
+             padding: 10px;
+             border-radius: 50%;
+             width: 50px;
+             height: 50px;
+             text-align: center;
+             opacity: 0;
+             transition: opacity 300ms;
+             svg {
+               margin: 7px 0 0 0;
+               width: 19px;
+               path {
+                 fill: #4b4b4b;
+               }
+             }
+           }
+
+           .selected-icon {
+             position: absolute;
+             top: 50%;
+             left: 50%;
+             transform: translate(-50%, -50%);
+             background-color: #fff;
+             padding: 10px;
+             border-radius: 50%;
+             width: 50px;
+             height: 50px;
+             text-align: center;
+             svg {
+               margin: 7px 0 0 0;
+               width: 19px;
+               path {
+                 fill: #8fcdfe;
+               }
+             }
+           }
+         }
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          background: #000;
+          -o-object-fit: cover;
+          object-fit: cover;
+        }
+       }
+
+      .title {
+        font-size: 15px;
+        color: #2e3c4b;
+        text-transform: uppercase;
+        text-align: left;
+        padding: 5px 0
+      }
+
+      &:hover {
+        .overlay {
+          .in-select-icon {
+            opacity: 1;
+          }
+          .selected-icon {
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+
 }

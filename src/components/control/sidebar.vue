@@ -15,13 +15,13 @@
 
         <div class="c-app-sidebar-left__categories-list">
             <div class="c-category-item">
-                <router-link :class="{'c-bk-color': $route.name !== 'channel-content'}"
+                <router-link :class="{'c-bk-color': $route.name !== 'channel-content' && $route.name !== 'my-selection'}"
                              :to="{name: 'LiveTV-Player', params: {id: 'rti1'}}" v-if="$route.name === 'discover'">
                     Live
                     <i class="c-live-bullet"></i>
                 </router-link>
 
-                <router-link :class="{'c-bk-color': $route.name !== 'channel-content'}"
+                <router-link :class="{'c-bk-color': $route.name !== 'channel-content' && $route.name !== 'my-selection'}"
                              :to="{name: 'LiveTV-Player', params: {id: $route.params.ChannelName}}" v-else>
                     Live
                     <i class="c-live-bullet"></i>
@@ -62,22 +62,29 @@
             </div>
 
             <div class="c-category-item">
-                <router-link :class="{'c-bk-color': $route.name !== 'channel-content'}"
-                             :to="{name: 'collection', params: {id: 'rti1'}}">
+                <router-link :class="{'c-bk-color': $route.name !== 'channel-content' && $route.name !== 'my-selection'}"
+                             class="hv"
+                             :to="{name: 'my-selection', params: {ChannelName: 'rti1'} }"
+                             v-if="$route.name === 'discover' ">
+                    My Selection
+                </router-link>
+                <router-link :class="{'c-bk-color': $route.name !== 'channel-content' && $route.name !== 'my-selection'}"
+                             class="c-my-selection"
+                             :to="{name: 'my-selection', params: {ChannelName: $route.params.ChannelName} }"
+                             v-else>
                     My Selection
                 </router-link>
             </div>
 
-
             <div class="c-category-item" v-for="(item, index) in ChannelContent.CategoriesList" :key="index"
                  v-if=" ChannelContent.CategoriesList !== null">
                         <span class="c-category-title">
-                             <router-link :class="{'c-bk-color': $route.name !== 'channel-content'}"
+                             <router-link :class="{'c-bk-color': $route.name !== 'channel-content' && $route.name !== 'my-selection'}"
                                           :to="{name: 'channel-content', params: {ChannelName: 'rti1', CategoryName: item.name} }"
                                           v-if="$route.name === 'discover' ">
                                 {{item.name}}
                               </router-link>
-                              <router-link :class="{'c-bk-color': $route.name !== 'channel-content'}"
+                              <router-link :class="{'c-bk-color': $route.name !== 'channel-content' && $route.name !== 'my-selection'}"
                                            :to="{name: 'channel-content', params: {ChannelName: $route.params.ChannelName, CategoryName: item.name} }"
                                             v-else>
                                 {{item.name}}
@@ -85,7 +92,6 @@
                               <i class="c-live-bullet"></i>
                         </span>
             </div>
-
 
         </div>
     </div>

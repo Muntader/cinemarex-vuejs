@@ -4,12 +4,13 @@ import Auth from '../../config/Auth'
 
 import swal from 'sweetalert'
 
-const alertify = require('alertify.js')
+const alertify = require('alertify.js');
 
 const module = {
     state: {
         items: {},
         SIGNUP_STEP: null,
+        LIST_SERIES_FOR_SUBSCRIBE: [],
         UserInfo: null,
         ErrorMessage: null,
         ButtonLoading: false,
@@ -84,6 +85,135 @@ const module = {
                     }
                 })
         },
+
+
+        /**
+         *  Login with facebook
+         *
+         * @param {*} commit
+         * @param {*} array Email And Password
+         */
+        LOGIN_WITH_FACEBOOK({commit}, {Email, Name, Image, AccessToken}) {
+            commit('BUTTON_LOAD')
+            axios.post('http://localhost:8000/api/v1/auth/facebook', {
+                Email:Email,
+                Name:Name,
+                Image:Image,
+                AccessToken:AccessToken
+            }).then(response => {
+                axios
+                    .get('http://localhost:8000/api/v1/get/check/user', {
+                        headers: {
+                            Authorization: 'Bearer ' + response.data.access_token
+                        }
+                    })
+                    .then(check => {
+                        commit('SET_USER_INFO', {
+                            Username: check.data.name,
+                            Email: check.data.email,
+                            Language: check.data.language,
+                            Image: check.data.image,
+                            AccessToken: response.data.access_token,
+                            ExpiresIn: response.data.expires_in,
+                            Status: 'active'
+                        });
+
+                        commit('SET_TOKEN', {
+                            Username: check.data.name,
+                            Email: check.data.email,
+                            Language: check.data.language,
+                            AccessToken: response.data.access_token,
+                            ExpiresIn: response.data.expires_in,
+                            Status: 'active'
+                        });
+
+                        axios.interceptors.request.use(
+                            config => {  config.headers['Authorization'] = 'Bearer ' + response.data.access_token;  return config}
+                        );
+
+                        commit('IS_AUTHENTICATED');
+                        commit('SHOW_LOGIN_MODAL', false);
+
+                        router.push({name: 'discover'});
+
+                    }, (error) => {
+                        if (error.response.status === 401) {
+                            alertify.logPosition('top right');
+                            alertify.error(error.response.data.message);
+                            commit('BUTTON_CLEAR')
+                        }
+                    })
+
+
+                }, (error) => {
+                    if (error.response.status === 401) {
+                        commit('SET_ERROR_MESSAGE', error.response.data.message);
+                        commit('BUTTON_CLEAR')
+                    }
+                })
+        },
+
+
+        LOGIN_WITH_GOOGLE({commit}, {Email, Name, Image, AccessToken}) {
+            commit('BUTTON_LOAD')
+            axios.post('http://localhost:8000/api/v1/auth/google', {
+                Email:Email,
+                Name:Name,
+                Image:Image,
+                AccessToken:AccessToken
+            }).then(response => {
+                axios
+                    .get('http://localhost:8000/api/v1/get/check/user', {
+                        headers: {
+                            Authorization: 'Bearer ' + response.data.access_token
+                        }
+                    })
+                    .then(check => {
+                        commit('SET_USER_INFO', {
+                            Username: check.data.name,
+                            Email: check.data.email,
+                            Language: check.data.language,
+                            Image: check.data.image,
+                            AccessToken: response.data.access_token,
+                            ExpiresIn: response.data.expires_in,
+                            Status: 'active'
+                        });
+
+                        commit('SET_TOKEN', {
+                            Username: check.data.name,
+                            Email: check.data.email,
+                            Language: check.data.language,
+                            AccessToken: response.data.access_token,
+                            ExpiresIn: response.data.expires_in,
+                            Status: 'active'
+                        });
+
+                        axios.interceptors.request.use(
+                            config => {  config.headers['Authorization'] = 'Bearer ' + response.data.access_token;  return config}
+                        );
+
+                        commit('IS_AUTHENTICATED');
+                        commit('SHOW_LOGIN_MODAL', false);
+
+                        router.push({name: 'discover'});
+
+                    }, (error) => {
+                        if (error.response.status === 401) {
+                            alertify.logPosition('top right');
+                            alertify.error(error.response.data.message);
+                            commit('BUTTON_CLEAR')
+                        }
+                    })
+
+
+            }, (error) => {
+                if (error.response.status === 401) {
+                    commit('SET_ERROR_MESSAGE', error.response.data.message);
+                    commit('BUTTON_CLEAR')
+                }
+            })
+        },
+
 
         /**
          * Check hash
@@ -320,6 +450,15 @@ const module = {
                 }
 
             })
+        },
+
+
+        LIST_SERIES_FOR_SUBSCRIBE({commit}) {
+            axios.get('http://localhost:8000/api/v1/get/profile/programs/list').then(response => {
+                if (response.status === 200) {
+                    commit('SET_LIST_SERIES_FOR_SUBSCRIBE', response.data.ListPrograms);
+                }
+            })
         }
 
     },
@@ -349,8 +488,8 @@ const module = {
             state.ErrorMessage = message
         },
 
-        SET_VIEWING_HISTORY(state, data) {
-            state.items = data
+        SET_LIST_SERIES_FOR_SUBSCRIBE(state, data) {
+            state.LIST_SERIES_FOR_SUBSCRIBE = data;
         },
 
         SET_LOGOUT_ATUH() {

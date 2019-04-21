@@ -26,9 +26,7 @@
   background: rgba(30, 7, 0, 0.45);
 }
 
-.c-app-channel-grid-content.radio-flimee-overlay-color {
 
-}
 
 @media only screen and (min-width: 750px) {
 
@@ -158,6 +156,81 @@
         .c-other-grid, .c-first-grid {
           .c-carousel-grid-item {
             &__small, &__large {
+              .c-add-my-selection {
+                opacity: 0;
+                transition: opacity 300ms;
+
+                &__add {
+                  .select-icon {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    background-color: #FFF;
+                    padding: 10px;
+                    border-radius: 50%;
+                    width: 35px;
+                    height: 35px;
+                    text-align: center;
+                    svg {
+                      width: 13px;
+                      margin: 0 0 4px;
+                      path {
+                        fill: #8fcdfe;
+                      }
+                    }
+                  }
+                }
+                &__selected {
+                  .in-select-icon {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    background-color: #fff;
+                    padding: 10px;
+                    border-radius: 50%;
+                    width: 35px;
+                    height: 35px;
+                    text-align: center;
+                    opacity: 0;
+                    transition: opacity 200ms;
+                    svg {
+                      width: 13px;
+                      margin: 0 0 4px;
+                      path {
+                        fill: #4b4b4b;
+                      }
+                    }
+                  }
+
+                  .selected-icon {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    background-color: #fff;
+                    padding: 10px;
+                    border-radius: 50%;
+                    width: 35px;
+                    height: 35px;
+                    text-align: center;
+                    svg {
+                      width: 13px;
+                      margin: 0 0 4px;
+                      path {
+                        fill: #8fcdfe;
+                      }
+                    }
+                  }
+
+                  &:hover {
+                    .in-select-icon {
+                      opacity: 1;
+                    }
+                    .selected-icon {
+                      opacity: 0;
+                    }
+                  }
+                }
+              }
               a {
                 display: block;
                 position: relative;
@@ -176,7 +249,7 @@
                  -webkit-transform: scale(1.1);
                  transform: scale(1.1);
                  -moz-transform: scale(1.1) rotate(.01deg);
-                 .c-info, .c-overlay {
+                 .c-info, .c-overlay,.c-add-my-selection {
                    opacity: 1;
                  }
                }

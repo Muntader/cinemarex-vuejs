@@ -1,7 +1,7 @@
 <template>
     <div class="c-app-channel-content">
         <transition name="slide">
-            <div class="c-app-channel-content__loader-page" v-show="HomeLoading">
+            <div class="c-app-channel-content__loader-page" v-show="HomeLoading && CHANNEL_SLIDER_ANIMATION">
 
                 <div class="c-app-channel-content__loader-page--rti1 fix-loader-size"
                      v-if="$route.params.ChannelName === undefined || $route.params.ChannelName === 'rti1' ">
@@ -45,7 +45,7 @@
         <div class="c-app-channel" v-if="!HomeLoading">
 
             <div class="c-app-channel-content__top-carousel">
-                <carousel :navigationEnabled="false" :paginationEnabled="true" :autoplay="false" :autoplayTimeout="5000"
+                <carousel :navigationEnabled="false" :paginationEnabled="true" :autoplay="true" :autoplayTimeout="5000"
                           :loop="true" easing="slideup" :perPage="1" :mouseDrag="false">
                     <slide class="c-carousel-item" v-for="(item, index) in ChannelContent.TopList" :key="index"
                            v-if="ChannelContent.TopList !== null">
@@ -99,7 +99,6 @@
         Carousel,
         Slide
     } from "vue-carousel";
-    import collection from "./collection/new.vue";
     import loader from "./utils/loader"
 
     export default {
@@ -116,6 +115,7 @@
         computed: mapState({
             ChannelContent: state => state.discover.ChannelContent,
             HomeLoading: state => state.discover.HomeLoading,
+            CHANNEL_SLIDER_ANIMATION: state => state.event.CHANNEL_SLIDER_ANIMATION
         }),
 
         watch: {
@@ -129,6 +129,8 @@
                 }
 
                 this.$store.dispatch('GET_HOME_LIST', GetChannel);
+                this.$store.commit('HIDE_SIDEBAR', true);
+
 
             }
         },
@@ -144,6 +146,10 @@
             }
             this.$store.dispatch('GET_HOME_LIST', GetChannel);
 
+            // Hide Transition Animation
+            if(! this.HomeLoading ) {
+                this.$store.commit('CHANNEL_SLIDER_ANIMATION', false)
+            }
         },
 
         methods: {},

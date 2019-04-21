@@ -307,7 +307,6 @@
 import {
     mapState
 } from "vuex";
-import collection from '../collection/new.vue';
 import {
     Carousel,
     Slide
@@ -340,8 +339,7 @@ export default {
     components: {
         Carousel,
         Slide,
-        notfound,
-        'collection-modal': collection
+        notfound
     },
 
     computed: mapState({

@@ -44,6 +44,18 @@
                     width: 75px !important;
                 }
             }
+
+            .VueCarousel {
+                position: inherit !important;
+                .VueCarousel-navigation-prev {
+                    position: absolute;
+                    left: 185px !important;
+                }
+                .VueCarousel-navigation-next {
+                    position: absolute;
+                    right: 220px !important;
+                }
+            }
         }
 
         &__menu {

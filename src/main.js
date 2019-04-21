@@ -9,16 +9,18 @@ import VueProgressBar from 'vue-progressbar';
 import store from './store/store.js';
 import router from './config/Routes';
 import i18n from './config/Language';
-import Auth from './config/Auth';
 import Cloudfront from './config/Cloudfront';
 import VueProgressiveImage from 'vue-progressive-image'
 import VeeValidate from 'vee-validate';
-import './assets/default/sass/main.scss';
 import VueCarousel from 'vue-carousel';
+import VueAxios from 'vue-axios'
+import VueAuthenticate from 'vue-authenticate'
+import axios from 'axios'
+import './assets/default/sass/main.scss';
+
 
 Vue.use(VueCarousel);
 Vue.use(VueRouter);
-Vue.use(Auth);
 Vue.use(Cloudfront);
 Vue.use(VueProgressiveImage);
 Vue.use(VeeValidate);
@@ -33,6 +35,26 @@ if(store.getters.GET_TOKEN !==  undefined) {
         }
     );
 }
+
+Vue.use(VueAxios, axios)
+Vue.use(VueAuthenticate, {
+    baseUrl: 'http://localhost:8080', // Your API domain
+    providers: {
+        facebook: {
+            clientId: '494825387685716',
+            redirectUri: 'http://localhost:8080/auth/callback',
+            authorizationEndpoint: 'https://www.facebook.com/v3.0/dialog/oauth',
+            responseType: 'token'
+        },
+        google: {
+            clientId: '613534909702-qa5rb1b14d9nfr3443g1lg2al1121fd5.apps.googleusercontent.com',
+            redirectUri: 'http://localhost:8080',
+            responseType: 'token'
+        }
+
+    }
+});
+
 
 const options = {
   color: '#03A9F4',
@@ -50,28 +72,6 @@ const options = {
 
 Vue.use(VueProgressBar, options);
 
-/// If is not auth step
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.userNotAuth)) {
-    if (Vue.auth.isAuthenticated() === 'active') {
-      next({
-        path: '/'
-      });
-    } else {
-      next();
-    }
-  } else if (to.matched.some(record => record.meta.userAuth)) {
-    if (Vue.auth.isAuthenticated() === 'active') {
-      next();
-    } else {
-      next('/login');
-    }
-  } else {
-    next(); // make sure to always call next()!
-  }
-});
-
-
 router.beforeEach((to, from, next) => {
   if (!to.matched.length) {
     next('/404');
@@ -79,6 +79,7 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
 
 
 // Title
