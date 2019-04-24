@@ -269,7 +269,6 @@
                                     </button>
                                     <button class="btn btn-dark btn-block" v-if="ButtonLoading">
                                         <i id="btn-progress btn-progress-light"></i>
-
                                         {{$t('register.loading')}}
                                     </button>
                                 </div>
@@ -480,6 +479,7 @@
 
             AUTHENTICATE(provider) {
                 if (provider === 'facebook') {
+                    this.$store.commit('BUTTON_LOAD')
                     this.$auth.authenticate(provider).then(response => {
                         axios.get('https://graph.facebook.com/me?access_token=' + response.access_token).then(FBme => {
                             axios.get('https://graph.facebook.com/' + FBme.data.id + '?fields=name,email,birthday,picture.type(large)&access_token=' + response.access_token).then(FBResposne => {
@@ -497,6 +497,7 @@
                     })
                 }
                 if (provider === 'google') {
+                    this.$store.commit('BUTTON_LOAD')
                     this.$auth.authenticate(provider).then(response => {
                         axios.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + response.access_token).then(GoogleInfo => {
                             this.$store.dispatch('LOGIN_WITH_GOOGLE', {

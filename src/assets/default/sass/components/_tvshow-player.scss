@@ -1,107 +1,69 @@
 .wolf-player {
+  background-color: #000;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  .loader {
+    left: 100%;
+    top: 100%;
 
-  .jw-player,
-  .geo-block-error,
-  .ghost_login_message {
-    margin-top: 110px;
-    position: relative;
-  }
-
-  .geo-block-error {
-    h3 {
+    .loader-svg {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      text-align: center;
-      background: rgba(0, 0, 0, 0.72);
-      padding: 10px;
-      font-weight: bold;
+
+      svg {
+        width: 200px;
+        height: 200px;
+      }
     }
   }
 
+  .jw-player,
+  .geo-block-error,
   .ghost_login_message {
-    margin-bottom: 40px;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
 
-    .backdrop {
-      filter: blur(4px);
-      opacity: .7;
-    }
-
-    .text {
+  .geo-block-error {
+    .image, .title {
       position: absolute;
       left: 50%;
-      top: 38%;
       transform: translate(-50%, -50%);
-
+    }
+    .image {
+      top: 30%;
+      width: 500px;
+    }
+    .title {
+      top: 55%;
+      width: 100%;
+      text-align: center;
       h3 {
         text-align: center;
-        padding: 10px;
-        font-weight: bold;
-        font-size: 28px;
-        letter-spacing: 1px;
+        font-weight: 100;
+        color: #FFF;
+        font-size: 50px;
       }
 
       .btn-play {
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin-top: 15px;
-        background: #FFF;
-        border: none;
-        padding: 12px;
-        color: #2d2d2d;
         border-radius: 0 !important;
-        width: 200px;
-        font-weight: bold;
+        color: #FFFF;
+        width: 240px;
         text-align: center;
+        background-color: #392c40;
+        font-size: 24px;
+        font-weight: 100;
+        text-transform: uppercase;
+        margin-top: 20px;
       }
     }
   }
 
-  .episode-name {
-    font-size: 25px;
-    font-weight: bold;
-    color: #FFF !important;
-    position: relative;
-
-    .report {
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: 2;
-
-      &:hover {
-        cursor: pointer;
-
-        path: {
-          fill: #FFF;
-        }
-      }
-    }
+  .jwplayer.jw-flag-aspect-mode {
+    height: 100% !important;
   }
-
-  .episode-details .list-info {
-    position: relative;
-    top: -25px;
-    font-size: 15px;
-    color: #a0a0a0;
-
-    ul {
-      margin: 0;
-
-      li {
-        display: inline-block;
-      }
-    }
-
-
-    .overview {
-
-      p {
-        word-break: break-word;
-      }
-    }
-  }
-
 }

@@ -1,5 +1,35 @@
 .c-app-header {
 
+    .c-app-navbar-show {
+        .c-app-navbar__back {
+            width: 30px;
+            position: relative;
+            top: -15px;
+            left: 20px;
+            cursor: pointer;
+            z-index: 100;
+            svg {
+                width: 30px;
+            }
+        }
+
+        .c-app-navbar__logo {
+            position: absolute !important;
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 100% !important;
+            text-align: center !important;
+            img {
+                width: 100px !important;
+            }
+        }
+
+        .c-app-navbar__menu {
+            position: absolute;
+            right: 0;
+        }
+    }
+
     .c-app-navbar {
         position: fixed;
         top: 0;
@@ -166,5 +196,33 @@
     }
     .frequence-overlay-color {
         background: rgba(30, 7, 0, 0.8);
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .c-app-header {
+
+        .c-app-navbar {
+            .ghost {
+                .c-login-icon-container {
+                    position: relative;
+                    left: 20px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+
+    .c-app-header {
+
+        .c-app-navbar {
+            .c-login-icon-container {
+                position: absolute !important;
+                right: 0 !important;
+            }
+        }
+
     }
 }

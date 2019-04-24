@@ -429,6 +429,48 @@ const module = {
             })
         },
 
+
+
+        /**
+         * Change default language
+         *
+         * @param {*} commit
+         * @param {*} lang
+         */
+        SET_LANGUAGE({
+                         commit
+                     }, lang) {
+            axios.post('https://localhost/api/v1/update/profile/language', {
+                language: lang
+            }).then(response => {
+
+                // Message
+                // Not necessarily
+
+            })
+        },
+
+        /**
+         * Adujst caption
+         *
+         * @param {*} commit
+         * @param {*} caption
+         */
+        SET_CAPTION({
+                        commit
+                    }, caption) {
+            axios.post('https://localhost/api/v1/update/profile/caption', {
+                caption: caption
+            }).then(res => {
+                alertify.logPosition('top right')
+                alertify.success('Successful update')
+            }, error => {
+                alertify.logPosition('top right')
+                alertify.error(error.response.data.message)
+            })
+        },
+
+
         /**
          *
          * Logout

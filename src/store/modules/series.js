@@ -3,63 +3,35 @@ import router from '../../config/Routes';
 
 const module = {
     state: {
-        data: [],
-        show: [],
-        series_loading: false,
+        TV_SHOW_CONTENT: [],
+        TV_SHOW_CONTENT_LOADING_PAGE: false,
     },
     actions: {
 
-        /**
-         * Get all last movies
-         *
-         * @param {any} {commit}
-         */
-        GET_SERIES_LIST({ commit }) {
-            commit('SPINER_LOAD_SERIES');
-            axios.get( 'http://localhost:8000/api/v1/get/series').then(response => {
+        GET_TV_SHOW_SUMMARY({commit}, ID) {
+            commit('TV_SHOW_CONTENT_LOADING_PAGE', true);
+
+            axios.get('http://localhost:8000/api/v1/get/series/' + ID).then((response) => {
                 if (response.status === 200) {
-                    const data = response.data.data;
-                    commit('SET_SERIES_LIST', data);
-                    setTimeout(() => {
-                        commit('SPINER_CLEAN_SERIES');
-                    }, 200);
+                    commit('SET_TV_SHOW_SUMMARY', response.data.data);
+                    commit('TV_SHOW_CONTENT_LOADING_PAGE', false);
+                }
+            }, error => {
+                if(error.response.status === 404){
+                    router.push({name: '404'});
+                }else{
+                    router.push('/');
                 }
             });
         },
 
-        /**
-         * Get sort series by trending or genres and together
-         *
-         * @param {*} commit
-         * @param {int,string} array {trending, genre}
-         */
-        GET_SERIES_SORT_BY_LIST({ commit }, { trending, genre }) {
-            commit('SPINER_LOAD_SERIES');
-            axios.post( 'http://localhost:8000/api/v1/get/series/sort', {
-                trending: trending,
-                genre: genre
-            }).then((response) => {
-                if (response.status === 200) {
-                    const data = response.data.data;
-                    commit('SET_SERIES_LIST', data);
-                    commit('SPINER_CLEAN_SERIES');
-                }
-            });
-        },
 
-        /**
-         * Get movie details
-         *
-         * @param {*} commit
-         * @param {*} id movie request
-         */
-        GET_SERIES_DETAILS({ commit }, id) {
-            commit('SPINER_LOAD_SERIES');
-            axios.get( 'http://localhost:8000/api/v1/get/series/' + id).then((response) => {
+        GET_GHOST_TV_SHOW_SUMMARY({commit}, ID) {
+            commit('TV_SHOW_CONTENT_LOADING_PAGE', true);
+            axios.get('http://localhost:8000/api/v1/ghost/get/series/' + ID).then((response) => {
                 if (response.status === 200) {
-                    const data = response.data.data;
-                    commit('SET_SERIES_DETAILS', data);
-                    commit('SPINER_CLEAN_SERIES');
+                    commit('SET_TV_SHOW_SUMMARY', response.data.data);
+                    commit('TV_SHOW_CONTENT_LOADING_PAGE', false);
                 }
             }, error => {
                 if(error.response.status === 404){
@@ -72,37 +44,17 @@ const module = {
 
     },
     mutations: {
-
-        /**
-         *
-         * @param {*} state
-         * @param {*} data
-         */
-        SET_SERIES_LIST(state, data) {
-            state.data = data;
+        SET_TV_SHOW_SUMMARY(state, data) {
+            state.TV_SHOW_CONTENT = data;
         },
 
-        /**
-         *
-         * @param {*} state
-         * @param {*} data
-         */
-        SET_SERIES_DETAILS(state, data) {
-            state.show = data;
+        TV_SHOW_CONTENT_LOADING_PAGE(state,status) {
+            state.TV_SHOW_CONTENT_LOADING_PAGE = status;
         },
 
-
-        CLEAR_SERIES_SHOW_DATA(state) {
-            state.show = [];
+        CLEAR_TV_SHOW_SHOW_DATA(state) {
+            state.MOVIE_CONTENT = [];
         },
-
-        SPINER_LOAD_SERIES(state) {
-            state.series_loading = true;
-        },
-
-        SPINER_CLEAN_SERIES(state) {
-            state.series_loading = false;
-        }
     },
     getters: {}
 };

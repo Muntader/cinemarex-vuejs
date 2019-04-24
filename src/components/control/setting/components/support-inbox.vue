@@ -61,7 +61,7 @@
                     </div>
                 </div>
             <div class="col-12 col-sm-8 col-lg-8 offset-sm-2 p-sm-3 mt-5 profile-edit h-100">
-        
+
 
                  <div class="row">
                    <div class="col-8 text-left">
@@ -71,7 +71,7 @@
                   <div class="col-4 text-right">
                     <button class="btn btn-sm btn-warning" data-toggle="modal" data-target="#TicketModal">{{$t('setting.submit_request')}}</button>
                   </div>
-                </div> 
+                </div>
 
                 <hr>
 
@@ -116,11 +116,11 @@
 </template>
 
 <script>
-import exitButton from "../utils/exit-button.vue";
+import exitButton from "../../utils/exit-button.vue";
     import {
         mapState
     } from "vuex";
-import notfound from "../utils/notfound"
+import notfound from "../../utils/notfound"
 
 export default {
   data() {

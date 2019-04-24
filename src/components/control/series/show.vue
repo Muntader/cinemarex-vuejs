@@ -1,415 +1,322 @@
 <template>
-<div>
+    <div class="c-app-movies-show">
 
-    <div class="spinner-load" v-if="loading">
-        <div class="hidden-md-up phone">
-            <div id="main">
+        <div class="c-app-movies-show-content" v-if="TV_SHOW_CONTENT.series != null ">
 
-                <span class="spinner"></span>
+            <!-- Exit Button -->
 
-            </div>
-        </div>
+            <div class="c-app-movies-show-content__header">
 
-        <div class="hidden-sm-down other">
-            <div id="main">
-
-                <span class="spinner"></span>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="show_item" v-if="data.series != null ">
-
-
-        <!-- END Collection component -->
-
-        <div class="exit-icon" @click="$Helper.back()">
-            <exit-button></exit-button>
-        </div>
-
-        <!-- Exit Button -->
-
-        <div class="show_item__body p-md-5">
-
-            <div class="show_item__header p-4 p-md-5 p-lg-5 p-xl-5 ">
-
-                <div class="row">
-
-                    <!-- END Back -->
-
-                    <!-- END My Collection -->
-
-                    <div class="header__like ml-4">
-
-                        <div class="add" v-if="! data.series.is_like" @click.prevent="ADD_NEW_LIKE(data.series.id, 'series', 'add')">
-
-                            <img src="../../../assets/default/img/dislike.svg" alt="dislike" width="100%">
-
-                            <p>{{$t('show.like')}}</p>
-                        </div>
-
-                        <div class="remove" v-if="data.series.is_like" @click.prevent="ADD_NEW_LIKE(data.series.id, 'series', 'delete')">
-                            <img src="../../../assets/default/img/like.svg" alt="like" width="100%">
-
-                            <p>{{$t('show.like')}}</p>
-
-                        </div>
+                <div class="header-image">
+                    <div class="full-background" v-if="TV_SHOW_CONTENT.series.cloud  === 'local'"
+                         :style="{
+                            backgroundImage: 'url(' + site_link + '/storage/backdrops/original_' + TV_SHOW_CONTENT.series.backdrop +')',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center 0%',
+                            backgroundAttachment: 'scroll',
+                            height: '75vh'
+                            }">
 
                     </div>
 
+                    <div class="full-background" v-if="TV_SHOW_CONTENT.series.cloud === 'aws'"
+                         :style="{
+                            backgroundImage: 'url(' + lg_backdrop + TV_SHOW_CONTENT.series.backdrop + ')',
+                            backgroundSize: 'cover',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center 0%',
+                            backgroundAttachment: 'scroll',
+                            height: '75vh'
+                            }">
+
+                    </div>
+
+                    <div class="header-image__gradient"></div>
                 </div>
 
-            </div>
+                <div class="header-content">
+                    <div class="header-banner">
+                        <div class="header-banner__content">
 
-            <!-- END Control Panel -->
+                            <span v-if="TV_SHOW_CONTENT.series.channel_name === 'rti1'">
+                                  <img src="../../../assets/default/img/channels/RTI1.png" alt="RTI1 Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
 
-            <div class="hidden-sm-down body__background-sm-up">
-                <img :src="site_link + '/storage/backdrops/original_' + data.series.backdrop" :alt="data.series.name" class="backdrop" width="100%" v-if="data.series.cloud === 'local'">
-                <img :src="lg_backdrop + data.series.backdrop" :alt="data.series.name" class="backdrop" width="100%" v-if="data.series.cloud === 'aws'">
+                            <span v-if="TV_SHOW_CONTENT.series.channel_name === 'rti2'">
+                                  <img src="../../../assets/default/img/channels/RTI2.png" alt="RTI2 Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
 
-                </div>
+                            <span v-if="TV_SHOW_CONTENT.series.channel_name === 'rti3'">
+                                  <img src="../../../assets/default/img/channels/RTI3.png" alt="RTI3 Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
 
-                <div class="hidden-md-up body__background-sm-down">
-                    <img :src="site_link + '/storage/backdrops/original_' + data.series.backdrop" :alt="data.series.name" class="backdrop" width="100%" v-if="data.series.cloud === 'local'">
-                    <img :src="lg_backdrop + data.series.backdrop" :alt="data.series.name" class="backdrop" width="100%" v-if="data.series.cloud === 'aws'">
+                            <span v-if="TV_SHOW_CONTENT.series.channel_name === 'radio-ci'">
+                                  <img src="../../../assets/default/img/channels/RADIO-CI.png" alt="RADIO CI Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
 
-                    <router-link :to="{name: 'series-player', params: {series_id: data.series.id}}">
-                        <div class="play hidden-md-up">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
-                                    viewBox="0 0 294.843 294.843" style="enable-background:new 0 0 294.843 294.843;" xml:space="preserve"
-                                    width="75px" class="play-big-svg">
-                                    <g>
-                                        <g>
-                                            <path d="M278.527,79.946c-10.324-20.023-25.38-37.704-43.538-51.132c-2.665-1.97-6.421-1.407-8.392,1.257s-1.407,6.421,1.257,8.392   c16.687,12.34,30.521,28.586,40.008,46.983c9.94,19.277,14.98,40.128,14.98,61.976c0,74.671-60.75,135.421-135.421,135.421   S12,222.093,12,147.421S72.75,12,147.421,12c3.313,0,6-2.687,6-6s-2.687-6-6-6C66.133,0,0,66.133,0,147.421   s66.133,147.421,147.421,147.421s147.421-66.133,147.421-147.421C294.842,123.977,289.201,100.645,278.527,79.946z"
-                                                data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"
-                                            />
-                                            <path d="M109.699,78.969c-1.876,1.067-3.035,3.059-3.035,5.216v131.674c0,3.314,2.687,6,6,6s6-2.686,6-6V94.74l88.833,52.883   l-65.324,42.087c-2.785,1.795-3.589,5.508-1.794,8.293c1.796,2.786,5.508,3.59,8.294,1.794l73.465-47.333   c1.746-1.125,2.786-3.073,2.749-5.15c-0.037-2.077-1.145-3.987-2.93-5.05L115.733,79.029   C113.877,77.926,111.575,77.902,109.699,78.969z"
-                                                data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"
-                                            />
-                                        </g>
-                                    </g>
-                                </svg>
-                        </div>
-                    </router-link>
+                            <span v-if="TV_SHOW_CONTENT.series.channel_name === 'frequence'">
+                                  <img src="../../../assets/default/img/channels/FREQUENCE-2.png" alt="FREQUENCE Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
+                            <span v-if="TV_SHOW_CONTENT.series.channel_name === 'radio-flimee'">
+                                  <img src="../../../assets/default/img/channels/Radio_Filmee.png" alt="Radio Filmee Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
 
-                </div>
+                            <div class="header-banner__content--control">
+                                <a href="#description" class="overview-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="-255 347 100 100">
+                                        <path class="st0"
+                                              d="M-202.6 369.7c1-1.2 2.4-1.9 3.9-1.9 1.2 0 2.4.4 3.1 1.3.8.8 1.2 2 1.2 3.2 0 1.6-.5 3.1-1.7 4.3-1.2 1.2-2.5 1.9-3.9 1.9-1.2 0-2.2-.4-3.1-1.3-.8-.8-1.2-2-1.2-3.4.1-1.5.7-3 1.7-4.1M-194.6 416.5c-4.1 3.9-6.9 6.3-8.8 7.4-2 1.2-3.7 1.8-5.1 1.8s-2.5-.5-3.4-1.3c-.8-.9-1.2-2.2-1.2-3.6 0-3.8 2.1-12.7 6.4-27.2.1-.3.1-.5.1-.7-.1.1-.4.1-.5.3-.4.3-1.4 1.1-4.6 4.3-.5.5-1.2.5-1.8.1l-1.8-1.5c-.3-.3-.5-.5-.5-.9s.1-.8.4-1.1c2.9-3.4 5.6-5.7 8.1-7.1 2.6-1.5 4.7-2.2 6.7-2.2 1.2 0 2.2.3 2.9.9.8.7 1.2 1.6 1.2 2.7 0 .7-.4 2.6-2.7 11.2-3.5 12.3-4.3 16.7-4.4 18.2.7-.4 2.2-1.6 5.6-4.8.5-.5 1.3-.5 1.8 0l1.7 1.6c.3.3.4.7.4.9 0 .5-.3.9-.5 1z"/>
+                                    </svg>
+                                </a>
 
-                <!-- END Background image -->
+                                <div class="c-add-my-selection" v-if="IS_AUTHENTICATED">
 
-                <div class="col-12 show_item__overview">
-                    <div class="row">
-
-                        <div class="col-5 col-md-3 col-xl-2 poster-sm-down hidden-md-up">
-                            <div class="poster">
-                                <progressive-img :src="site_link + '/storage/posters/600_' + data.series.poster" placeholder="../../../assets/default/img/loader-image.png" :alt="data.series.name" width="70%" :aspect-ratio="1.5" :blur="0" v-if="data.series.cloud === 'local'" />
-                                <progressive-img :src="md_poster + data.series.poster" placeholder="../../../assets/default/img/loader-image.png" :alt="data.series.name" width="70%" :aspect-ratio="1.5" :blur="0" v-if="data.series.cloud === 'aws'" />
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-md-9 col-xl-8 mt-3 content-sm-down">
-
-                            <div class="__title">
-                                <div class="col-12 p-0">
-                                    <h5>
-                                        <strong>{{data.series.name}}</strong>
-                                        <strong class="age-rating">{{data.series.age}}</strong>
-                                    </h5>
-                                    <div class="p-0 mr-0 mt-3 mb-3 hidden-sm-down __btn-control">
-                                        <router-link :to="{name: 'series-player', params: {series_id: data.series.id}}" class="btn btn-md-up btn-waring btn-play" role="button"  v-if="data.series.already_episode">
-
-                                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 191.255 191.255"
-                                                        style="enable-background:new 0 0 191.255 191.255;" xml:space="preserve"
-                                                        width="100%" class="show-play-svg">
-                                                        <g>
-                                                            <path d="M162.929,66.612c-2.814-1.754-6.514-0.896-8.267,1.917s-0.895,6.513,1.917,8.266c6.544,4.081,10.45,11.121,10.45,18.833  s-3.906,14.752-10.45,18.833l-98.417,61.365c-6.943,4.329-15.359,4.542-22.512,0.573c-7.154-3.97-11.425-11.225-11.425-19.406  V34.262c0-8.181,4.271-15.436,11.425-19.406c7.153-3.969,15.569-3.756,22.512,0.573l57.292,35.723  c2.813,1.752,6.513,0.895,8.267-1.917c1.753-2.812,0.895-6.513-1.917-8.266L64.512,5.247c-10.696-6.669-23.661-7-34.685-0.883  C18.806,10.48,12.226,21.657,12.226,34.262v122.73c0,12.605,6.58,23.782,17.602,29.898c5.25,2.913,10.939,4.364,16.616,4.364  c6.241,0,12.467-1.754,18.068-5.247l98.417-61.365c10.082-6.287,16.101-17.133,16.101-29.015S173.011,72.899,162.929,66.612z"
-                                                                data-original="#000000" class="active-path" data-old_color="#ffffff"
-                                                                fill="#000" />
-                                                        </g>
-                                                    </svg>
-                                            Watch Now
-                                        </router-link>
-
-                                        <div class="d-inline add ml-2" v-if="! data.series.is_favorite && data.series.cloud == 'local'" @click.prevent="SHOW_COLLECTION_MODAL(data.series.id, site_link + '/storage/backdrops/600_' + data.series.backdrop, data.series.name, 'series')">
-
-                                            <img src="../../../assets/default/img/infavor.svg" alt="favor" width="40px">
-                                             </div>
-
-                                            <div class="d-inline add ml-2" v-if="! data.series.is_favorite && data.series.cloud == 'aws'" @click.prevent="SHOW_COLLECTION_MODAL(data.series.id, md_backdrop + data.series.backdrop, data.series.name, 'series')">
-
-                                                <img src="../../../assets/default/img/infavor.svg" alt="favor" width="40px">
-                                              </div>
-
-                                                <div class="d-inline remove" v-if="data.series.is_favorite" @click.prevent="DELETE_FROM_COLLECTION(data.series.id, 'series')">
-
-                                                    <img src="../../../assets/default/img/favor.svg" alt="favor" width="40px" @click.prevent="DELETE_FROM_COLLECTION(item.id, 'series', index)" >
-
-                                                    </div>
-
-                                                </div>
-                                                <div class="year-genre mb-2">
-
-                                                    <p class="genre">{{data.series.genre}}</p>
-                                                    <span class="dot">|</span>
-                                                    <p class="year">{{data.series.year}}</p>
-                                                </div>
-
-                                                <!-- END Name -->
-                                                <p>{{data.series.overview}}</p>
-                                                <!-- END Overview -->
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 p-0 mt-5 hidden-md-up __btn-control">
-                                            <div class="btn-group">
-                                                <router-link :to="{name: 'series-player', params: {series_id: data.series.id}}" class="btn btn-md-up btn-warning btn-play" role="button" v-if="data.series.already_episode">
-                                                    Watch Now
-                                                </router-link>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 p-0 mt-5">
-                                            <div class="row">
-
-                                                <div class="col-12 col-md-8 p-1" v-if="data.casts !== null">
-                                                    <div class="__cast">
-                                                        <h3>
-                                                            <strong>{{$t('show.cast')}}</strong>
-                                                        </h3>
-                                                        <div class="block ml-sm-2 m-1" v-for="(item, index) in data.casts" :key="index">
-                                                            <router-link :to="{name: 'cast', params: {id: item.id}}">
-                                                                <button class="btn btn-md btn-outline-secondary">{{item.name}}</button>
-                                                            </router-link>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-5 col-md-3 col-xl-2 offset-xl-2 mt-3 poster-sm-down hidden-sm-down">
-                                        <div class="poster">
-                                            <progressive-img :src="site_link + '/storage/posters/600_' + data.series.poster" placeholder="../../../assets/default/img/loader-image.png" :alt="data.series.name" width="100%" :aspect-ratio="1.5" :blur="0" v-if="data.series.cloud === 'local'" />
-                                            <progressive-img :src="md_poster + data.series.poster" placeholder="../../../assets/default/img/loader-image.png" :alt="data.series.name" width="100%" :aspect-ratio="1.5" :blur="0" v-if="data.series.cloud === 'aws'" />
+                                    <div class="c-add-my-selection__add" v-if="!TV_SHOW_CONTENT.series.is_favorite"
+                                         @click.prevent="ADD_TO_COLLECTION(TV_SHOW_CONTENT.series.id, TV_SHOW_CONTENT.series.channel_name, 'series')">
+                                        <div class="select-icon">
+                                            <svg width="20" viewBox="0 0 448 448"
+                                                 xmlns="http://www.w3.org/2000/svg">
+                                                <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
+                                            </svg>
                                         </div>
                                     </div>
 
-                                    <div class="col-12 hidden-sm-down mt-5" v-if="data.similar != null">
-                                        <div class="similar">
-                                            <h3>
-                                                <strong>{{$t('show.recommendation_series')}}</strong>
-                                            </h3>
+                                    <div class="c-add-my-selection__selected" v-if="TV_SHOW_CONTENT.series.is_favorite"
+                                         @click.prevent="ADD_TO_COLLECTION(TV_SHOW_CONTENT.series.id, TV_SHOW_CONTENT.series.channel_name, 'series')">
+                                        <div class="in-select-icon">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                 width="19" viewBox="0 0 348.333 348.334" style="enable-background:new 0 0 348.333 348.334;"
+                                                 xml:space="preserve">
+                                                 <g>
+                                                     <path d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85
+                                                                                    c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563
+                                                                                    c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85
+                                                                                    l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554
+                                                                                    L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/>
+                                                 </g>
+                                            </svg>
 
-                                            <carousel class="list-carousel" navigationPrevLabel='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="100%" class="arrow-right-svg"><g><g>
-                                                            <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
-                                                          </g></g> </svg>' navigationNextLabel='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="100%" class="arrow-left-svg"><g transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 129 129)"><g>
-                                                            <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
-                                                          </g></g> </svg>' :navigationEnabled="true" :paginationEnabled="false" :autoplay="false" easing="linear" :scrollPerPage="true" :perPageCustom="[[220,1], [520,3],[768, 4], [1024, 6], [1920, 9]]">
+                                        </div>
 
-                                                <slide class="col-6 col-md-3 col-lg-2 col-xl-2 col-xxl-1-2 m-2 animation" v-for="(item, index) in data.similar" :key="index">
-                                                    <div class="poster" @click="SIMILAR_SHOW(item.id)">
-
-                                                        <div class="poster__backdrop-image">
-
-                                                            <progressive-img :src="site_link + '/storage/posters/600_' + item.poster" placeholder="../../../assets/default/img/loader-image.png" :alt="item.name" width="100%" :aspect-ratio="1.5" :blur="0" v-if="item.cloud === 'local' " />
-
-                                                            <progressive-img :src=" md_poster + item.poster" placeholder="../../../assets/default/img/loader-image.png" :alt="item.name" width="100%" :aspect-ratio="1.5" :blur="0" v-if="item.cloud === 'aws' " />
-
-                                                        </div>
-
-                                                        <div class="__title mt-2">
-                                                            <b> {{item.name}} </b> <br>
-                                                        </div>
-
-                                                        </div>
-                                                </slide>
-
-                                            </carousel>
+                                        <div class="selected-icon">
+                                            <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                 width="19"viewBox="0 0 352.62 352.62" style="enable-background:new 0 0 352.62 352.62;"
+                                                 xml:space="preserve">
+                                                    <g>
+                                                        <path d="M337.222,22.952c-15.912-8.568-33.66,7.956-44.064,17.748c-23.867,23.256-44.063,50.184-66.708,74.664
+                                                                        c-25.092,26.928-48.348,53.856-74.052,80.173c-14.688,14.688-30.6,30.6-40.392,48.96c-22.032-21.421-41.004-44.677-65.484-63.648
+                                                                        c-17.748-13.464-47.124-23.256-46.512,9.18c1.224,42.229,38.556,87.517,66.096,116.28c11.628,12.24,26.928,25.092,44.676,25.704
+                                                                        c21.42,1.224,43.452-24.48,56.304-38.556c22.645-24.48,41.005-52.021,61.812-77.112c26.928-33.048,54.468-65.485,80.784-99.145
+                                                                        C326.206,96.392,378.226,44.983,337.222,22.952z M26.937,187.581c-0.612,0-1.224,0-2.448,0.611
+                                                                        c-2.448-0.611-4.284-1.224-6.732-2.448l0,0C19.593,184.52,22.653,185.132,26.937,187.581z"/>
+                                                    </g>
+                                            </svg>
 
                                         </div>
                                     </div>
 
                                 </div>
+
                             </div>
 
-                            <!-- END Overview -->
+                            <div class="header-banner__content--title">
+                                {{TV_SHOW_CONTENT.series.name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="body-content">
+                    <div class="tv-show-content">
+                        <div class="tv-show-content__category-title">
+                            <h3>{{TV_SHOW_CONTENT.series.category_name}}</h3>
+                        </div>
+
+                        <div class="tv-show-content__season-change">
+                            <button class="btn btn-dark" @click="SEASONS_DROPDOWN = !SEASONS_DROPDOWN">Season {{SHOW_SEASON}}</button>
+
+                            <transition name="fade">
+                            <div class="tv-show-content__season-change--dropdown" v-show="SEASONS_DROPDOWN">
+                                <ul class="season-list">
+                                    <li class="season-number" v-for="(item, index) in TV_SHOW_CONTENT.seasons" @click="SHOW_SEASON = index">Season {{index}}</li>
+                                </ul>
+                            </div>
+                            </transition>
+                        </div>
+
+                        <div class="tv-show-content__video-content" v-if="TV_SHOW_CONTENT.seasons !== null">
+                            <div class="tv-show-content__video-content--video-item" v-for="(item, index) in TV_SHOW_CONTENT.seasons[SHOW_SEASON]">
+                                <router-link :to="{name: 'TV-Show-Player', params:{series_id: TV_SHOW_CONTENT.series.id, episode_id: item.id}}">
+
+                                    <div class="c-thumb-image">
+                                        <img :src="site_link + item.backdrop"
+                                             v-if="item.cloud === 'Local'"
+                                             alt="" width="100%">
+                                        <img :src="lg_backdrop + item.backdrop"
+                                             v-if="item.cloud === 'S3'"
+                                             alt="" width="100%">
+                                    </div>
+                                    <div class="c-info">
+                                        <div class="title">
+                                            {{item.name}}
+                                        </div>
+                                        <div class="description">
+                                           {{item.episode_number }} . {{item.name}}
+                                        </div>
+                                    </div>
+                                    <div class="c-overlay"></div>
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tv-show-description" id="description">
+                        <div class="tv-show-description__title">
+                            <h3>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-255 347 100 100">
+                                    <path class="st0"
+                                          d="M-202.6 369.7c1-1.2 2.4-1.9 3.9-1.9 1.2 0 2.4.4 3.1 1.3.8.8 1.2 2 1.2 3.2 0 1.6-.5 3.1-1.7 4.3-1.2 1.2-2.5 1.9-3.9 1.9-1.2 0-2.2-.4-3.1-1.3-.8-.8-1.2-2-1.2-3.4.1-1.5.7-3 1.7-4.1M-194.6 416.5c-4.1 3.9-6.9 6.3-8.8 7.4-2 1.2-3.7 1.8-5.1 1.8s-2.5-.5-3.4-1.3c-.8-.9-1.2-2.2-1.2-3.6 0-3.8 2.1-12.7 6.4-27.2.1-.3.1-.5.1-.7-.1.1-.4.1-.5.3-.4.3-1.4 1.1-4.6 4.3-.5.5-1.2.5-1.8.1l-1.8-1.5c-.3-.3-.5-.5-.5-.9s.1-.8.4-1.1c2.9-3.4 5.6-5.7 8.1-7.1 2.6-1.5 4.7-2.2 6.7-2.2 1.2 0 2.2.3 2.9.9.8.7 1.2 1.6 1.2 2.7 0 .7-.4 2.6-2.7 11.2-3.5 12.3-4.3 16.7-4.4 18.2.7-.4 2.2-1.6 5.6-4.8.5-.5 1.3-.5 1.8 0l1.7 1.6c.3.3.4.7.4.9 0 .5-.3.9-.5 1z"/>
+                                </svg>
+                                {{TV_SHOW_CONTENT.series.name}}
+                            </h3>
+                        </div>
+                        <div class="tv-show-description__main">
+                            <div class="tv-show-description__body">
+                                <div class="content">
+                                    {{TV_SHOW_CONTENT.series.overview}}
+                                </div>
+                            </div>
+
+                            <div class="tv-show-description__aside">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tv-show-similar" v-if="TV_SHOW_CONTENT.similar != null">
+                        <div class="tv-show-similar__title">
+                            <h3>{{$t('show.recommendation_series')}}</h3>
+                        </div>
+
+                        <div class="tv-show-similar__slider">
+
+                            <carousel class="list-carousel" navigationPrevLabel='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="100%" class="arrow-right-svg"><g><g>
+                                                            <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+                                                          </g></g> </svg>' navigationNextLabel='<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" enable-background="new 0 0 129 129" width="100%" class="arrow-left-svg"><g transform="matrix(-1 1.22465e-16 -1.22465e-16 -1 129 129)"><g>
+                                                            <path d="m88.6,121.3c0.8,0.8 1.8,1.2 2.9,1.2s2.1-0.4 2.9-1.2c1.6-1.6 1.6-4.2 0-5.8l-51-51 51-51c1.6-1.6 1.6-4.2 0-5.8s-4.2-1.6-5.8,0l-54,53.9c-1.6,1.6-1.6,4.2 0,5.8l54,53.9z" data-original="#000000" class="active-path" data-old_color="#ffffff" fill="#ffffff"/>
+                                                          </g></g> </svg>' :navigationEnabled="true" :paginationEnabled="false" :autoplay="false" easing="linear" :scrollPerPage="true" :perPageCustom="[[220,1], [520,3],[768, 4], [1024, 6], [1920, 7]]">
+
+                                <slide class="tv-show-similar__item" v-for="(item, index) in TV_SHOW_CONTENT.similar" :key="index">
+                                    <router-link :to="{name: 'show-series', params:{id: item.id}}">
+
+                                        <div class="c-thumb-image">
+                                            <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
+                                                 v-if="item.cloud === 'local'"
+                                                 alt="" width="100%">
+                                            <img :src="lg_backdrop + item.backdrop"
+                                                 v-if="item.cloud === 'aws'"
+                                                 alt="" width="100%">
+                                        </div>
+                                        <div class="c-info">
+                                            <div class="title">
+                                                {{item.name}}
+                                            </div>
+                                            <div class="description">
+                                                1 {{item.category_name}}
+                                            </div>
+                                        </div>
+                                        <div class="c-overlay"></div>
+                                    </router-link>
+                                </slide>
+
+                            </carousel>
 
                         </div>
 
                     </div>
 
                 </div>
+
+            </div>
+
+        </div>
+
+    </div>
 </template>
 
 <script>
-import {
-    Carousel,
-    Slide
-} from "vue-carousel";
-import {
-    mapState
-} from "vuex";
-import exitButton from "../utils/exit-button.vue";
-import notfound from "../utils/notfound";
-const plyr = require("plyr");
-require("plyr/dist/plyr.css");
-export default {
-    name: "series-show",
-
-    data() {
-        return {
-            castShow: null,
-            show_season: 1,
-            collection: {
-                id: null,
-                poster: null,
-                name: null,
-                type: null,
-                index: null
-            }
-        };
-    },
-
-    components: {
+    import {
+        mapState
+    } from "vuex";
+    import {
         Carousel,
-        Slide,
-        notfound,
-        "exit-button": exitButton
-    },
+        Slide
+    } from "vue-carousel";
 
-    computed: mapState({
-        data: state => state.series.show,
-        loading: state => state.series.loading
-    }),
+    export default {
+        name: "movie-show",
 
-    beforeDestroy() {
-        this.$store.commit("CLEAR_SERIES_SHOW_DATA");
-    },
-    mounted() {
-        if (this.$auth.isAuthenticated()) {
-            this.$store.dispatch("GET_SERIES_DETAILS", this.$route.params.id);
-        } else {
-            this.$store.dispatch("GET_GHOST_SERIES_DETAILS", this.$route.params.id);
-        }
-    },
-    watch: {
         data() {
-            if (this.data.series.runtime <= 60) {
-                this.data.series.runtime = this.data.series.runtime + "m";
-            } else if (this.data.series.runtime >= 60) {
-                const minutes = this.data.series.runtime % 60;
-                const hours = Math.floor(this.data.series.runtime / 60);
-                this.data.series.runtime = hours + "h " + minutes + "m";
-            }
-            // Replice special characters
+            return {
+              SHOW_SEASON: 1,
+                SEASONS_DROPDOWN: false
+            };
+        },
 
-            this.data.series.genre = this.data.series.genre.replace(/-/g, ", ");
+        components: {
+            Carousel,
+            Slide,
+        },
 
-            // Set season
-            this.season = this.data.season;
+        computed: mapState({
+            TV_SHOW_CONTENT: state => state.series.TV_SHOW_CONTENT,
+            IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED
+        }),
 
-            // Set title
-            document.title = this.data.series.name;
-        }
-    },
 
-    methods: {
-        SIMILAR_SHOW(id) {
-            if (this.$auth.isAuthenticated()) {
-                this.$store.dispatch("GET_SERIES_DETAILS", id);
-            } else {
-                this.$store.dispatch("GET_GHOST_SERIES_DETAILS", id);
+        mounted() {
+            if (this.IS_AUTHENTICATED) {
+                this.$store.dispatch("GET_TV_SHOW_SUMMARY", this.$route.params.id);
+            }else{
+                this.$store.dispatch("GET_GHOST_TV_SHOW_SUMMARY", this.$route.params.id);
             }
         },
 
-        // Show modal of collection
-        SHOW_COLLECTION_MODAL(id, poster, name, type) {
-            if (this.$auth.isAuthenticated()) {
-                this.collection.id = id;
-                this.collection.poster = poster;
-                this.collection.name = name;
-                this.collection.type = type;
-            } else {
-                this.$router.push({
-                    name: "login"
-                });
-            }
-        },
-
-        // Hide modal of collection
-        HIDE_COLLECTION_MODAL_CANCEL() {
-            if (this.$auth.isAuthenticated()) {
-                this.collection.id = null;
-            } else {
-                this.$router.push({
-                    name: "login"
-                });
-            }
-        },
-
-        // Hide modal and update array
-        HIDE_COLLECTION_MODAL_SAVE() {
-            if (this.$auth.isAuthenticated()) {
-                this.collection.id = null;
-                this.data.series.is_favorite = true;
-            } else {
-                this.$router.push({
-                    name: "login"
-                });
-            }
-        },
-
-        // Delete mvoie or series from data array
-        DELETE_FROM_COLLECTION(id, type, index) {
-            if (this.$auth.isAuthenticated()) {
-                this.data.series.is_favorite = false;
-
-                this.$store.dispatch("DELETE_FROM_COLLECTION", {
-                    id,
-                    type
-                });
-            } else {
-                this.$router.push({
-                    name: "login"
-                });
-            }
-        },
-
-        // Add new like or delete it
-        // Params type1 detected if add or delete
-        ADD_NEW_LIKE(id, type, type1) {
-            if (this.$auth.isAuthenticated()) {
-                if (type1 === "add") {
-                    // Add true to data array
-                    this.data.series.is_like = true;
-                    this.$store.dispatch("ADD_LIKE", {
-                        id,
-                        type
-                    });
-                } else {
-                    // Add false to data array
-                    this.data.series.is_like = false;
-
-                    this.$store.dispatch("ADD_LIKE", {
-                        id,
-                        type
-                    });
+        watch: {
+            TV_SHOW_CONTENT() {
+                document.title = this.TV_SHOW_CONTENT.series.name;
+            },
+            '$route.params.id': function () {
+                if (this.IS_AUTHENTICATED) {
+                    this.$store.dispatch("GET_TV_SHOW_SUMMARY", this.$route.params.id);
+                }else{
+                    this.$store.dispatch("GET_GHOST_TV_SHOW_SUMMARY", this.$route.params.id);
                 }
-            } else {
-                this.$router.push({
-                    name: "login"
-                });
-            }
-        }
-    },
+            },
 
-    filters: {
-        // Cut word
-        truncate(string, value) {
-            return string.substring(0, value) + "..";
+        },
+
+        methods: {
+
+            ADD_TO_COLLECTION(ID, ChannelName, Type, Index, ParentIndex) {
+                if (this.TV_SHOW_CONTENT.series.is_favorite === 1)
+                    this.TV_SHOW_CONTENT.series.is_favorite = 0
+                else
+                    this.TV_SHOW_CONTENT.series.is_favorite = 1;
+
+                this.$store.dispatch('ADD_NEW_TO_COLLECTION', {
+                    ID: ID,
+                    ChannelName: ChannelName,
+                    Type: Type
+                });
+            },
         }
-    }
-};
+    };
 </script>

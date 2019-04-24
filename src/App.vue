@@ -1,6 +1,6 @@
 <template>
     <div class="c-rti-root">
-        <div class="c-app" :class="{'c-app-blur-page': LOGIN_MODAL_OPEN}">
+        <div class="c-app" :class="{'c-app-blur-page': LOGIN_MODAL_OPEN, 'c-app-black-overlay-page': PROFILE_MODAL_OPEN}">
 
 
             <vue-progress-bar></vue-progress-bar>
@@ -9,12 +9,12 @@
             <div class="c-app-container" v-if="!block_site">
 
                 <div class="c-app-header">
-                    <navbar v-if="$route.name !== 'show-movie' || $route.name !== 'show-series'"></navbar>
+                    <navbar v-if="$route.name !== 'LiveTV-Player' && $route.name !== 'Movie-Player' && $route.name !== 'TV-Show-Player' "></navbar>
                 </div>
 
                 <div class="c-app-body">
 
-                    <sidebar v-if="$route.name !== 'show-movie' || $route.name !== 'show-series' "></sidebar>
+                    <sidebar v-if="$route.name !== 'show-movie' && $route.name !== 'show-series' && $route.name !== 'LiveTV-Player' && $route.name !== 'Movie-Player' && $route.name !== 'TV-Show-Player' && $route.name !== 'search' "></sidebar>
 
                     <router-view class="c-app-content"/>
 
@@ -40,6 +40,8 @@
 
         <div class="c-app-modal">
             <login v-if="LOGIN_MODAL_OPEN"></login>
+            <settings v-if="PROFILE_MODAL_OPEN"></settings>
+
         </div>
     </div>
 </template>
@@ -51,6 +53,7 @@
     import ads_notifcation from "./components/control/notification/ads.vue";
     import searchPage from './components/control/search/search.vue'
     import LoginComponent from './components/auth/login'
+    import SettingsComponent from './components/control/setting/setting'
 
     import {
         mapState
@@ -64,6 +67,7 @@
             navbar,
             message,
             'login': LoginComponent,
+            'settings': SettingsComponent,
             'ads-notifcation': ads_notifcation,
             'search-page': searchPage
         },
@@ -71,103 +75,6 @@
         data() {
             return {
                 active: null,
-                activeGenre: "all",
-                activeTrending: 1,
-                trendingList: [{
-                    value: 1,
-                    translate: "home.trending"
-                },
-                    {
-                        value: 2,
-                        translate: "home.year"
-                    },
-                    {
-                        value: 3,
-                        translate: "home.rating"
-                    },
-                    {
-                        value: 4,
-                        translate: "home.likes"
-                    }
-                ],
-                trendingActiveTranslate: "home.trending",
-                genereList: [{
-                    value: "all",
-                    translate: "home.all"
-                },
-                    {
-                        value: "action",
-                        translate: "home.action"
-                    },
-                    {
-                        value: "adventure",
-                        translate: "home.adventure"
-                    },
-                    {
-                        value: "animation",
-                        translate: "home.animation"
-                    },
-                    {
-                        value: "biography",
-                        translate: "home.biography"
-                    },
-                    {
-                        value: "comedy",
-                        translate: "home.comedy"
-                    },
-                    {
-                        value: "documentary",
-                        translate: "home.documentary"
-                    },
-                    {
-                        value: "drama",
-                        translate: "home.drama"
-                    },
-                    {
-                        value: "family",
-                        translate: "home.family"
-                    },
-                    {
-                        value: "fantasy",
-                        translate: "home.fantasy"
-                    },
-                    {
-                        value: "history",
-                        translate: "home.history"
-                    },
-                    {
-                        value: "horror",
-                        translate: "home.horror"
-                    },
-                    {
-                        value: "music",
-                        translate: "home.music"
-                    },
-                    {
-                        value: "mystery",
-                        translate: "home.mystery"
-                    },
-                    {
-                        value: "romance",
-                        translate: "home.romance"
-                    },
-                    {
-                        value: "sci-fi",
-                        translate: "home.sci_fi"
-                    },
-                    {
-                        value: "sport",
-                        translate: "home.sport"
-                    },
-                    {
-                        value: "thriller",
-                        translate: "home.thriller"
-                    },
-                    {
-                        value: "war",
-                        translate: "home.war"
-                    }
-                ],
                 genreActiveTranslate: "home.genre",
                 index: 0,
                 message_alert: {},
@@ -189,6 +96,7 @@
             showSearchPage: state => state.event.show_search_page,
             getShowPagePath: state => state.event.get_path_show_page,
             LOGIN_MODAL_OPEN: state => state.event.SHOW_LOGIN_MODAL,
+            PROFILE_MODAL_OPEN: state => state.event.SHOW_PROFILE_MODAL,
             IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED
 
         }),
@@ -255,6 +163,7 @@
                                 Username: info.data.name,
                                 Email: info.data.email,
                                 Image: info.data.image,
+                                Birthday: info.data.birthday,
                                 Language: this.$i18n.locale,
                                 Status: 'confirm_step'
                             });
@@ -277,6 +186,7 @@
                                 Username: info.data.name,
                                 Email: info.data.email,
                                 Image: info.data.image,
+                                Birthday: info.data.birthday,
                                 Language: this.$i18n.locale,
                                 Status: 'active'
                             });
@@ -289,7 +199,7 @@
                         }
                     })
                     .catch(error => {
-                        // this.$store.dispatch("LOGOUT_AUTH");
+                        this.$store.dispatch("LOGOUT_AUTH");
                     });
             }
 

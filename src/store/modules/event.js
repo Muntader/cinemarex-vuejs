@@ -8,6 +8,7 @@ const module = {
         get_path_show_page: null,
         show_overview_page: false,
         SHOW_LOGIN_MODAL: false,
+        SHOW_PROFILE_MODAL: false,
         HIDE_SIDEBAR: true,
         CHANNEL_SLIDER_ANIMATION: false
     },
@@ -38,6 +39,10 @@ const module = {
 
         SHOW_LOGIN_MODAL(state, status) {
             state.SHOW_LOGIN_MODAL = status;
+        },
+
+        SHOW_PROFILE_MODAL(state, status) {
+            state.SHOW_PROFILE_MODAL = status;
         },
 
         HIDE_SIDEBAR(status, state) {

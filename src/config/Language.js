@@ -70,6 +70,7 @@ const messages = {
         },
         setting: {
             user_setting: "User Settings",
+            birthday: 'Birthday',
             biling: "Billing",
             app_setting: "App setting",
             language: "Language",
@@ -323,6 +324,7 @@ const messages = {
             adjust_subtitles: "Ajuster les sous-titres",
             email_already: "Cet e-mail existe déja",
             watch_date: 'Date de lecture',
+            birthday: 'Date de naissance',
 
             support: "Boite de support technique",
             submit_request: "Envoyer la demande",

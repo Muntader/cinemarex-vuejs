@@ -40,6 +40,36 @@
                 <div class="header-content">
                     <div class="header-banner">
                         <div class="header-banner__content">
+
+                            <span v-if="MOVIE_CONTENT.movie.channel_name === 'rti1'">
+                                  <img src="../../../assets/default/img/channels/RTI1.png" alt="RTI1 Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
+
+                            <span v-if="MOVIE_CONTENT.movie.channel_name === 'rti2'">
+                                  <img src="../../../assets/default/img/channels/RTI2.png" alt="RTI2 Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
+
+                            <span v-if="MOVIE_CONTENT.movie.channel_name === 'rti3'">
+                                  <img src="../../../assets/default/img/channels/RTI3.png" alt="RTI3 Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
+
+                            <span v-if="MOVIE_CONTENT.movie.channel_name === 'radio-ci'">
+                                  <img src="../../../assets/default/img/channels/RADIO-CI.png" alt="RADIO CI Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
+
+                            <span v-if="MOVIE_CONTENT.movie.channel_name === 'frequence'">
+                                  <img src="../../../assets/default/img/channels/FREQUENCE-2.png" alt="FREQUENCE Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
+                            <span v-if="MOVIE_CONTENT.movie.channel_name === 'radio-flimee'">
+                                  <img src="../../../assets/default/img/channels/Radio_Filmee.png" alt="Radio Filmee Logo"
+                                       class="c-channel-logo c-rti1-icon">
+                            </span>
+
                             <div class="header-banner__content--control">
                                 <a href="#description" class="overview-info">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="-255 347 100 100">
@@ -114,7 +144,7 @@
 
                         <div class="tv-show-content__video-content">
                             <div class="tv-show-content__video-content--video-item">
-                                <router-link :to="{name: 'show-movie', params:{id: MOVIE_CONTENT.movie.id}}">
+                                <router-link :to="{name: 'Movie-Player', params:{id: MOVIE_CONTENT.movie.id}}">
 
                                     <div class="c-thumb-image">
                                         <img :src="site_link + '/storage/backdrops/original_' + MOVIE_CONTENT.movie.backdrop"
@@ -258,6 +288,8 @@
         mounted() {
             if (this.IS_AUTHENTICATED) {
                 this.$store.dispatch("GET_MOVIE_SUMMARY", this.$route.params.id);
+            }else{
+                this.$store.dispatch("GET_GHOST_MOVIE_SUMMARY", this.$route.params.id);
             }
         },
 
@@ -268,16 +300,14 @@
             '$route.params.id': function () {
                 if (this.IS_AUTHENTICATED) {
                     this.$store.dispatch("GET_MOVIE_SUMMARY", this.$route.params.id);
+                }else{
+                    this.$store.dispatch("GET_GHOST_MOVIE_SUMMARY", this.$route.params.id);
                 }
             },
 
         },
 
         methods: {
-            SIMILAR_SHOW(id) {
-                this.$store.dispatch("GET_MOVIE_DETAILS", id);
-            },
-
 
             ADD_TO_COLLECTION(ID, ChannelName, Type, Index, ParentIndex) {
                 if (this.MOVIE_CONTENT.movie.is_favorite === 1)

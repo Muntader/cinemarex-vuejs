@@ -25,13 +25,7 @@ import LiveTvPlayer from '@/components/control/video-player/tv-player';
 import NewsPlayer from '@/components/control/video-player/news-player';
 
 import Search from '@/components/control/search/search';
-import Security from '@/components/control/setting/security';
-import Language from '@/components/control/setting/language';
-import ViewingHistory from '@/components/control/setting/viewing-history.vue';
-import AdjustSubtitle from '@/components/control/setting/adjust-subtitles';
-import SupportInbox from '@/components/control/setting/support-inbox.vue';
-import Profile from '@/components/control/setting/profile';
-import SupportRequest from '@/components/control/setting/support-request.vue';
+import ViewingHistory from '@/components/control/setting/components/viewing-history.vue';
 import Subscribe from '@/components/auth/register-subscribe';
 
 
@@ -213,18 +207,8 @@ let routes = [
     },
 
 
-
     {
-        name: 'series-player',
-        path: '/watch/series/:series_id',
-        component: SeriesPlayer,
-        meta: {
-            allAuth: true,
-            title: 'Series Player'
-        }
-    },
-    {
-        name: 'series-player-sp',
+        name: 'TV-Show-Player',
         path: '/watch/series/:series_id/:episode_id',
         component: SeriesPlayerSP,
         meta: {
@@ -245,7 +229,7 @@ let routes = [
 
 
     {
-        name: 'movie-player',
+        name: 'Movie-Player',
         path: '/watch/movie/:id',
         component: MoviePlayer,
         meta: {
@@ -268,50 +252,12 @@ let routes = [
 
     {
         name: 'search',
-        path: '/search',
+        path: '/app/s/search',
         component: Search,
         meta: {
             allAuth: true,
             title: 'Search'
         },
-    },
-    {
-        name: 'profile',
-        path: '/setting/public',
-        component: Profile,
-        meta: {
-            userAuth: true,
-            title: 'Profile'
-        }
-    },
-    {
-        name: 'security',
-        path: '/setting/security',
-        component: Security,
-        meta: {
-            userAuth: true,
-            title: 'Security'
-        }
-    },
-
-    {
-        name: 'language',
-        path: '/setting/language',
-        component: Language,
-        meta: {
-            userAuth: true,
-            title: 'Language'
-        }
-    },
-
-    {
-        name: 'adjust-subtitles',
-        path: '/setting/adjust-subtitles',
-        component: AdjustSubtitle,
-        meta: {
-            userAuth: true,
-            title: 'Adjust subtitles'
-        }
     },
 
     {
@@ -322,27 +268,7 @@ let routes = [
             userAuth: true,
             title: 'viewing History'
         }
-    },
-
-    {
-        name: 'support-inbox',
-        path: '/setting/support-inbox',
-        component: SupportInbox,
-        meta: {
-            userAuth: true,
-            title: 'Support Inbox'
-        }
-    },
-
-    {
-        name: 'support-request',
-        path: '/setting/support-request/:id',
-        component: SupportRequest,
-        meta: {
-            userAuth: true,
-            title: 'Support Request'
-        }
-    },
+    }
 
 
 ];

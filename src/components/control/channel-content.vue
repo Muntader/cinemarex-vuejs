@@ -44,7 +44,55 @@
                     </div>
                 </div>
 
-                <div class="c-app-channel-grid-content__category-carousel">
+                <div class="c-app-channel-grid-content__grid-view-style">
+                        <div class="grid-row" :class="{'active': SHOW_VIEW_STYLE === 1}" @click="SHOW_VIEW_STYLE = 1">
+                            <svg version="1.1" width="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                            <g>
+                                <g>
+                                    <path d="M176.792,0H59.208C26.561,0,0,26.561,0,59.208v117.584C0,209.439,26.561,236,59.208,236h117.584
+                                        C209.439,236,236,209.439,236,176.792V59.208C236,26.561,209.439,0,176.792,0z M196,176.792c0,10.591-8.617,19.208-19.208,19.208
+                                        H59.208C48.617,196,40,187.383,40,176.792V59.208C40,48.617,48.617,40,59.208,40h117.584C187.383,40,196,48.617,196,59.208
+                                        V176.792z"/>
+                                </g>
+                            </g>
+                            <g>
+                                <g>
+                                    <path d="M452,0H336c-33.084,0-60,26.916-60,60v116c0,33.084,26.916,60,60,60h116c33.084,0,60-26.916,60-60V60
+                                        C512,26.916,485.084,0,452,0z M472,176c0,11.028-8.972,20-20,20H336c-11.028,0-20-8.972-20-20V60c0-11.028,8.972-20,20-20h116
+                                        c11.028,0,20,8.972,20,20V176z"/>
+                                </g>
+                            </g>
+                            <g>
+                                <g>
+                                    <path d="M176.792,276H59.208C26.561,276,0,302.561,0,335.208v117.584C0,485.439,26.561,512,59.208,512h117.584
+                                        C209.439,512,236,485.439,236,452.792V335.208C236,302.561,209.439,276,176.792,276z M196,452.792
+                                        c0,10.591-8.617,19.208-19.208,19.208H59.208C48.617,472,40,463.383,40,452.792V335.208C40,324.617,48.617,316,59.208,316h117.584
+                                        c10.591,0,19.208,8.617,19.208,19.208V452.792z"/>
+                                </g>
+                            </g>
+                            <g>
+                                <g>
+                                    <path d="M452,276H336c-33.084,0-60,26.916-60,60v116c0,33.084,26.916,60,60,60h116c33.084,0,60-26.916,60-60V336
+                                        C512,302.916,485.084,276,452,276z M472,452c0,11.028-8.972,20-20,20H336c-11.028,0-20-8.972-20-20V336c0-11.028,8.972-20,20-20
+                                        h116c11.028,0,20,8.972,20,20V452z"/>
+                                </g>
+                            </g>
+                    </svg>
+                        </div>
+                        <div class="grid-one" :class="{'active': SHOW_VIEW_STYLE === 2}" @click="SHOW_VIEW_STYLE = 2">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" x="0px" y="0px" viewBox="0 0 124 124" style="enable-background:new 0 0 124 124;" xml:space="preserve" class=""><g transform="matrix(6.12323e-17 1 -1 6.12323e-17 124 -7.10543e-15)"><g>
+                                    <path d="M112,6H12C5.4,6,0,11.4,0,18s5.4,12,12,12h100c6.6,0,12-5.4,12-12S118.6,6,112,6z" data-original="#000000" class="" data-old_color="#FFF6F6" fill="#FFFFFF"/>
+                                    <path d="M112,50H12C5.4,50,0,55.4,0,62c0,6.6,5.4,12,12,12h100c6.6,0,12-5.4,12-12C124,55.4,118.6,50,112,50z" data-original="#000000" class="" data-old_color="#FFF6F6" fill="#FFFFFF"/>
+                                    <path d="M112,94H12c-6.6,0-12,5.4-12,12s5.4,12,12,12h100c6.6,0,12-5.4,12-12S118.6,94,112,94z" data-original="#000000" class="" data-old_color="#FFF6F6" fill="#FFFFFF"/>
+                                </g></g>
+                            </svg>
+                        </div>
+                </div>
+
+                <transition name="fade">
+
+                    <div class="c-app-channel-grid-content__category-carousel" v-show="SHOW_VIEW_STYLE === 1">
                     <div class="c-carousel-items">
 
                         <div class="c-first-grid">
@@ -492,6 +540,162 @@
                     </div>
                 </div>
 
+                </transition>
+
+                <transition name="fade">
+                   <div class="c-app-channel-grid-content__category-carousel category-one-item" v-show="SHOW_VIEW_STYLE === 2">
+                    <div class="c-carousel-items">
+
+                        <div class="c-other-grid" v-for="(item, index) in ListCategoryContentFilter.CategoryContentList" :key="index">
+                            <div class="c-carousel-grid-item">
+                                <div class="c-carousel-grid-item__small">
+                                    <router-link :to="{name: 'show-movie', params:{id: item.id}}"
+                                                 v-if="item.category_type === 'movie'">
+                                        <div class="c-thumb-image">
+                                            <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
+                                                 v-if="item.cloud === 'local'"
+                                                 alt="" width="100%">
+                                            <img :src="lg_backdrop + '/storage/backdrops/original_' + item.backdrop"
+                                                 v-if="item.cloud === 'aws'"
+                                                 alt="" width="100%">
+
+                                            <div class="c-add-my-selection" v-if="IS_AUTHENTICATED">
+
+                                                <div class="c-add-my-selection__add" v-if="!item.is_favorite"
+                                                     @click.prevent="ADD_TO_COLLECTION(item.id, ListCategoryContentFilter.ChannelName, 'movie', index, indexParent)">
+                                                    <div class="select-icon">
+                                                        <svg width="20" viewBox="0 0 448 448"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                                <div class="c-add-my-selection__selected" v-if="item.is_favorite"
+                                                     @click.prevent="ADD_TO_COLLECTION(item.id, ListCategoryContentFilter.ChannelName, 'movie', index, indexParent)">
+                                                    <div class="in-select-icon">
+                                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                             width="19" viewBox="0 0 348.333 348.334" style="enable-background:new 0 0 348.333 348.334;"
+                                                             xml:space="preserve">
+                                                            <g>
+                                                                <path d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85
+                                                                    c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563
+                                                                    c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85
+                                                                    l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554
+                                                                    L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/>
+                                                            </g>
+                                                        </svg>
+
+                                                    </div>
+
+                                                    <div class="selected-icon">
+                                                        <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                             width="19"viewBox="0 0 352.62 352.62" style="enable-background:new 0 0 352.62 352.62;"
+                                                             xml:space="preserve">
+                                                            <g>
+                                                                <path d="M337.222,22.952c-15.912-8.568-33.66,7.956-44.064,17.748c-23.867,23.256-44.063,50.184-66.708,74.664
+                                                                    c-25.092,26.928-48.348,53.856-74.052,80.173c-14.688,14.688-30.6,30.6-40.392,48.96c-22.032-21.421-41.004-44.677-65.484-63.648
+                                                                    c-17.748-13.464-47.124-23.256-46.512,9.18c1.224,42.229,38.556,87.517,66.096,116.28c11.628,12.24,26.928,25.092,44.676,25.704
+                                                                    c21.42,1.224,43.452-24.48,56.304-38.556c22.645-24.48,41.005-52.021,61.812-77.112c26.928-33.048,54.468-65.485,80.784-99.145
+                                                                    C326.206,96.392,378.226,44.983,337.222,22.952z M26.937,187.581c-0.612,0-1.224,0-2.448,0.611
+                                                                    c-2.448-0.611-4.284-1.224-6.732-2.448l0,0C19.593,184.52,22.653,185.132,26.937,187.581z"/>
+                                                            </g>
+                                                        </svg>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="c-info">
+                                            <div class="title">
+                                                {{item.name}}
+                                            </div>
+                                            <div class="description">
+                                                1 {{ListCategoryContentFilter.CategoryName}}
+                                            </div>
+                                        </div>
+                                        <div class="c-overlay"></div>
+                                    </router-link>
+
+                                    <router-link :to="{name: 'show-series', params:{id: item.id}}"
+                                                 v-if="item.category_type === 'series'">
+                                        <div class="c-thumb-image">
+                                            <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
+                                                 v-if="item.cloud === 'local'"
+                                                 alt="" width="100%">
+                                            <img :src="lg_backdrop + '/storage/backdrops/original_' + item.backdrop"
+                                                 v-if="item.cloud === 'aws'"
+                                                 alt="" width="100%">
+
+                                            <div class="c-add-my-selection" v-if="IS_AUTHENTICATED">
+
+                                                <div class="c-add-my-selection__add" v-if="!item.is_favorite"
+                                                     @click.prevent="ADD_TO_COLLECTION(item.id, ListCategoryContentFilter.ChannelName, 'series', index, 0)">
+                                                    <div class="select-icon">
+                                                        <svg width="20" viewBox="0 0 448 448"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="m408 184h-136c-4.417969 0-8-3.582031-8-8v-136c0-22.089844-17.910156-40-40-40s-40 17.910156-40 40v136c0 4.417969-3.582031 8-8 8h-136c-22.089844 0-40 17.910156-40 40s17.910156 40 40 40h136c4.417969 0 8 3.582031 8 8v136c0 22.089844 17.910156 40 40 40s40-17.910156 40-40v-136c0-4.417969 3.582031-8 8-8h136c22.089844 0 40-17.910156 40-40s-17.910156-40-40-40zm0 0"/>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                                <div class="c-add-my-selection__selected" v-else
+                                                     @click.prevent="ADD_TO_COLLECTION(item.id, ListCategoryContentFilter.ChannelName, 'series', index, 0)">
+                                                    <div class="in-select-icon">
+                                                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                                 width="19" viewBox="0 0 348.333 348.334" style="enable-background:new 0 0 348.333 348.334;"
+                                                 xml:space="preserve">
+                                            <g>
+                                                <path d="M336.559,68.611L231.016,174.165l105.543,105.549c15.699,15.705,15.699,41.145,0,56.85
+                                                    c-7.844,7.844-18.128,11.769-28.407,11.769c-10.296,0-20.581-3.919-28.419-11.769L174.167,231.003L68.609,336.563
+                                                    c-7.843,7.844-18.128,11.769-28.416,11.769c-10.285,0-20.563-3.919-28.413-11.769c-15.699-15.698-15.699-41.139,0-56.85
+                                                    l105.54-105.549L11.774,68.611c-15.699-15.699-15.699-41.145,0-56.844c15.696-15.687,41.127-15.687,56.829,0l105.563,105.554
+                                                    L279.721,11.767c15.705-15.687,41.139-15.687,56.832,0C352.258,27.466,352.258,52.912,336.559,68.611z"/>
+                                            </g>
+                                        </svg>
+
+                                                    </div>
+
+                                                    <div class="selected-icon">
+                                                        <svg version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                                             width="19"viewBox="0 0 352.62 352.62" style="enable-background:new 0 0 352.62 352.62;"
+                                             xml:space="preserve">
+                                        <g>
+                                            <path d="M337.222,22.952c-15.912-8.568-33.66,7.956-44.064,17.748c-23.867,23.256-44.063,50.184-66.708,74.664
+                                                c-25.092,26.928-48.348,53.856-74.052,80.173c-14.688,14.688-30.6,30.6-40.392,48.96c-22.032-21.421-41.004-44.677-65.484-63.648
+                                                c-17.748-13.464-47.124-23.256-46.512,9.18c1.224,42.229,38.556,87.517,66.096,116.28c11.628,12.24,26.928,25.092,44.676,25.704
+                                                c21.42,1.224,43.452-24.48,56.304-38.556c22.645-24.48,41.005-52.021,61.812-77.112c26.928-33.048,54.468-65.485,80.784-99.145
+                                                C326.206,96.392,378.226,44.983,337.222,22.952z M26.937,187.581c-0.612,0-1.224,0-2.448,0.611
+                                                c-2.448-0.611-4.284-1.224-6.732-2.448l0,0C19.593,184.52,22.653,185.132,26.937,187.581z"/>
+                                        </g>
+                                        </svg>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="c-info">
+                                            <div class="title">
+                                                {{item.name}}
+                                            </div>
+                                            <div class="description">
+                                                1 {{ListCategoryContentFilter.CategoryName}}
+                                            </div>
+                                        </div>
+                                        <div class="c-overlay"></div>
+                                    </router-link>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                </transition>
+
                 <div class="c-app-channel-grid-content__slider-arrow">
                     <button role="button" class="slider-arrow-right" v-show="HideRight" @click="swipeRight">
                         <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
@@ -525,7 +729,8 @@
             return {
                 HideLeft: 0,
                 HideRight: 1,
-                SHOW_ANIMATION: false
+                SHOW_ANIMATION: false,
+                SHOW_VIEW_STYLE: 1
             }
         },
 

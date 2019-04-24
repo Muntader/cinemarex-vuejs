@@ -7,13 +7,20 @@
                  'radio-ci-overlay-color': $route.params.ChannelName === 'radio-ci',
                  'frequence-overlay-color': $route.params.ChannelName === 'frequence',
                  'radio-flimee-overlay-color': $route.params.ChannelName === 'radio-flimee',
+                 'c-app-navbar-show': $route.name === 'show-movie' || $route.name === 'show-series' ||   $route.name === 'search'
                  }">
+
+        <div class="c-app-navbar__back" v-if="$route.name === 'show-movie' || $route.name === 'show-series' ||  $route.name === 'search'">
+            <a href="">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81.333336 81.333336" height="81.333" width="81.333"><path d="M81.313 40.678c0 22.453-18.204 40.655-40.657 40.655C18.202 81.333 0 63.13 0 40.678 0 18.222 18.2.02 40.657.02c22.452 0 40.656 18.202 40.656 40.658z" fill="#dde1e6"/><path d="M36.17 59.338L21.1 44.408l-.002.002-3.767-3.732 18.84-18.663 3.77 3.732-15.074 14.928 15.076 14.93-3.77 3.734z" fill="#2f323b" fill-rule="evenodd"/><path d="M23.995 43.345v-5.333h39.99v5.333h-39.99z" fill="#2f323b" fill-rule="evenodd"/></svg>
+            </a>
+        </div>
 
         <div class="c-app-navbar__logo">
             <img src="../../assets/default/img/channels/logo_rti.png" alt="RTI Logo" class="c-rti-logo">
         </div>
 
-        <div class="c-app-navbar__channels">
+        <div class="c-app-navbar__channels" v-if="$route.name !== 'show-movie' && $route.name !== 'show-series' &&  $route.name !== 'search'">
             <carousel :perPageCustom="[[300, 4], [750, 4], [1024, 7], [1360, 15], [2000, 40]]" :navigationEnabled="true"
                       :autoplay="true" :paginationEnabled="false" :mouseDrag="false"
                       navigationNextLabel='<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="20">
@@ -146,10 +153,10 @@
                     </svg>
                 </span>
             </div>
-            <div class="c-text-username" v-if="USER_INFO.Username !== null">
+            <div class="c-text-username d-none d-md-block" v-if="USER_INFO.Username !== null">
                 {{USER_INFO.Username}}
             </div>
-            <div class="c-text-username" v-else>
+            <div class="c-text-username d-none d-md-block" v-else>
                 {{USER_INFO.Email}}
             </div>
 
@@ -161,12 +168,12 @@
                          'rti2-overlay-color': $route.params.ChannelName === 'rti2',
                          'rti3-overlay-color': $route.params.ChannelName === 'rti3',
                          'radio-ci-overlay-color': $route.params.ChannelName === 'radio-ci',
-                         'frequence-overlay-color': $route.params.ChannelName === 'frequence',
-                         'radio-flimee-overlay-color': $route.params.ChannelName === 'radio-flimee',
+                         'frequence-overlay-color': $route.params.ChannelName === 'frequence' ||  $route.name === 'show-movie',
+                         'radio-flimee-overlay-color': $route.params.ChannelName === 'radio-flimee'
                          }"
                  v-show="SHOW_USER_DROPDOWN">
                 <ul>
-                    <li><router-link :to="{name: 'profile'}">My Profile</router-link></li>
+                    <li><a @click="SHOW_PROFILE_MODAL">My Profile</a></li>
                     <li><router-link :to="{name: 'profile'}">Help and contact</router-link></li>
                     <li><router-link :to="{name: 'profile'}">Legal Notice</router-link></li>
                     <li><router-link :to="{name: 'profile'}">Privacy area</router-link></li>
@@ -177,8 +184,8 @@
 
         </div>
 
-        <div class="c-app-navbar__menu" v-else>
-            <div class="c-login-icon-container">
+        <div class="c-app-navbar__menu ghost" v-else>
+            <div class="c-login-icon-container"  @click="SHOW_LOGIN">
                      <span>
                          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="35" viewBox="0 0 171 171">
                             <path fill="#FFF"
@@ -188,11 +195,10 @@
                      </span>
             </div>
 
-            <div class="c-text-username" @click="SHOW_LOGIN">
+            <div class="c-text-username d-none d-md-block" @click="SHOW_LOGIN">
                 <span>LOGIN</span>
             </div>
         </div>
-
 
     </div>
 </template>
@@ -216,8 +222,6 @@
         },
 
         computed: mapState({
-            showSearchPageEvent: state => state.event.show_search_page,
-            SHOW_LOGIN_MODAL: state => state.event.SHOW_LOGIN_MODAL,
             USER_INFO: state => state.register.UserInfo,
             IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED
         }),
@@ -254,6 +258,11 @@
             SHOW_LOGIN() {
                 this.$store.commit('SHOW_LOGIN_MODAL', true)
             },
+
+            SHOW_PROFILE_MODAL() {
+                this.$store.commit('SHOW_PROFILE_MODAL', true)
+            },
+
 
             LOGOUT() {
                 this.$store.dispatch("LOGOUT_AUTH");

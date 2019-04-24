@@ -2,6 +2,7 @@
     <div class="c-app-sidebar-left d-none d-md-block"
          :class="{'c-hide-sidebar': !HideSideBar, 'c-show-sidebar': HideSideBar}">
         <div class="c-app-sidebar-left__search" :class="{'c-bk-color': $route.name === 'discover-channel' || $route.name === 'discover'}">
+            <router-link :to="{name: 'search'}">
             <div class="c-search-item">
                 <span class="c-search-label">
                     Search
@@ -11,6 +12,7 @@
                 </span>
             </div>
 
+            </router-link>
         </div>
 
         <div class="c-app-sidebar-left__categories-list">
@@ -61,7 +63,7 @@
 
             </div>
 
-            <div class="c-category-item">
+            <div class="c-category-item"  v-if="IS_AUTHENTICATED">
                 <router-link :class="{'c-bk-color': $route.name !== 'channel-content' && $route.name !== 'my-selection'}"
                              class="hv"
                              :to="{name: 'my-selection', params: {ChannelName: 'rti1'} }"
@@ -110,7 +112,9 @@
 
         computed: mapState({
             ChannelContent: state => state.discover.ChannelContent,
-            HideSideBar: state => state.event.HIDE_SIDEBAR
+            HideSideBar: state => state.event.HIDE_SIDEBAR,
+            IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED
+
         }),
 
         methods: {

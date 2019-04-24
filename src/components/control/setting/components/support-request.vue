@@ -35,7 +35,7 @@
                     <h4>{{request_data.data.request.subject}} </h4>
                    </div>
 
-                  
+
                       <div class="col-4 text-right">
                         <span class="support-request re-open " v-if="request_data.data.request.status === 1">{{$t('setting.open')}}</span>
                         <span class="support-request re-close"  v-else>{{$t('setting.close')}}</span>
@@ -46,23 +46,23 @@
           <hr>
 
           <div class="settings__message-box" v-if="request_data.data">
-            
+
             <div  class="col-12">
             <div class="col-12 mt-5 user">
               <div class="float-left profile-image text-center">
-                <img src="../../../assets/default/img/user.svg" alt="profile" width="50px">
+                <img src="../../../../assets/default/img/user.svg" alt="profile" width="50px">
                 <p>You</p>
               </div>
               <div class="col-10 col-md-7">
                 <div class="user-message">
                 <p class="mt-1">{{request_data.data.request.details}}</p>
                 </div>
-                
+
                 <div class="date">
                 <p class="mt-1">{{request_data.data.request.created_at}}</p>
                   </div>
               </div>
-              
+
             </div>
             </div>
 
@@ -70,7 +70,7 @@
 
               <div class="col-12 mt-5 user" v-if="item.from === 'client'">
                 <div class="float-left profile-image text-center">
-                  <img src="../../../assets/default/img/user.svg" alt="profile" width="50px">
+                  <img src="../../../../assets/default/img/user.svg" alt="profile" width="50px">
                   <p>You</p>
                 </div>
                 <div class="col-10 col-md-7">
@@ -85,7 +85,7 @@
 
               <div class="support col-12 mt-5"  v-else>
                 <div class="float-left profile-image text-center">
-                  <img src="../../../assets/default/img/support.png" alt="profile" width="50px">
+                  <img src="../../../../assets/default/img/support.png" alt="profile" width="50px">
                   <p class="mt-1">{{item.from}}</p>
                 </div>
                 <div class="col-10 col-md-7">
@@ -101,7 +101,7 @@
 
 
           </div>
-          
+
 
 
           <div class="col-12 mt-5 reply-box" v-if="request_data.data.request.status !== 0">
@@ -126,7 +126,7 @@
 </template>
 
 <script>
-import exitButton from "../utils/exit-button.vue";
+import exitButton from "../../utils/exit-button.vue";
 import { mapState } from "vuex";
 export default {
   data() {

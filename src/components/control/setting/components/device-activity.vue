@@ -98,8 +98,8 @@
     import {
         mapState
     } from "vuex";
-    import exitButton from '../utils/exit-button.vue';
-    const alertify = require("alertify.js");
+    import exitButton from '../../utils/exit-button.vue';
+    const alertify = require("../../../../../node_modules/alertify.js/dist/js/alertify");
     export default {
         data() {
             return {

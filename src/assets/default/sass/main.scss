@@ -14,7 +14,6 @@
 // Import Tooltip Style
 @import "utils/tooltip";
 @import "components/search";
-@import "components/live-tv";
 @import "components/settings";
 @import "components/login";
 @import "components/tvshow-player";
@@ -70,7 +69,15 @@ body {
     filter: blur(8px);
     -webkit-filter: blur(8px);
   }
+
+  .c-app-black-overlay-page {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    opacity: 0.1;
+  }
 }
+
+
 
 @-webkit-keyframes slideInUp {
   from {
