@@ -18,6 +18,8 @@
 
             <div class="c-app-channel-content" v-else>
 
+
+
                 <div class="c-app-channel-grid-content__background">
                     <div class="full-background" v-if="ListCategoryContent[0][0].cloud === 'local'"
                          :style="{
@@ -44,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="c-app-channel-grid-content__grid-view-style">
+                <div class="c-app-channel-grid-content__grid-view-style d-none d-md-block">
                         <div class="grid-row" :class="{'active': SHOW_VIEW_STYLE === 1}" @click="SHOW_VIEW_STYLE = 1">
                             <svg version="1.1" width="20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                                  viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
@@ -90,6 +92,10 @@
                         </div>
                 </div>
 
+
+                <div class="c-app-channel-grid-content__title d-block d-md-none">
+                    <h4>{{$route.params.CategoryName}}</h4>
+                </div>
                 <transition name="fade">
 
                     <div class="c-app-channel-grid-content__category-carousel" v-show="SHOW_VIEW_STYLE === 1">
@@ -159,7 +165,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="c-info">
+                                        <div class="c-info d-none d-md-block">
                                             <div class="title">
                                                 {{item.name}}
                                             </div>
@@ -229,7 +235,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="c-info">
+                                        <div class="c-info d-none d-md-block">
                                             <div class="title">
                                                 {{item.name}}
                                             </div>
@@ -304,7 +310,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="c-info">
+                                        <div class="c-info d-none d-md-block">
                                             <div class="title">
                                                 {{item.name}}
                                             </div>
@@ -374,7 +380,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="c-info">
+                                        <div class="c-info d-none d-md-block">
                                             <div class="title">
                                                 {{item.name}}
                                             </div>
@@ -453,7 +459,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="c-info">
+                                        <div class="c-info d-none d-md-block">
                                             <div class="title">
                                                 {{item.name}}
                                             </div>
@@ -523,7 +529,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="c-info">
+                                        <div class="c-info d-none d-md-block">
                                             <div class="title">
                                                 {{item.name}}
                                             </div>
@@ -608,7 +614,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="c-info">
+                                        <div class="c-info d-none d-md-block">
                                             <div class="title">
                                                 {{item.name}}
                                             </div>
@@ -678,7 +684,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="c-info">
+                                        <div class="c-info d-none d-md-block">
                                             <div class="title">
                                                 {{item.name}}
                                             </div>
@@ -696,7 +702,7 @@
                 </div>
                 </transition>
 
-                <div class="c-app-channel-grid-content__slider-arrow">
+                <div class="c-app-channel-grid-content__slider-arrow d-none d-md-block">
                     <button role="button" class="slider-arrow-right" v-show="HideRight" @click="swipeRight">
                         <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="square" stroke="#fff" stroke-width="8"

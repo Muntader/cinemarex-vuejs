@@ -1,8 +1,5 @@
 import VueRouter from 'vue-router';
-import Login from '@/components/auth/login';
-import SingUp from '@/components/auth/register';
-import ForgetPassword from '@/components/auth/forget-password';
-import ForgetChange from '@/components/auth/forget-password';
+import ForgetChange from '@/components/auth/forget-rest';
 
 
 import Discover from '@/components/control/channel';
@@ -18,7 +15,6 @@ import NotFound from '@/components/errors/404';
 import ShowMovie from '@/components/control/movie/show';
 import ShowTvShow from '@/components/control/series/show';
 import MySelection from '@/components/control/my-selection/index.vue';
-import SeriesPlayer from '@/components/control/video-player/series-player';
 import SeriesPlayerSP from '@/components/control/video-player/series-player';
 import MoviePlayer from '@/components/control/video-player/movie-player';
 import LiveTvPlayer from '@/components/control/video-player/tv-player';
@@ -26,48 +22,9 @@ import NewsPlayer from '@/components/control/video-player/news-player';
 
 import Search from '@/components/control/search/search';
 import ViewingHistory from '@/components/control/setting/components/viewing-history.vue';
-import Subscribe from '@/components/auth/register-subscribe';
 
 
 let routes = [
-    {
-        name: 'login',
-        path: '/login',
-        component: Login,
-        meta: {
-            userNotAuth: true,
-            title: 'Login'
-        }
-    },
-
-    {
-        name: 'signup',
-        path: '/signup',
-        component: SingUp,
-        meta: {
-            userNotAuth: true,
-            title: 'Signup'
-        }
-    },
-
-    {
-        name: 'subscribe',
-        path: '/subscribe',
-        component: Subscribe,
-        meta: {
-            userAuth: true,
-            title: 'Subscribe'
-        }
-    },
-    {
-        name: 'forget_password',
-        path: '/forget',
-        component: ForgetPassword,
-        meta: {
-            userNotAuth: true,
-            title: 'Forget Password'
-        }
-    },
 
     {
         name: 'forget_change',
@@ -107,15 +64,7 @@ let routes = [
             title: 'Faq'
         }
     },
-    {
-        name: 'contact-us',
-        path: '/contact-us',
-        component: ContactUs,
-        meta: {
-            allAuth: true,
-            name: 'Contact Us',
-        }
-    },
+
     {
         name: 'about-us',
         path: '/about-us',
@@ -125,7 +74,6 @@ let routes = [
             title: 'About Us',
         }
     },
-
 
     {
         name: '404',

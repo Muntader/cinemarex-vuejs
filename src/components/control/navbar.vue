@@ -7,22 +7,60 @@
                  'radio-ci-overlay-color': $route.params.ChannelName === 'radio-ci',
                  'frequence-overlay-color': $route.params.ChannelName === 'frequence',
                  'radio-flimee-overlay-color': $route.params.ChannelName === 'radio-flimee',
-                 'c-app-navbar-show': $route.name === 'show-movie' || $route.name === 'show-series' ||   $route.name === 'search'
+                 'c-app-navbar-show': $route.name === 'show-movie' || $route.name === 'show-series' ||   $route.name === 'search',
+                 'c-app-navbar-show c-navbar-bk':   $route.name === 'privacy' || $route.name === 'terms' || $route.name === 'faq'
                  }">
 
-        <div class="c-app-navbar__back" v-if="$route.name === 'show-movie' || $route.name === 'show-series' ||  $route.name === 'search'">
-            <a href="">
+        <div class="c-app-navbar__back"
+                 v-if="$route.name === 'show-movie'
+                    || $route.name === 'show-series'
+                    || $route.name === 'search'
+                    || $route.name === 'privacy'
+                    || $route.name === 'terms'
+                    || $route.name === 'faq'"
+             @click="BACK()">
+            <span>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 81.333336 81.333336" height="81.333" width="81.333"><path d="M81.313 40.678c0 22.453-18.204 40.655-40.657 40.655C18.202 81.333 0 63.13 0 40.678 0 18.222 18.2.02 40.657.02c22.452 0 40.656 18.202 40.656 40.658z" fill="#dde1e6"/><path d="M36.17 59.338L21.1 44.408l-.002.002-3.767-3.732 18.84-18.663 3.77 3.732-15.074 14.928 15.076 14.93-3.77 3.734z" fill="#2f323b" fill-rule="evenodd"/><path d="M23.995 43.345v-5.333h39.99v5.333h-39.99z" fill="#2f323b" fill-rule="evenodd"/></svg>
-            </a>
+            </span>
+        </div>
+
+
+        <div class="c-app-navbar__mobile-menu d-block d-md-none" @click="SHOW_MOBILE_SIDEBAR()"
+             v-if="$route.name !== 'show-movie'
+                    && $route.name !== 'show-series'
+                    && $route.name !== 'search'
+                    && $route.name !== 'privacy'
+                    && $route.name !== 'terms'
+                    && $route.name !== 'faq'">
+            <div class="menu-icon">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 24 24">
+                    <g>
+                        <path d="M24,3c0-0.6-0.4-1-1-1H1C0.4,2,0,2.4,0,3v2c0,0.6,0.4,1,1,1h22c0.6,0,1-0.4,1-1V3z"/>
+                        <path d="M24,11c0-0.6-0.4-1-1-1H1c-0.6,0-1,0.4-1,1v2c0,0.6,0.4,1,1,1h22c0.6,0,1-0.4,1-1V11z"/>
+                        <path d="M24,19c0-0.6-0.4-1-1-1H1c-0.6,0-1,0.4-1,1v2c0,0.6,0.4,1,1,1h22c0.6,0,1-0.4,1-1V19z"/>
+                    </g>
+                </svg>
+
+            </div>
         </div>
 
         <div class="c-app-navbar__logo">
             <img src="../../assets/default/img/channels/logo_rti.png" alt="RTI Logo" class="c-rti-logo">
         </div>
 
-        <div class="c-app-navbar__channels" v-if="$route.name !== 'show-movie' && $route.name !== 'show-series' &&  $route.name !== 'search'">
-            <carousel :perPageCustom="[[300, 4], [750, 4], [1024, 7], [1360, 15], [2000, 40]]" :navigationEnabled="true"
-                      :autoplay="true" :paginationEnabled="false" :mouseDrag="false"
+        <div class="c-app-navbar__channels"
+             v-if="$route.name !== 'show-movie'
+                    && $route.name !== 'show-series'
+                    && $route.name !== 'search'
+                    && $route.name !== 'privacy'
+                    && $route.name !== 'terms'
+                    && $route.name !== 'faq'">
+            <carousel :perPageCustom="[[250, 4], [518,3], [600, 4], [1024, 7], [1360, 15], [2000, 40]]"
+                      :navigationEnabled="true"
+                      :scrollPerPage="true"
+                      :paginationEnabled="false"
+                      :autoplay="true"
+                      :mouseDrag="false"
                       navigationNextLabel='<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="20">
                                                 <path stroke-linecap="square" stroke="#fff" stroke-width="8"
                                                       d="M40 16l43 44m0 0l-43 44"></path>
@@ -134,6 +172,10 @@
             </carousel>
         </div>
 
+        <router-link :to="{name: 'search'}" class="c-app-navbar__search-icon d-block d-md-none" v-if="$route.name !== 'show-movie' && $route.name !== 'show-series' &&  $route.name !== 'search'">
+            <img src="../../assets/default/img/page/channel/search.svg" alt="Search Icon" width="20px">
+        </router-link>
+
         <div class="c-app-navbar__menu" v-if="IS_AUTHENTICATED" @click="SHOW_USER_DROPDOWN = !SHOW_USER_DROPDOWN">
             <div class="c-login-icon-container">
                <span v-if="USER_INFO.Image !== null">
@@ -173,10 +215,10 @@
                          }"
                  v-show="SHOW_USER_DROPDOWN">
                 <ul>
-                    <li><a @click="SHOW_PROFILE_MODAL">My Profile</a></li>
-                    <li><router-link :to="{name: 'profile'}">Help and contact</router-link></li>
-                    <li><router-link :to="{name: 'profile'}">Legal Notice</router-link></li>
-                    <li><router-link :to="{name: 'profile'}">Privacy area</router-link></li>
+                    <li><a @click="SHOW_PROFILE_MODAL">{{$t('setting.profile')}}</a></li>
+                    <li><router-link :to="{name: 'terms'}">{{$t('footer.terms')}}</router-link></li>
+                    <li><router-link :to="{name: 'privacy'}">{{$t('footer.privacy')}}</router-link></li>
+                    <li><router-link :to="{name: 'faq'}">{{$t('footer.faq')}}</router-link></li>
                     <li><span @click="LOGOUT">Sign out</span></li>
                 </ul>
             </div>
@@ -223,8 +265,10 @@
 
         computed: mapState({
             USER_INFO: state => state.register.UserInfo,
-            IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED
+            IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED,
+            FROM_ROUTE_FALLBACK: state => state.event.FROM_ROUTE_FALLBACK
         }),
+
 
         components: {
             'login': LoginComponent
@@ -236,6 +280,7 @@
              this.HoverIcon =  this.$route.params.ChannelName;
             }
         },
+
         watch: {
             '$route.params.ChannelName': function (val) {
                 if(this.$route.name === 'discover') {
@@ -245,6 +290,8 @@
                 }
             },
         },
+
+
         methods: {
 
             LEAVE_CHANNEL_HOVER() {
@@ -270,6 +317,22 @@
 
             SET_ANIMATION_SLIDER(Channel) {
                 this.$store.commit('CHANNEL_SLIDER_ANIMATION', true)
+            },
+
+            SHOW_MOBILE_SIDEBAR() {
+              this.$store.commit('SHOW_MOBILE_SIDEBAR');
+            },
+
+            BACK(){
+                if(this.FROM_ROUTE_FALLBACK !== null ) {
+                    if (!this.FROM_ROUTE_FALLBACK.name) {
+                        this.$router.push({name: 'discover'});
+                    } else {
+                        this.$router.back();
+                    }
+                }else {
+                    this.$router.push({name: 'discover'});
+                }
             }
 
         },

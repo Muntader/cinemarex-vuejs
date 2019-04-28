@@ -1,5 +1,7 @@
 <template>
-    <div class="c-app-movies-show">
+    <transition name="fade">
+
+    <div class="c-app-movies-show" v-show="ShowAnimation">
 
         <div class="c-app-movies-show-content" v-if="MOVIE_CONTENT.movie != null ">
 
@@ -240,13 +242,14 @@
         </div>
 
     </div>
+    </transition>
+
 </template>
 
 <script>
     import {
         mapState
     } from "vuex";
-    import exitButton from "../utils/exit-button.vue";
     import {
         Carousel,
         Slide
@@ -257,23 +260,14 @@
 
         data() {
             return {
-                animation: false,
-                castShow: null,
-                showplyrmodal: false,
-                collection: {
-                    id: null,
-                    poster: null,
-                    name: null,
-                    type: null,
-                    index: null
-                }
+                ShowAnimation: true,
+                fromRoute: null
             };
         },
 
         components: {
-            "exit-button": exitButton,
             Carousel,
-            Slide,
+            Slide
         },
 
         computed: mapState({
@@ -283,6 +277,12 @@
 
         beforeDestroy() {
             this.$store.commit("CLEAR_MOVIE_SHOW_DATA");
+        },
+
+        beforeRouteEnter (to, from, next) {
+            next(vm => {
+                vm.$store.commit('FROM_ROUTE_FALLBACK', from);
+            })
         },
 
         mounted() {

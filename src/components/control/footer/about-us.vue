@@ -40,7 +40,7 @@
         },
 
         computed: mapState({
-            data: state => state.home.footer
+            data: state => state.discover.STIE_INFO
         }),
         created() {
             if (this.data.length == 0 || this.data === null) {

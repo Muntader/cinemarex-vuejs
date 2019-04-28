@@ -53,7 +53,7 @@
                                 <div class="playlist">
                                     <ul class="playlist__list">
                                         <li class="playlist__item">
-                                            <a>
+                                            <router-link :to="{name: 'Movie-Player', params:{id: item.id}}">
                                                 <div class="playlist__thumb">
                                                     <img :src="site_link + '/storage/backdrops/original_' + item.backdrop"
                                                          v-if="item.cloud === 'local'"
@@ -67,7 +67,7 @@
                                                 </div>
                                                 <p class="playlist__title">{{item.name}}</p>
                                                 <p class="playlist__description">{{item.overview}}</p>
-                                            </a>
+                                            </router-link>
                                         </li>
                                     </ul>
                                 </div>
@@ -184,7 +184,7 @@
                                 <div class="playlist">
                                     <ul class="playlist__list">
                                         <li class="playlist__item"  v-for="(itemEpisode, indexEpisode) in item.episodes"  v-if="item.episodes !== undefined">
-                                            <a>
+                                            <router-link :to="{name: 'TV-Show-Player', params:{series_id: item.series.id, episode_id: itemEpisode.id}}">
                                                 <div class="playlist__thumb">
                                                     <img :src="site_link + itemEpisode.backdrop"
                                                          v-if="itemEpisode.cloud === 'Local'"
@@ -198,7 +198,7 @@
                                                 </div>
                                                 <p class="playlist__title">Season {{item.season}} Episode {{itemEpisode.episode_number}}</p>
                                                 <p class="playlist__description">{{itemEpisode.overview}}</p>
-                                            </a>
+                                            </router-link>
                                         </li>
                                     </ul>
                                 </div>

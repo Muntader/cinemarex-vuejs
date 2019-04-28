@@ -1,4 +1,3 @@
-
 // Abstracts
 @import "abstracts/variables";
 @import "abstracts/mixin";
@@ -7,26 +6,19 @@
 // Svg Icon
 @import "icon/svg";
 // Lib
-@import "utils/carousel";
 @import "utils/bootstrap";
-@import "utils/spinner";
-@import "utils/videojs";
-// Import Tooltip Style
-@import "utils/tooltip";
 @import "components/search";
 @import "components/settings";
 @import "components/login";
 @import "components/tvshow-player";
-
 // Navbar Phone
 @import "layout/navbar";
 @import "layout/sidebar";
-
-
 @import "components/channel";
 @import "components/channel-content";
 @import "components/my-selection";
 @import "components/movie-content";
+@import "components/site-information";
 
 body {
   line-height: 1.2;
@@ -77,8 +69,6 @@ body {
   }
 }
 
-
-
 @-webkit-keyframes slideInUp {
   from {
     -webkit-transform: translate3d(0, 100%, 0);
@@ -110,10 +100,61 @@ body {
   animation-name: slideInUp;
 }
 
-
 .slideInUp-enter-active {
   animation: slideInUp 1s;
 }
+
 .slideInUp-leave-active {
   animation: slideInUp 1s;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */
+{
+  opacity: 0;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ffffff;
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+
+::-webkit-scrollbar-track {
+  background: #666666;
+  border: 0px none #ffffff;
+  border-radius: 50px;
+}
+
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+
+::-webkit-scrollbar-track:active {
+  background: #333333;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }

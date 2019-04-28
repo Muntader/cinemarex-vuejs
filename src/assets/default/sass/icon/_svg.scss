@@ -1,31 +1,4 @@
 
-.poster {
-
-  &__add-collection-icon img,
-  &__remove-collection-icon img,
-  &__add-like-icon img,
-  &__remove-like-icon img{
-    width: 30px;
-    cursor: pointer;
-  }
-
-  &__backdrop_overlay-info .body .play svg {
-    width: 60px;
-  }
-}
-
-
-.show_item {
-  &__header {
-    .header__collection img,
-    .header__like img {
-      width: 17px;
-    }
-  }
-}
-
-
-
 
 
 .arrow-left-svg,
@@ -38,9 +11,6 @@
   width: 20px;
 }
 
-.play-svg{
-  width: 60px !important;
-}
 
 .arrow-down-show-item {
   position: absolute;
@@ -48,52 +18,3 @@
   bottom: -26px;
 }
 
-.top-play-svg {
-  position: relative;
-  top: 1px;
-  right: 2px;
-  width: 12px;
-}
-.top-collection-svg {
-  position: relative;
-  top: 1px;
-  width: 11px;
-}
-.sm-search-svg {
-  width: 25px;
-}
-
-
-.sm-exit-svg {
-  width: 30px;
-}
-
-#not-found-svg {
-  position: relative;
-  top: 20px;
-  width: 60px;
-}
-
-.collapse-svg {
-  width: 30px;
-}
-
-.camera-svg {
-  width: 30px;
-}
-
-.flag-svg {
-  width: 120px;
-}
-
-.delete-svg {
-  width: 30px;
-  cursor: pointer;
-}
-
-/**
-      Logo
- */
-.logo {
-  width: 40px;
-}

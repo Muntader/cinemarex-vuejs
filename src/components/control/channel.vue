@@ -44,45 +44,122 @@
 
         <div class="c-app-channel" v-if="!HomeLoading">
 
+            <div class="c-app-channel-content__logo_channel">
+                <span v-if="$route.params.ChannelName === 'rti1' || $route.name === 'discover'">
+                    <img src="../../assets/default/img/channels/RTI1.png" alt="RTI1 Logo"
+                                       class="c-channel-logo">
+                </span>
+
+                <span v-if="$route.params.ChannelName === 'rti2'">
+                    <img src="../../assets/default/img/channels/RTI2.png" alt="RTI2 Logo"
+                                       class="c-channel-logo">
+                </span>
+
+                <span v-if="$route.params.ChannelName === 'rti3'">
+                    <img src="../../assets/default/img/channels/RTI3.png" alt="RTI3 Logo"
+                                       class="c-channel-logo">
+                </span>
+
+                <span v-if="$route.params.ChannelName === 'radio-ci'">
+                    <img src="../../assets/default/img/channels/RADIO-CI.png" alt="RADIO CI Logo"
+                                       class="c-channel-logo">
+                </span>
+
+                <span v-if="$route.params.ChannelName === 'frequence'">
+                    <img src="../../assets/default/img/channels/FREQUENCE-2.png" alt="FREQUENCE Logo"
+                                       class="c-channel-logo">
+                </span>
+                <span v-if="$route.params.ChannelName === 'radio-flimee'">
+                    <img src="../../assets/default/img/channels/Radio_Filmee.png" alt="Radio Filmee Logo"
+                                       class="c-channel-logo">
+                </span>
+
+            </div>
+
+
             <div class="c-app-channel-content__top-carousel">
-                <carousel :navigationEnabled="false" :paginationEnabled="true" :autoplay="true" :autoplayTimeout="5000"
+                <carousel :navigationEnabled="false" :paginationEnabled="true" :autoplay="true" :autoplayTimeout="6000"
                           :loop="true" easing="slideup" :perPage="1" :mouseDrag="false">
                     <slide class="c-carousel-item" v-for="(item, index) in ChannelContent.TopList" :key="index"
                            v-if="ChannelContent.TopList !== null">
-                        <div class="c-backdrop-item"
-                             :style="{
-                     backgroundImage: 'url(' + site_link + '/storage/backdrops/original_' + item.backdrop + ')',
-                     backgroundSize: 'cover',
-                     backgroundRepeat: 'no-repeat',
-                     backgroundPosition: 'center 0%',
-                     backgroundAttachment: 'scroll',
-                     height: '100vh'
-                     }" v-if="item.cloud === 'local' ">
 
-                        </div>
+                        <router-link :to="{name: 'show-movie', params: {id: item.id}}" v-if="item.type === 'movie'">
 
-                        <div class="c-backdrop-item"
-                             :style="{
-                     backgroundImage: 'url(' + lg_backdrop + item.backdrop + ')',
-                     backgroundSize: 'cover',
-                     backgroundRepeat: 'no-repeat',
-                     backgroundPosition: 'center 0%',
-                     backgroundAttachment: 'scroll',
-                     height: '100vh'
-                     }" v-if="item.cloud === 'aws' ">
+                            <div class="c-backdrop-item"
+                                 :style="{
+                                         backgroundImage: 'url(' + site_link + '/storage/backdrops/original_' + item.backdrop + ')',
+                                         backgroundSize: 'cover',
+                                         backgroundRepeat: 'no-repeat',
+                                         backgroundPosition: 'center 0%',
+                                         backgroundAttachment: 'scroll',
+                                         height: '100vh'
+                                         }" v-if="item.cloud === 'local' ">
 
-                        </div>
-
-                        <div class="c-item-details">
-                            <div class="c-item-title">
-                                {{item.name}}
                             </div>
-                            <div class="c-play-item">
-                                <img src="../../assets/default/img/page/channel/play.svg" alt="Play Icon" width="20">
-                                See The Video
-                            </div>
-                        </div>
 
+                            <div class="c-backdrop-item"
+                                 :style="{
+                                         backgroundImage: 'url(' + lg_backdrop + item.backdrop + ')',
+                                         backgroundSize: 'cover',
+                                         backgroundRepeat: 'no-repeat',
+                                         backgroundPosition: 'center 0%',
+                                         backgroundAttachment: 'scroll',
+                                         height: '100vh'
+                                         }" v-if="item.cloud === 'aws' ">
+
+                            </div>
+
+                            <div class="c-item-details">
+                                <div class="c-item-title">
+                                    {{item.name}}
+                                </div>
+                                <div class="c-play-item">
+                                    <img src="../../assets/default/img/page/channel/play.svg" alt="Play Icon"
+                                         width="20">
+                                    See The Video
+                                </div>
+                            </div>
+
+                        </router-link>
+
+                        <router-link :to="{name: 'show-series', params: {id: item.id}}" v-if="item.type === 'series'">
+
+                            <div class="c-backdrop-item"
+                                 :style="{
+                                         backgroundImage: 'url(' + site_link + '/storage/backdrops/original_' + item.backdrop + ')',
+                                         backgroundSize: 'cover',
+                                         backgroundRepeat: 'no-repeat',
+                                         backgroundPosition: 'center 0%',
+                                         backgroundAttachment: 'scroll',
+                                         height: '100vh'
+                                         }" v-if="item.cloud === 'local' ">
+
+                            </div>
+
+                            <div class="c-backdrop-item"
+                                 :style="{
+                                         backgroundImage: 'url(' + lg_backdrop + item.backdrop + ')',
+                                         backgroundSize: 'cover',
+                                         backgroundRepeat: 'no-repeat',
+                                         backgroundPosition: 'center 0%',
+                                         backgroundAttachment: 'scroll',
+                                         height: '100vh'
+                                         }" v-if="item.cloud === 'aws' ">
+
+                            </div>
+
+                            <div class="c-item-details">
+                                <div class="c-item-title">
+                                    {{item.name}}
+                                </div>
+                                <div class="c-play-item">
+                                    <img src="../../assets/default/img/page/channel/play.svg" alt="Play Icon"
+                                         width="20">
+                                    See The Video
+                                </div>
+                            </div>
+
+                        </router-link>
                     </slide>
                 </Carousel>
             </div>
@@ -122,7 +199,7 @@
             '$route.params.ChannelName': function (val) {
 
                 let GetChannel
-                if(this.$route.name === 'discover') {
+                if (this.$route.name === 'discover') {
                     GetChannel = 'rti1'
                 } else {
                     GetChannel = this.$route.params.ChannelName;
@@ -139,7 +216,7 @@
             console.log(this.$route.params.ChannelName)
 
             let GetChannel
-            if(this.$route.name === 'discover') {
+            if (this.$route.name === 'discover') {
                 GetChannel = 'rti1'
             } else {
                 GetChannel = this.$route.params.ChannelName;
@@ -147,7 +224,7 @@
             this.$store.dispatch('GET_HOME_LIST', GetChannel);
 
             // Hide Transition Animation
-            if(! this.HomeLoading ) {
+            if (!this.HomeLoading) {
                 this.$store.commit('CHANNEL_SLIDER_ANIMATION', false)
             }
         },

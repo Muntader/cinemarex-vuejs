@@ -14,6 +14,8 @@
                         <font v-if="ShowPage === 'SignUp'">Sign up to enjoy the RTI experience</font>
                     </div>
 
+
+
                     <div class="c-out-auth-modal" @click="CLOSE_AUTH_MODAL()">
                         <svg class="modal__close" viewBox="0 0 40 40">
                             <path fill="none" stroke="#FFF" d="M 10,10 L 30,30 M 30,10 L 10,30"></path>
@@ -73,7 +75,7 @@
                                 <div class="text-danger">{{ErrorMessage}}</div>
                             </div>
 
-                            <div class="c-auth-form__forget-password">
+                            <div class="c-auth-form__forget-password"  @click="ShowPage = 'RestorePassword'">
                                 <div class="form-group text-center dark-text">
                                     <router-link :to="{name: 'forget_password'}">{{$t('register.forget_password')}}
                                     </router-link>
@@ -204,6 +206,61 @@
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="c-auth-login-container" v-if="ShowPage === 'RestorePassword' && SIGNUP_STEP === null">
+                    <div class="c-auth-login-container__body">
+
+                        <div class="c-auth-interstice">
+                            <div class="c-auth-interstice__label">
+                                    <span style="vertical-align: inherit;">
+                                    <span style="vertical-align: inherit;">Mot de passe oublié</span>
+                                    </span></div>
+                        </div>
+
+                        <div class="c-auth-form">
+                            <small v-if="!SUCCESS_SENT_RESTORE_PASSWORD" class="text-muted mb-3">Enter the email address with which you registered. We will send you a message to reset your password.</small>
+                            <p class="text-center" v-if="SUCCESS_SENT_RESTORE_PASSWORD">Un email a été envoyé à l'adresse : </p>
+
+                            <p class="mt-5 text-center text-danger " v-if="SUCCESS_SENT_RESTORE_PASSWORD">{{Email}}</p>
+
+                            <p class="mt-5 text-center text-danger " v-if="SUCCESS_SENT_RESTORE_PASSWORD">S'il n'apparaît pas dans votre messagerie dans les minutes qui viennent, vérifiez votre courrier indésirable.</p>
+
+
+                            <div class="form-group mt-4" v-if="!SUCCESS_SENT_RESTORE_PASSWORD">
+                                <div class="input-group">
+                                    <input class="form-control" name="E-mail" v-validate="'required|email|max:50'"
+                                           :class="{'input': true, 'input-danger': errors.has('E-mail') }"
+                                           type="email" v-model="Email" :placeholder="$t('setting.mail')"
+                                           autocomplete="off">
+                                </div>
+                                <span v-show="errors.has('E-mail')"
+                                      class="text-danger">{{errors.first('E-mail')}}</span>
+                            </div>
+
+                            <div class="form-group" v-if="!SUCCESS_SENT_RESTORE_PASSWORD">
+                                <div class="text-danger">{{ErrorMessage}}</div>
+                            </div>
+
+                            <div class="form-group" >
+                                <div class="text-center">
+                                    <button class="btn btn-dark btn-block" @click="RESTORE_PASSWORD()" v-if="!ButtonLoading && !SUCCESS_SENT_RESTORE_PASSWORD">
+                                        Envoyer
+                                    </button>
+                                    <button class="btn btn-dark btn-block" @click="ShowPage = 'Login'" v-if="!ButtonLoading">
+                                        Annuler
+                                    </button>
+                                    <button class="btn btn-dark btn-block" v-if="ButtonLoading">
+                                        <i id="btn-progress btn-progress-light"></i>
+
+                                        {{$t('register.loading')}}
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="c-auth-login-container" v-if="SIGNUP_STEP === 'STEP2'">
@@ -401,6 +458,7 @@
             SIGNUP_STEP: state => state.register.SIGNUP_STEP,
             LIST_SERIES_FOR_SUBSCRIBE: state => state.register.LIST_SERIES_FOR_SUBSCRIBE,
             ErrorMessage: state => state.register.ErrorMessage,
+            SUCCESS_SENT_RESTORE_PASSWORD: state => state.register.SUCCESS_SENT_RESTORE_PASSWORD,
             ButtonLoading: state => state.register.ButtonLoading
         }),
 
@@ -422,6 +480,10 @@
             ShowPage() {
                 this.Email = '';
                 this.Password = '';
+            },
+
+            ButtonLoading(val) {
+
             }
         },
 
@@ -511,7 +573,15 @@
                     })
                 }
 
-            }
+            },
+
+            RESTORE_PASSWORD() {
+                this.$validator.validateAll().then((result) => {
+                    if (result) {
+                        this.$store.dispatch('CHECK_EMAIL', this.Email)
+                    }
+                })
+            },
         }
     }
 </script>

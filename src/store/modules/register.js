@@ -14,6 +14,7 @@ const module = {
         UserInfo: null,
         ErrorMessage: null,
         ButtonLoading: false,
+        SUCCESS_SENT_RESTORE_PASSWORD: false,
     },
     actions: {
 
@@ -334,8 +335,9 @@ const module = {
                 .then(response => {
                     if (response.status === 200) {
                         router.push({
-                            name: 'login'
-                        })
+                            name: 'discover'
+                        });
+                        commit('SHOW_LOGIN_MODAL', true)
                         alertify.logPosition('top right')
                         alertify.success(response.data.message)
                         commit('BUTTON_CLEAR')
@@ -353,15 +355,14 @@ const module = {
          *  @param {email} email
          */
 
-        CHECK_EMAIL({commit}, email) {
+        CHECK_EMAIL({commit, state}, email) {
             commit('BUTTON_LOAD')
             axios.post('http://localhost:8000/api/v1/check/register/email', {
                 email: email
             })
                 .then(response => {
                     if (response.status === 200) {
-                        alertify.logPosition('top right')
-                        alertify.success(response.data.message)
+                        state.SUCCESS_SENT_RESTORE_PASSWORD = true;
                         commit('BUTTON_CLEAR')
                         router.push({
                             name: 'login'

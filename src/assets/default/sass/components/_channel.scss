@@ -53,6 +53,16 @@
       transform: translate(-50%, -50%);
     }
   }
+
+  &__logo_channel {
+    position: absolute;
+    right: 30px;
+    top: 10%;
+    z-index: 1;
+    img {
+      width: 70px;
+    }
+  }
   &__top-carousel {
 
     .VueCarousel-slide {
@@ -83,6 +93,7 @@
               margin-top: 5px;
               display: table;
               float: right;
+              color: #fff;
               img {
                 margin-right: 15px;
                 margin-left: 5px;
@@ -107,9 +118,8 @@
     }
 
 
-
-    .VueCarousel-slide-active img,
-    .VueCarousel-wrapper > div > div:nth-child(1) img{
+    .VueCarousel-slide-active ,
+    .VueCarousel-wrapper > div > div:nth-child(1){
       -webkit-animation: zoomin 15s 1;
     }
     @-webkit-keyframes zoomin {

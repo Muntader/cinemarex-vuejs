@@ -17,6 +17,7 @@ import VueAxios from 'vue-axios'
 import VueAuthenticate from 'vue-authenticate'
 import axios from 'axios'
 import './assets/default/sass/main.scss';
+import Transitions from 'vue2-transitions'
 
 
 Vue.use(VueCarousel);
@@ -26,6 +27,7 @@ Vue.use(VueProgressiveImage);
 Vue.use(VeeValidate);
 Vue.use(Helper);
 Vue.config.productionTip = false;
+Vue.use(Transitions)
 
 if(store.getters.GET_TOKEN !==  undefined) {
     axios.interceptors.request.use(

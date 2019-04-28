@@ -14,11 +14,20 @@
 
                 <div class="c-app-body">
 
-                    <sidebar v-if="$route.name !== 'show-movie' && $route.name !== 'show-series' && $route.name !== 'LiveTV-Player' && $route.name !== 'Movie-Player' && $route.name !== 'TV-Show-Player' && $route.name !== 'search' "></sidebar>
+                    <sidebar v-if="$route.name !== 'show-movie'
+                    && $route.name !== 'show-series'
+                    && $route.name !== 'LiveTV-Player'
+                    && $route.name !== 'Movie-Player'
+                    && $route.name !== 'TV-Show-Player'
+                    && $route.name !== 'search'
+                    && $route.name !== 'privacy'
+                    && $route.name !== 'terms'
+                    && $route.name !== 'faq' "></sidebar>
+
+                    <mobile-sidebar  v-if="SHOW_MOBILE_SIDEBAR && $route.name !== 'show-movie' && $route.name !== 'show-series' && $route.name !== 'LiveTV-Player' && $route.name !== 'Movie-Player' && $route.name !== 'TV-Show-Player' && $route.name !== 'search' "></mobile-sidebar>
 
                     <router-view class="c-app-content"/>
 
-                    <search-page v-if="showSearchPage"></search-page>
 
                 </div>
 
@@ -48,12 +57,12 @@
 
 <script>
     import sidebar from "./components/control/sidebar.vue";
+    import MobileSideBar from  "./components/control/mobile-sidebar.vue";
     import navbar from "./components/control/navbar.vue";
     import message from "./components/control/notification/message.vue";
-    import ads_notifcation from "./components/control/notification/ads.vue";
-    import searchPage from './components/control/search/search.vue'
     import LoginComponent from './components/auth/login'
     import SettingsComponent from './components/control/setting/setting'
+
 
     import {
         mapState
@@ -64,12 +73,12 @@
 
         components: {
             sidebar,
+            'mobile-sidebar': MobileSideBar,
+
             navbar,
             message,
             'login': LoginComponent,
             'settings': SettingsComponent,
-            'ads-notifcation': ads_notifcation,
-            'search-page': searchPage
         },
 
         data() {
@@ -92,17 +101,16 @@
         },
 
         computed: mapState({
-            getBlockData: state => state.home.footer,
-            showSearchPage: state => state.event.show_search_page,
-            getShowPagePath: state => state.event.get_path_show_page,
+            SITE_INFO: state => state.discover.STIE_INFO,
             LOGIN_MODAL_OPEN: state => state.event.SHOW_LOGIN_MODAL,
             PROFILE_MODAL_OPEN: state => state.event.SHOW_PROFILE_MODAL,
-            IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED
+            IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED,
+            SHOW_MOBILE_SIDEBAR: state => state.event.SHOW_MOBILE_SIDEBAR
 
         }),
 
         watch: {
-            getBlockData(val) {
+            SiteInfo(val) {
                 // Language
                 // List of language
                 var arrLang = ['en', 'fr']
@@ -133,6 +141,7 @@
             // Check Authenticated
             this.$store.commit('IS_AUTHENTICATED');
 
+            this.$store.dispatch('GET_HOME_FOOTER_DETAILS');
 
             // Check user status
             if (this.IS_AUTHENTICATED) {

@@ -1,7 +1,6 @@
-import Vue from 'vue';
-
 const module = {
     state: {
+        STIE_INFO: [],
         ChannelContent: [],
         HomeLoading: false,
     },
@@ -24,7 +23,7 @@ const module = {
         }) {
             axios.get('http://localhost:8000/api/v1/get/app/details').then((response) => {
                 if (response.status === 200) {
-                    const data = response.data.data;
+                    commit('SET_HOME_FOOTER_DETAILS',  response.data.data);
                 }
             });
         },
@@ -44,10 +43,14 @@ const module = {
     },
     mutations: {
 
-
         SET_HOME_LIST(state, Data) {
             state.ChannelContent = Data;
         },
+
+        SET_HOME_FOOTER_DETAILS(state, data) {
+            state.STIE_INFO = data;
+        },
+
 
         HOME_SPINNER_LOAD(state, status) {
             state.HomeLoading = status;

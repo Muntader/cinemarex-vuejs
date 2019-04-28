@@ -309,7 +309,7 @@
                 list-style: none;
                 margin: 0;
                 padding: 10px;
-                li  {
+                li {
                   padding: 10px;
                   border-bottom: 1px solid #c5c5c5;
                   color: #2f323b;
@@ -484,18 +484,18 @@
 
       }
     }
-  }
 
-  .VueCarousel {
-    .VueCarousel-navigation-next {
-      position: absolute;
-      right: 58px;
-      background-color: rgba(0, 0, 0, 0.61);
-    }
-    .VueCarousel-navigation-prev {
-      position: absolute;
-      left: 58px;
-      background-color: rgba(0, 0, 0, 0.61);
+    .VueCarousel {
+      .VueCarousel-navigation-next {
+        position: absolute;
+        right: 58px !important;
+        background-color: rgba(0, 0, 0, 0.61);
+      }
+      .VueCarousel-navigation-prev {
+        position: absolute;
+        left: 58px !important;
+        background-color: rgba(0, 0, 0, 0.61);
+      }
     }
   }
 }

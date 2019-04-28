@@ -10,7 +10,9 @@ const module = {
         SHOW_LOGIN_MODAL: false,
         SHOW_PROFILE_MODAL: false,
         HIDE_SIDEBAR: true,
-        CHANNEL_SLIDER_ANIMATION: false
+        CHANNEL_SLIDER_ANIMATION: false,
+        SHOW_MOBILE_SIDEBAR: false,
+        FROM_ROUTE_FALLBACK: null,
     },
 
     mutations: {
@@ -45,12 +47,20 @@ const module = {
             state.SHOW_PROFILE_MODAL = status;
         },
 
-        HIDE_SIDEBAR(status, state) {
-            status.HIDE_SIDEBAR = state;
+        HIDE_SIDEBAR(state, status) {
+            state.HIDE_SIDEBAR = status;
+        },
+
+        SHOW_MOBILE_SIDEBAR(state, status) {
+            state.SHOW_MOBILE_SIDEBAR = !state.SHOW_MOBILE_SIDEBAR;
         },
 
         CHANNEL_SLIDER_ANIMATION(state, status) {
             state.CHANNEL_SLIDER_ANIMATION = status;
+        },
+
+        FROM_ROUTE_FALLBACK(state,status) {
+            state.FROM_ROUTE_FALLBACK = status;
         }
 
     },

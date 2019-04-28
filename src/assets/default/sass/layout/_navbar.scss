@@ -7,7 +7,7 @@
             top: -15px;
             left: 20px;
             cursor: pointer;
-            z-index: 100;
+            z-index: 100000;
             svg {
                 width: 30px;
             }
@@ -20,7 +20,7 @@
             max-height: 100% !important;
             text-align: center !important;
             img {
-                width: 100px !important;
+                width: 90px !important;
             }
         }
 
@@ -37,7 +37,7 @@
         height: 50px;
         width: 100%;
         display: flex;
-        z-index: 10;
+        z-index: 100000;
         &__logo {
             width: 156px;
             float: left;
@@ -72,18 +72,6 @@
 
                 .c-rti1-icon, .c-rti2-icon, .c-rti3-icon {
                     width: 75px !important;
-                }
-            }
-
-            .VueCarousel {
-                position: inherit !important;
-                .VueCarousel-navigation-prev {
-                    position: absolute;
-                    left: 185px !important;
-                }
-                .VueCarousel-navigation-next {
-                    position: absolute;
-                    right: 220px !important;
                 }
             }
         }
@@ -141,6 +129,8 @@
                 text-align: left;
                 color: #FFF;
                 width: 200px;
+                background-color: rgba(47, 50, 59, 0.9);
+
                 ul {
                     list-style: none;
                     padding: 0;
@@ -179,6 +169,10 @@
         }
     }
 
+    .c-navbar-bk {
+        background-color: #2f323b;
+    }
+
     .rti1-overlay-color {
         background: rgba(43, 14, 0, 0.8);
     }
@@ -210,6 +204,18 @@
                 }
             }
         }
+
+        .VueCarousel {
+            position: inherit !important;
+            .VueCarousel-navigation-prev {
+                position: absolute;
+                left: 185px !important;
+            }
+            .VueCarousel-navigation-next {
+                position: absolute;
+                right: 220px !important;
+            }
+        }
     }
 }
 
@@ -218,11 +224,88 @@
     .c-app-header {
 
         .c-app-navbar {
+            height: 100px;
+
+            &__channels {
+                height: 100%;
+                max-height: 100%;
+                text-align: center;
+                padding-bottom: 2px;
+                overflow: hidden;
+                line-height: 48px;
+                width: 95%;
+                border-left: 1px solid rgba(255, 255, 255, 0.27);
+                position: absolute;
+                top: 50px;
+                left: 0;
+                .c-channel-icon {
+                    .c-channel-logo {
+                        padding: 0 4px;
+                        margin-left: 0 !important;
+                    }
+                }
+            }
+
+            &__mobile-menu {
+                position: relative;
+                top: 0;
+                left: 0;
+                padding: 15px 20px;
+                width: 100px;
+                height: 50px;
+                z-index: 100;
+                svg {
+                    width: 22px;
+                    path {
+                        fill: #FFF;
+                    }
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            &__search-icon {
+                position: absolute;
+                right: 59px;
+                padding: 15px;
+                border-right: 1px solid rgba(147, 147, 147, 0.3);
+                cursor: pointer;
+            }
+
+            &__logo {
+                position: absolute !important;
+                width: 100% !important;
+                height: 100% !important;
+                max-height: 100% !important;
+                text-align: center !important;
+                img {
+                    width: 80px !important;
+                }
+            }
+
             .c-login-icon-container {
                 position: absolute !important;
                 right: 0 !important;
+                top: 10px;
+                cursor: pointer;
             }
         }
 
+    }
+
+
+    .VueCarousel {
+        position: relative !important;
+        .VueCarousel-navigation-prev {
+            position: absolute;
+            left: 40px !important;
+        }
+        .VueCarousel-navigation-next {
+            position: fixed;
+            right: 40px !important;
+            top: 75px;
+        }
     }
 }

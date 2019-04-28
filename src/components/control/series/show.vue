@@ -1,4 +1,5 @@
 <template>
+    <transition name="fade">
     <div class="c-app-movies-show">
 
         <div class="c-app-movies-show-content" v-if="TV_SHOW_CONTENT.series != null ">
@@ -139,13 +140,13 @@
                             <h3>{{TV_SHOW_CONTENT.series.category_name}}</h3>
                         </div>
 
-                        <div class="tv-show-content__season-change">
+                        <div class="tv-show-content__season-change" v-if="TV_SHOW_CONTENT.seasons !== null">
                             <button class="btn btn-dark" @click="SEASONS_DROPDOWN = !SEASONS_DROPDOWN">Season {{SHOW_SEASON}}</button>
 
                             <transition name="fade">
                             <div class="tv-show-content__season-change--dropdown" v-show="SEASONS_DROPDOWN">
                                 <ul class="season-list">
-                                    <li class="season-number" v-for="(item, index) in TV_SHOW_CONTENT.seasons" @click="SHOW_SEASON = index">Season {{index}}</li>
+                                    <li class="season-number" v-for="(item, index) in TV_SHOW_CONTENT.seasons" @click="SHOW_SEASON = index; SEASONS_DROPDOWN = false" >Season {{index}}</li>
                                 </ul>
                             </div>
                             </transition>
@@ -249,6 +250,7 @@
         </div>
 
     </div>
+    </transition>
 </template>
 
 <script>
