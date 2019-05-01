@@ -25,7 +25,7 @@ const module = {
       commit
     }, id) {
       commit('SPINER_LOAD')
-      axios.post( 'http://localhost:8000/api/v1/get/watch/movie', {
+      axios.post( 'http://localhost:8001/api/v1/get/watch/movie', {
         movie_id: id
       }).then(response => {
         if (response.status === 200) {
@@ -63,7 +63,7 @@ const module = {
     }) {
       commit('SPINER_LOAD')
 
-      axios.post( 'http://localhost:8000/api/v1/get/watch/series', {
+      axios.post( 'http://localhost:8001/api/v1/get/watch/series', {
           episode_id: episode_id,
           series_id: series_id,
         })
@@ -100,7 +100,7 @@ const module = {
     }, id) {
       commit('SPINER_LOAD')
 
-      axios.post( 'http://localhost:8000/api/v1/ghost/get/watch/movie', {
+      axios.post( 'http://localhost:8001/api/v1/ghost/get/watch/movie', {
         movie_id: id
       }).then(response => {
         if (response.status === 200) {
@@ -137,7 +137,7 @@ const module = {
     }) {
       commit('SPINER_LOAD')
 
-      axios.post( 'http://localhost:8000/api/v1/ghost/get/watch/series', {
+      axios.post( 'http://localhost:8001/api/v1/ghost/get/watch/series', {
           episode_id: episode_id,
           series_id: series_id,
         })
@@ -175,7 +175,7 @@ const module = {
     }, id) {
       commit('SPINER_LOAD')
 
-      axios.get( 'http://localhost:8000/api/v1/ghost/get/watch/tv/' + id)
+      axios.get( 'http://localhost:8001/api/v1/ghost/get/watch/tv/' + id)
         .then((res) => {
           commit('SET_DATA_PLAYER_TV', res.data.data);
           commit('SPINER_CLEAN')
@@ -207,7 +207,7 @@ const module = {
     }, id) {
       commit('SPINER_LOAD')
 
-      axios.get('http://localhost:8000/api/v1/get/watch/news/' + id)
+      axios.get('http://localhost:8001/api/v1/get/watch/news/' + id)
         .then((res) => {
           commit('SET_DATA_PLAYER_NEWS', res.data.data);
           commit('SPINER_CLEAN')
@@ -238,7 +238,7 @@ const module = {
     }, id) {
       commit('SPINER_LOAD')
 
-      axios.get('http://localhost:8000/api/v1/ghost/get/watch/news/' + id)
+      axios.get('http://localhost:8001/api/v1/ghost/get/watch/news/' + id)
         .then((res) => {
           commit('SET_DATA_PLAYER_NEWS', res.data.data);
           commit('SPINER_CLEAN')

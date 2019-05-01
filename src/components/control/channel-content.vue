@@ -13,12 +13,9 @@
              ref="c_category_carousel">
 
             <div class="c-app-channel-no-content" v-if="ListCategoryContent.length === 0">
-                <h3>No Content</h3>
             </div>
 
             <div class="c-app-channel-content" v-else>
-
-
 
                 <div class="c-app-channel-grid-content__background">
                     <div class="full-background" v-if="ListCategoryContent[0][0].cloud === 'local'"
@@ -543,6 +540,15 @@
                             </div>
                         </div>
 
+                        <div class="c-extra-item">
+                            <div class="c-extra-item__container">
+                                <router-link :to="{name: 'search'}">
+                                    <img src="../../assets/default/img/icon-search-big.png" alt="icon-search-big">
+                                <p>Vous n’avez pas trouvé votre programme&nbsp;?<br><span class="extra__link">Essayez le moteur<br>de recherche !</span></p>
+                                </router-link>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -697,7 +703,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 </transition>
@@ -756,17 +761,31 @@
             } else {
                 GetChannel = this.$route.params.ChannelName;
             }
-            this.$store.dispatch('GET_HOME_LIST', GetChannel);
-
+            if(this.IS_AUTHENTICATED) {
+                this.$store.dispatch('GET_HOME_LIST', GetChannel);
+            }else{
+                this.$store.dispatch('GET_GHOST_HOME_LIST', GetChannel);
+            }
             this.$store.commit('CHANNEL_SLIDER_ANIMATION', false)
         },
 
         created() {
-            setTimeout(() => {
-                this.SHOW_ANIMATION = true;
-            }, 50)
+            this.SHOW_ANIMATION = true;
         },
 
+        beforeRouteEnter (to, from, next) {
+            var body = document.body;
+            body.classList.add("c-disable-scroll");
+
+            next()
+        },
+
+        beforeRouteLeave (to, from, next) {
+            var body = document.body;
+            body.classList.remove("c-disable-scroll");
+
+            next()
+        },
         watch: {
             '$route.params.CategoryName': function () {
                 this.LIST_CATEGORY_CONTENT()

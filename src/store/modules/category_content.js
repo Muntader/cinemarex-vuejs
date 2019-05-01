@@ -17,7 +17,7 @@ const module = {
          */
         LIST_CATEGORY_CONTENT({commit}, {ChannelName, CategoryName}) {
             commit('SPINNER_LOAD_MOVIES', true);
-            axios.post('http://localhost:8000/api/v1/get/channel/content', {
+            axios.post('http://localhost:8001/api/v1/get/channel/content', {
                 ChannelName: ChannelName,
                 CategoryName: CategoryName
             }).then(response => {
@@ -36,7 +36,7 @@ const module = {
          */
         LIST_GHOST_CATEGORY_CONTENT({commit}, {ChannelName, CategoryName}) {
             commit('SPINNER_LOAD_MOVIES', true);
-            axios.post('http://localhost:8000/api/v1/ghost/get/channel/content', {
+            axios.post('http://localhost:8001/api/v1/ghost/get/channel/content', {
                 ChannelName: ChannelName,
                 CategoryName: CategoryName
             }).then(response => {
@@ -56,7 +56,7 @@ const module = {
          * @param {*} id movie request
          */
         GET_MOVIE_DETAILS({commit}, id) {
-            axios.get('http://localhost:8000/api/v1/get/movie/' + id).then((response) => {
+            axios.get('http://localhost:8001/api/v1/get/movie/' + id).then((response) => {
                 if (response.status === 200) {
                     const data = response.data.data;
                     commit('SET_MOVIE_DETAILS', data);

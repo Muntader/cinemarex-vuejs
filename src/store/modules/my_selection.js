@@ -22,7 +22,7 @@ const module = {
 
         LIST_MY_SELECTION({commit}, ChannelName) {
             commit('MY_SELECTION_LOADING_PAGE', true);
-            axios.get( 'http://localhost:8000/api/v1/get/my-selection/' + ChannelName).then((response) => {
+            axios.get( 'http://localhost:8001/api/v1/get/my-selection/' + ChannelName).then((response) => {
                 if (response.status === 200) {
                     commit('SET_LIST_MY_SELECTION', response.data);
                     commit('MY_SELECTION_LOADING_PAGE', false);
@@ -42,7 +42,7 @@ const module = {
          */
 
         ADD_NEW_TO_COLLECTION({ commit }, { ID, ChannelName, Type, type}) {
-            axios.post( 'http://localhost:8000/api/v1/create/my-selection', {
+            axios.post( 'http://localhost:8001/api/v1/create/my-selection', {
                 ID: ID,
                 ChannelName: ChannelName,
                 Type: Type

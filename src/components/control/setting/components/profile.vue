@@ -77,7 +77,7 @@
             UPDATE_DETAILS() {
                 this.$validator.validateAll().then(result => {
                     if (result) {
-                        axios.post("http://localhost:8000/api/v1/update/profile/details", {
+                        axios.post("http://localhost:8001/api/v1/update/profile/details", {
                             name: this.name,
                             email: this.email,
                             birthday: this.birthday

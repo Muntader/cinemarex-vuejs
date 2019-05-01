@@ -11,7 +11,7 @@ const module = {
          */
         CREATE_EPISODE_UNIQUE_VIEWS({commit}, {series_id,episode_id}) {
 
-            axios.post( 'http://localhost:8000/api/v1/create/videos/uniqueview', {series_id: series_id, episode_id: episode_id})
+            axios.post( 'http://localhost:8001/api/v1/create/videos/uniqueview', {series_id: series_id, episode_id: episode_id})
                 .then((response) => {
                     if (response.status === 200) {
                       // Empty
@@ -27,7 +27,7 @@ const module = {
          */
         CREATE_MOVIE_UNIQUE_VIEWS({commit}, movie_id) {
 
-            axios.post( 'http://localhost:8000/api/v1/create/videos/uniqueview', {movie_id: movie_id})
+            axios.post( 'http://localhost:8001/api/v1/create/videos/uniqueview', {movie_id: movie_id})
                 .then((response) => {
                     if (response.status === 200) {
                       // Empty

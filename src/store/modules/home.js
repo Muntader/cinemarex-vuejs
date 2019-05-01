@@ -9,7 +9,7 @@ const module = {
         // Get all movies form api /api/v1/movies
         GET_HOME_LIST({commit}, ID) {
             commit('HOME_SPINNER_LOAD', true);
-            axios.get('http://localhost:8000/api/v1/get/discover/' + ID).then((response) => {
+            axios.get('http://localhost:8001/api/v1/get/discover/' + ID).then((response) => {
                 if (response.status === 200) {
                     commit('SET_HOME_LIST', response.data);
                     commit('HOME_SPINNER_LOAD', false);
@@ -18,10 +18,22 @@ const module = {
         },
 
         // Get all movies form api /api/v1/movies
+        GET_GHOST_HOME_LIST({commit}, ID) {
+            commit('HOME_SPINNER_LOAD', true);
+            axios.get('http://localhost:8001/api/v1/ghost/get/discover/' + ID).then((response) => {
+                if (response.status === 200) {
+                    commit('SET_HOME_LIST', response.data);
+                    commit('HOME_SPINNER_LOAD', false);
+                }
+            });
+        },
+
+
+        // Get all movies form api /api/v1/movies
         GET_HOME_FOOTER_DETAILS({
             commit
         }) {
-            axios.get('http://localhost:8000/api/v1/get/app/details').then((response) => {
+            axios.get('http://localhost:8001/api/v1/get/app/details').then((response) => {
                 if (response.status === 200) {
                     commit('SET_HOME_FOOTER_DETAILS',  response.data.data);
                 }
@@ -32,7 +44,7 @@ const module = {
         GET_HOME_PLAN({
             commit
         }) {
-            axios.get('http://localhost:8000/api/v1/get/app/plan').then((response) => {
+            axios.get('http://localhost:8001/api/v1/get/app/plan').then((response) => {
                 if (response.status === 200) {
                     const data = response.data.data;
                     commit('SET_HOME_PLAN', data);

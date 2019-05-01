@@ -14,7 +14,7 @@ const module = {
          */
         GET_KIDS_LIST({ commit }) {
             commit('SPINER_LOAD_KIDS');
-            axios.get( 'http://localhost:8000/api/v1/get/kids').then(response => {
+            axios.get( 'http://localhost:8001/api/v1/get/kids').then(response => {
                 if (response.status === 200) {
                     const data = response.data.data;
                     commit('SET_KIDS_LIST', data);

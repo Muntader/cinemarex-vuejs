@@ -5,7 +5,7 @@ export default function (Vue) {
         data: function() {
             return {
                 get site_link() {
-                    return "http://localhost:8000";
+                    return "http://localhost:8001";
                 },
                 get sm_poster() {
                     return "http://d33vbryzz6e7jd.cloudfront.net/posters/";

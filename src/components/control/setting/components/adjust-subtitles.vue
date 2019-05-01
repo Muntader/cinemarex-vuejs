@@ -59,9 +59,12 @@
             </div>
         </div>
         <div class="form-group" style="position: relative;">
-            <img src="../../../../assets/default/img/background_caption.jpg" alt="caption_cover" width="100%">
-
-            <div style="text-align: center;font-style: normal;font-variant-ligatures: normal;font-variant-caps: normal;font-weight: normal;font-stretch: normal;line-height: normal;font-family: sans-serif;white-space: pre-line;position: absolute;direction: ltr;writing-mode: horizontal-tb;left: 0px;bottom: 40px;right: 0px;height: 42px;background-color: rgba(0, 0, 0, 0);">
+            <div style="text-align: center;font-style: normal;font-variant-ligatures: normal;font-variant-caps: normal;font-weight: normal;font-stretch: normal;line-height: normal;font-family: sans-serif;white-space: pre-line;position: relative; direction: ltr;writing-mode: horizontal-tb;    left: 0px;
+    bottom: 0;
+    top: 0;
+    right: 0px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.71);">
                 <p :style="caption_style">Do not go gentle into that good night. Rage, rage against the dying of the
                     light</p>
             </div>
@@ -136,6 +139,7 @@
                     fontSize: '15px',
                     color: '#fff',
                     width: '90%',
+                    top: '40px',
                     display: 'inline',
                     backgroundColor: 'rgba(0, 0, 0, 0)',
                     backgroundOpacity: '0',

@@ -8,7 +8,6 @@ import ChannelContent from '@/components/control/channel-content';
 
 import Privacy from '@/components/control/footer/privacy';
 import Terms from '@/components/control/footer/terms';
-import ContactUs from '@/components/control/footer/contact-us';
 import AboutUs from '@/components/control/footer/about-us';
 import Faq from '@/components/control/footer/faq';
 import NotFound from '@/components/errors/404';
@@ -18,7 +17,6 @@ import MySelection from '@/components/control/my-selection/index.vue';
 import SeriesPlayerSP from '@/components/control/video-player/series-player';
 import MoviePlayer from '@/components/control/video-player/movie-player';
 import LiveTvPlayer from '@/components/control/video-player/tv-player';
-import NewsPlayer from '@/components/control/video-player/news-player';
 
 import Search from '@/components/control/search/search';
 import ViewingHistory from '@/components/control/setting/components/viewing-history.vue';
@@ -165,15 +163,6 @@ let routes = [
         }
     },
 
-    {
-        name: 'news-player',
-        path: '/watch/news/:id/',
-        component: NewsPlayer,
-        meta: {
-            allAuth: true,
-            title: 'News Player'
-        }
-    },
 
 
     {

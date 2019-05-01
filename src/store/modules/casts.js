@@ -21,7 +21,7 @@ const module = {
             commit('SPINER_LOAD');
 
             // Send request
-            axios.get( 'http://localhost:8000/api/v1/get/cast/' + id).then(response => {
+            axios.get( 'http://localhost:8001/api/v1/get/cast/' + id).then(response => {
                                 if(response.status === 200){
                     commit('SET_CAST_DETAILS', response.data.data);
                     commit('SPINER_CLEAN');

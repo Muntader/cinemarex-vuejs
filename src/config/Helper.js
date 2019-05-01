@@ -4,7 +4,7 @@ export default function (Vue) {
 
     Vue.helper = {
         SiteName() {
-            return "http://localhost:8000";
+            return "http://localhost:8001";
         },
         back() {
             router.go(-1);

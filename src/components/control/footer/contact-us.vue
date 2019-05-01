@@ -145,7 +145,7 @@
                 this.btn_loading = true;
                 this.$validator.validateAll().then(result => {
                     if (result) {
-                        axios.post('/api/v1/new/contactus', {
+                        axios.post('http://localhost:8001/api/v1/new/contactus', {
                             first_name: this.first_name,
                             last_name: this.last_name,
                             phone_number: this.number,

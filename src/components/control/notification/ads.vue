@@ -27,7 +27,7 @@
 
     mounted() {
       if(this.$auth.isAuthenticated()) {
-        axios.get( "http://localhost:8000/api/v1/get/notifcation").then(response => {
+        axios.get( "http://localhost:8001/api/v1/get/notifcation").then(response => {
           if (response.status === 200) {
             this.data = response.data.data;
           }

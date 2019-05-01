@@ -18,7 +18,7 @@ const module = {
             commit
         }) {
             commit('SPINER_LOAD');
-            axios.get( 'http://localhost:8000/api/v1/get/tv')
+            axios.get( 'http://localhost:8001/api/v1/get/tv')
                 .then((response) => {
                     if (response.status === 200) {
                         commit('SET_TV_LIST', response.data.data);
@@ -36,7 +36,7 @@ const module = {
          */
         LOAD_SEARCH_TV_LIST({commit}, query) {
             commit('SEARCH_LOAD');
-            axios.post( 'http://localhost:8000/api/v1/get/tv/search', {query: query})
+            axios.post( 'http://localhost:8001/api/v1/get/tv/search', {query: query})
                 .then((response) => {
                     if (response.status === 200) {
                         commit('SET_SEARCH_TV_LIST', response.data.data);

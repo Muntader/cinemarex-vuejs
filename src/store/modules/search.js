@@ -16,7 +16,7 @@ const module = {
          */
         GET_SEARCH_LIST({commit}, query) {
             commit('SPINER_LOAD');
-            axios.post( 'http://localhost:8000/api/v1/get/search', {query: query}).then(response => {
+            axios.post( 'http://localhost:8001/api/v1/get/search', {query: query}).then(response => {
                 if (response.status === 200) {
                     commit('SET_SEARCH_LIST', response.data);
                     commit('SPINER_CLEAN');
@@ -37,7 +37,7 @@ const module = {
          */
         GET_GHOST_SEARCH_LIST({commit}, query) {
             commit('SPINER_LOAD');
-            axios.post( 'http://localhost:8000/api/v1/ghost/get/search', {query: query}).then(response => {
+            axios.post( 'http://localhost:8001/api/v1/ghost/get/search', {query: query}).then(response => {
                 if (response.status === 200) {
                     commit('SET_SEARCH_LIST', response.data);
                     commit('SPINER_CLEAN');

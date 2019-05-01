@@ -11,7 +11,7 @@ const module = {
         GET_TV_SHOW_SUMMARY({commit}, ID) {
             commit('TV_SHOW_CONTENT_LOADING_PAGE', true);
 
-            axios.get('http://localhost:8000/api/v1/get/series/' + ID).then((response) => {
+            axios.get('http://localhost:8001/api/v1/get/series/' + ID).then((response) => {
                 if (response.status === 200) {
                     commit('SET_TV_SHOW_SUMMARY', response.data.data);
                     commit('TV_SHOW_CONTENT_LOADING_PAGE', false);
@@ -28,7 +28,7 @@ const module = {
 
         GET_GHOST_TV_SHOW_SUMMARY({commit}, ID) {
             commit('TV_SHOW_CONTENT_LOADING_PAGE', true);
-            axios.get('http://localhost:8000/api/v1/ghost/get/series/' + ID).then((response) => {
+            axios.get('http://localhost:8001/api/v1/ghost/get/series/' + ID).then((response) => {
                 if (response.status === 200) {
                     commit('SET_TV_SHOW_SUMMARY', response.data.data);
                     commit('TV_SHOW_CONTENT_LOADING_PAGE', false);

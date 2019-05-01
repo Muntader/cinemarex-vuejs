@@ -159,7 +159,7 @@
                         player.on('time', () => {
                             if (jwplayer().getPosition().toFixed() == this.timeRequest) {
                                 this.timeRequest = this.timeRequest + 150;
-                                axios.post('http://localhost:8000/api/v1/create/watch/movie/recently', {
+                                axios.post('http://localhost:8001/api/v1/create/watch/movie/recently', {
                                     current_time: jwplayer().getPosition().toFixed(),
                                     duration_time: jwplayer().getDuration().toFixed(),
                                     movie_id: this.data.current_movie.id
@@ -221,7 +221,7 @@
                     if (result) {
                         this.report_button = true;
                         axios
-                            .post("http://localhost:8000/api/v1/create/report/movie", {
+                            .post("http://localhost:8001/api/v1/create/report/movie", {
                                 type: this.report_problem_type,
                                 details: this.report_details,
                                 id: this.data.current_movie.id,

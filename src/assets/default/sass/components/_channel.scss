@@ -57,7 +57,7 @@
   &__logo_channel {
     position: absolute;
     right: 30px;
-    top: 10%;
+    top: 12%;
     z-index: 1;
     img {
       width: 70px;
@@ -69,38 +69,72 @@
             position: relative;
           .c-item-details {
             position: absolute;
-            bottom: 20%;
+            bottom: 15%;
             right: 40px;
             z-index: 10;
+            text-align: right;
             .c-item-title {
-              font-weight: 700;
-              color: #2f323b;
-              background-color: #fff;
-              -webkit-box-decoration-break: clone;
-              box-decoration-break: clone;
-              font-size: 28px;
-              padding: 5px 10px;
-              text-align: left;
-              letter-spacing: 2.5px;
+              text-align: right;
               text-transform: uppercase;
+              span {
+                letter-spacing: 2.5px;
+                font-weight: 700;
+                color: #2f323b;
+                background-color: #fff;
+                font-size: 28px;
+                padding: 5px 10px;
+              }
             }
-
+            .c-item-short-overview {
+              display: inline-block;
+              margin-top: 9px;
+              text-align: right;
+              span {
+                background-color: rgba(246, 246, 246, 0.7);
+                font-size: 14px;
+                padding: 2px 10px;
+                letter-spacing: 2.5px;
+                text-transform: uppercase;
+                font-weight: 700;
+                color: #2f323b;
+              }
+            }
             .c-play-item {
-              font-size: 20px;
-              background-color: rgba(33, 150, 243, 0.6);
-              text-transform: uppercase;
-              padding: 5px 4px;
-              margin-top: 5px;
-              display: table;
-              float: right;
-              color: #fff;
-              img {
-                margin-right: 15px;
-                margin-left: 5px;
-                margin-top: -5px;
+              margin-top: 5.8px;
+              span {
+                font-size: 20px;
+                background-color: rgba(33, 150, 243, 0.6);
+                text-transform: uppercase;
+                padding: 5px 4px;
+                color: #fff;
+                display: inline-block;
+
+                img {
+                  margin-right: 15px;
+                  margin-left: 5px;
+                  margin-top: -5px;
+                }
               }
             }
         }
+
+      .c-item-production {
+        position: absolute;
+        bottom: 30%;
+        right: 50px;
+        z-index: 10;
+        min-width: 250px;
+        -webkit-transition: padding .5s;
+        transition: padding .5s;
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        text-align: right;
+        img {
+          margin: 0 0 30px;
+          max-width: 340px;
+          max-height: 160px;
+        }
+      }
     }
 
     .VueCarousel-slide-active {

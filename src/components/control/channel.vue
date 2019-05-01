@@ -109,14 +109,23 @@
 
                             </div>
 
+                            <div class="c-item-production">
+                                <img :src="site_link + item.production_logo" alt="production logo">
+                            </div>
+
                             <div class="c-item-details">
                                 <div class="c-item-title">
-                                    {{item.name}}
+                                    <span> {{item.name}}</span>
+                                </div>
+                                <div class="c-item-short-overview" v-if="item.short_overview !== null && item.short_overview !== 'null' ">
+                                    <span> {{item.short_overview}}</span>
                                 </div>
                                 <div class="c-play-item">
-                                    <img src="../../assets/default/img/page/channel/play.svg" alt="Play Icon"
-                                         width="20">
-                                    See The Video
+                             <span>
+                                                         <img src="../../assets/default/img/page/channel/play.svg" alt="Play Icon"
+                                                              width="20">
+                                    {{$t('home.see_video')}}
+                                    </span>
                                 </div>
                             </div>
 
@@ -150,12 +159,17 @@
 
                             <div class="c-item-details">
                                 <div class="c-item-title">
-                                    {{item.name}}
+                                    <span> {{item.name}}</span>
+                                </div>
+                                <div class="c-item-short-overview" v-if="item.short_overview !== null && item.short_overview !== 'null' ">
+                                    <span> {{item.short_overview}}</span>
                                 </div>
                                 <div class="c-play-item">
-                                    <img src="../../assets/default/img/page/channel/play.svg" alt="Play Icon"
-                                         width="20">
-                                    See The Video
+                                    <span>
+                                                         <img src="../../assets/default/img/page/channel/play.svg" alt="Play Icon"
+                                                              width="20">
+                                    {{$t('home.see_video')}}
+                                    </span>
                                 </div>
                             </div>
 
@@ -192,7 +206,8 @@
         computed: mapState({
             ChannelContent: state => state.discover.ChannelContent,
             HomeLoading: state => state.discover.HomeLoading,
-            CHANNEL_SLIDER_ANIMATION: state => state.event.CHANNEL_SLIDER_ANIMATION
+            CHANNEL_SLIDER_ANIMATION: state => state.event.CHANNEL_SLIDER_ANIMATION,
+            IS_AUTHENTICATED: state => state.auth.IS_AUTHENTICATED
         }),
 
         watch: {
@@ -205,7 +220,11 @@
                     GetChannel = this.$route.params.ChannelName;
                 }
 
-                this.$store.dispatch('GET_HOME_LIST', GetChannel);
+                if(this.IS_AUTHENTICATED) {
+                    this.$store.dispatch('GET_HOME_LIST', GetChannel);
+                }else{
+                    this.$store.dispatch('GET_GHOST_HOME_LIST', GetChannel);
+                }
                 this.$store.commit('HIDE_SIDEBAR', true);
 
 
@@ -213,7 +232,6 @@
         },
 
         mounted() {
-            console.log(this.$route.params.ChannelName)
 
             let GetChannel
             if (this.$route.name === 'discover') {
@@ -221,8 +239,12 @@
             } else {
                 GetChannel = this.$route.params.ChannelName;
             }
-            this.$store.dispatch('GET_HOME_LIST', GetChannel);
 
+            if(this.IS_AUTHENTICATED) {
+                this.$store.dispatch('GET_HOME_LIST', GetChannel);
+            }else{
+                this.$store.dispatch('GET_GHOST_HOME_LIST', GetChannel);
+            }
             // Hide Transition Animation
             if (!this.HomeLoading) {
                 this.$store.commit('CHANNEL_SLIDER_ANIMATION', false)

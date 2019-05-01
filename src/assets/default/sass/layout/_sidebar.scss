@@ -4,7 +4,7 @@
   position: relative;
   left: 0;
   &__search {
-    position: absolute;
+    position: fixed;
     z-index: 6;
     top: 70px;
     left: 0;
@@ -16,7 +16,7 @@
     .c-search-label {
       color: #a09e9d;
       font-size: 25px;
-      line-height: 43px;
+      line-height: 51px;
       margin-left: 18px;
     }
     .c-search-icon {

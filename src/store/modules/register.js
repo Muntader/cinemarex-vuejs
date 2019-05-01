@@ -34,10 +34,10 @@ const module = {
                 password: password,
                 scope: ''
             };
-            axios.post('http://localhost:8000/oauth/token', data)
+            axios.post('http://localhost:8001/oauth/token', data)
                 .then(response => {
                     axios
-                        .get('http://localhost:8000/api/v1/get/check/user', {
+                        .get('http://localhost:8001/api/v1/get/check/user', {
                             headers: {
                                 Authorization: 'Bearer ' + response.data.access_token
                             }
@@ -96,14 +96,14 @@ const module = {
          */
         LOGIN_WITH_FACEBOOK({commit}, {Email, Name, Image, AccessToken}) {
             commit('BUTTON_LOAD')
-            axios.post('http://localhost:8000/api/v1/auth/facebook', {
+            axios.post('http://localhost:8001/api/v1/auth/facebook', {
                 Email:Email,
                 Name:Name,
                 Image:Image,
                 AccessToken:AccessToken
             }).then(response => {
                 axios
-                    .get('http://localhost:8000/api/v1/get/check/user', {
+                    .get('http://localhost:8001/api/v1/get/check/user', {
                         headers: {
                             Authorization: 'Bearer ' + response.data.access_token
                         }
@@ -157,14 +157,14 @@ const module = {
 
         LOGIN_WITH_GOOGLE({commit}, {Email, Name, Image, AccessToken}) {
             commit('BUTTON_LOAD')
-            axios.post('http://localhost:8000/api/v1/auth/google', {
+            axios.post('http://localhost:8001/api/v1/auth/google', {
                 Email:Email,
                 Name:Name,
                 Image:Image,
                 AccessToken:AccessToken
             }).then(response => {
                 axios
-                    .get('http://localhost:8000/api/v1/get/check/user', {
+                    .get('http://localhost:8001/api/v1/get/check/user', {
                         headers: {
                             Authorization: 'Bearer ' + response.data.access_token
                         }
@@ -225,7 +225,7 @@ const module = {
 
         SIGNUP({commit}, {email, password}) {
             commit('BUTTON_LOAD');
-                axios.post('http://localhost:8000/api/v1/create/register', {
+                axios.post('http://localhost:8001/api/v1/create/register', {
                     Email: email,
                     Password: password
                 }).then((response) => {
@@ -239,7 +239,7 @@ const module = {
                             password: password,
                             scope: ''
                         };
-                        axios.post('http://localhost:8000/oauth/token', data).then(AccessInfo => {
+                        axios.post('http://localhost:8001/oauth/token', data).then(AccessInfo => {
                             commit('SET_USER_INFO', {
                                 Username: null,
                                 Email: response.data.email,
@@ -279,7 +279,7 @@ const module = {
 
         SIGNUP_STEP_2({commit}, {Birthday, Gender, Username}) {
             commit('BUTTON_LOAD');
-            axios.post('http://localhost:8000/api/v1/create/register/profile', {
+            axios.post('http://localhost:8001/api/v1/create/register/profile', {
                 Birthday: Birthday,
                 Gender: Gender,
                 Username: Username
@@ -303,7 +303,7 @@ const module = {
 
         CHECK_FORGET_CODE({commit}, code) {
 
-            axios.post('http://localhost:8000/api/v1/register/forget/checkhash', {
+            axios.post('http://localhost:8001/api/v1/register/forget/checkhash', {
                 code: code
             }).then(response => {
                 if (response.status === 200) {
@@ -327,7 +327,7 @@ const module = {
 
         CHANGE_FORGET_PASSWORD({commit}, {code, password, password_confirmation}) {
             commit('BUTTON_LOAD')
-            axios.post('http://localhost:8000/api/v1/update/register/password', {
+            axios.post('http://localhost:8001/api/v1/update/register/password', {
                 code: code,
                 password: password,
                 password_confirmation: password_confirmation
@@ -357,7 +357,7 @@ const module = {
 
         CHECK_EMAIL({commit, state}, email) {
             commit('BUTTON_LOAD')
-            axios.post('http://localhost:8000/api/v1/check/register/email', {
+            axios.post('http://localhost:8001/api/v1/check/register/email', {
                 email: email
             })
                 .then(response => {
@@ -389,7 +389,7 @@ const module = {
                 dangerMode: true,
             }).then((willDelete) => {
                 if (willDelete) {
-                    axios.post('http://localhost:8000/api/v1/update/profile/password', {
+                    axios.post('http://localhost:8001/api/v1/update/profile/password', {
                         current_password: current_password,
                         password: password,
                         password_confirmation: password_confirmation
@@ -420,7 +420,7 @@ const module = {
 
         GET_VIEWING_HISTORY({commit}) {
             commit('SPINER_LOAD')
-            axios.get('http://localhost:8000/api/v1/get/profile/viewing_history').then(response => {
+            axios.get('http://localhost:8001/api/v1/get/profile/viewing_history').then(response => {
                 if (response.data.status === 'success') {
                     commit('SET_VIEWING_HISTORY', {
                         data: response.data.data,
@@ -480,7 +480,7 @@ const module = {
          */
         LOGOUT_AUTH({commit}) {
             commit('SPINER_LOAD')
-            axios.get('http://localhost:8000/api/v1/get/logout').then(response => {
+            axios.get('http://localhost:8001/api/v1/get/logout').then(response => {
                 if (response.status === 200) {
                     commit('SET_LOGOUT_ATUH')
                     commit('SPINER_CLEAN')
@@ -497,7 +497,7 @@ const module = {
 
 
         LIST_SERIES_FOR_SUBSCRIBE({commit}) {
-            axios.get('http://localhost:8000/api/v1/get/profile/programs/list').then(response => {
+            axios.get('http://localhost:8001/api/v1/get/profile/programs/list').then(response => {
                 if (response.status === 200) {
                     commit('SET_LIST_SERIES_FOR_SUBSCRIBE', response.data.ListPrograms);
                 }

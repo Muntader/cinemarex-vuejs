@@ -146,7 +146,7 @@
             // Check user status
             if (this.IS_AUTHENTICATED) {
                 axios
-                    .get("http://localhost:8000/api/v1/get/check/user")
+                    .get("http://localhost:8001/api/v1/get/check/user")
                     .then(info => {
                         /* Payment Reactive
                          *********************/
